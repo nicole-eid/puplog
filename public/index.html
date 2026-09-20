@@ -8,7 +8,7 @@
 <meta name="description" content="A shared household logbook for a puppy: meals, potty, crate and alone-time training, naps, teething and commands.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Same Page">
+<meta name="apple-mobile-web-app-title" content="PupLog">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icon-180.png">
@@ -20,7 +20,7 @@ body{margin:0;font-family:system-ui,-apple-system,sans-serif;font-size:14px}
 img{max-width:100%}
 [hidden]{display:none!important}
 </style>
-<title>Same Page</title>
+<title>PupLog</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Schibsted+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap">
 <style>
@@ -400,7 +400,7 @@ html,body{max-width:100%;overflow-x:clip}
   <div class="gate-card">
     <div class="gate-brand">
       <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="6.5" cy="9.5" rx="2" ry="2.6"/><ellipse cx="11.6" cy="7.4" rx="2" ry="2.6"/><ellipse cx="16.8" cy="9.5" rx="2" ry="2.6"/><path d="M12 13c-3 0-5 1.9-5 4.2 0 1.7 1.4 2.8 3 2.4 1.4-.4 2.6-.4 4 0 1.6.4 3-.7 3-2.4C17 14.9 15 13 12 13Z"/></svg></span>
-      <b>Same Page</b>
+      <b>PupLog</b>
     </div>
     <div id="gateBody"></div>
   </div>
@@ -586,7 +586,7 @@ const ACCIDENT_TRIGGERS = [
    the handful they actually use; the rest stay one tap away under "Also track".
    Per device rather than per household, because Rana's habits are not Nicole's. */
 const ALL_LOG_TYPES = PRIMARY.concat(SECONDARY);
-const TILE_PREF_KEY = 'same-page-tiles';
+const TILE_PREF_KEY = 'puplog-tiles';
 
 function tilePrefs(){
   try{
@@ -607,9 +607,9 @@ function restTiles(){
   return ALL_LOG_TYPES.filter(k => chosen.indexOf(k) === -1);
 }
 function moreOpen(){
-  try{ return localStorage.getItem('same-page-more') === '1'; }catch(e){ return false; }
+  try{ return localStorage.getItem('puplog-more') === '1'; }catch(e){ return false; }
 }
-function setMoreOpen(v){ try{ localStorage.setItem('same-page-more', v ? '1' : '0'); }catch(e){} }
+function setMoreOpen(v){ try{ localStorage.setItem('puplog-more', v ? '1' : '0'); }catch(e){} }
 
 /* ============================ utils ============================ */
 const $ = (s,r)=> (r||document).querySelector(s);
@@ -2786,12 +2786,12 @@ function openItemSheet(existing, defaultKind, onCreated){
    logbook looks like one thing in both houses. */
 const PALETTES = [['moss','Moss','#0f7a5a'],['clay','Clay','#b4562c'],['dusk','Dusk','#5851c4'],['berry','Berry','#b23a6d'],['slate','Slate','#2f6f8f']];
 
-function savedTheme(){ try{ return localStorage.getItem('same-page-theme') || 'system'; }catch(e){ return 'system'; } }
+function savedTheme(){ try{ return localStorage.getItem('puplog-theme') || 'system'; }catch(e){ return 'system'; } }
 function applyTheme(mode){
   const root = document.documentElement;
   if(mode === 'system') root.removeAttribute('data-theme');
   else root.setAttribute('data-theme', mode);
-  try{ localStorage.setItem('same-page-theme', mode); }catch(e){}
+  try{ localStorage.setItem('puplog-theme', mode); }catch(e){}
   syncStatusBar();
 }
 function applyPalette(name){

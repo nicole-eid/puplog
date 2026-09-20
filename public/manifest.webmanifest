@@ -1,6 +1,6 @@
 {
-  "name": "Same Page \u2014 Puppy Logbook",
-  "short_name": "Same Page",
+  "name": "PupLog \u2014 a shared puppy logbook",
+  "short_name": "PupLog",
   "description": "A shared household logbook for a puppy: meals, potty, crate and alone-time training, naps, teething and commands.",
   "start_url": ".",
   "scope": ".",

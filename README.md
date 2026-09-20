@@ -1,4 +1,4 @@
-# Same Page — a shared puppy logbook
+# PupLog — a shared puppy logbook
 
 A phone-first web app for two households keeping one record of the same puppy:
 meals, potty, crate and alone-time training, naps, teething, commands, symptoms.
@@ -26,16 +26,12 @@ Without this, a new account has to click a link in an email before it works, and
 Supabase's built-in mail server only sends a couple of messages an hour on the
 free plan. With it off, sign-up is instant.
 
-### 2. Deploy
+### 2. Deploying
 
-```
-cd ~/puppy-logbook
-npx vercel login
-npx vercel --prod
-```
+Already wired: the repo is connected to Vercel's Git integration, so every push
+to `main` redeploys on its own. `vercel.json` points the build at `public/`.
 
-Accept the defaults; when it asks which directory to deploy, the answer is the
-repo root — `vercel.json` already points at `public`. It prints the live URL.
+Live at https://same-page-eta.vercel.app
 
 ## Getting both households on one logbook
 

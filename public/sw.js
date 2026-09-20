@@ -1,7 +1,7 @@
 /* Shell caching only. Everything that matters lives in Supabase and in
    localStorage, so the worker's job is just making the app open instantly
    and survive a dead signal. Bump VERSION to push a new shell. */
-const VERSION = 'same-page-v1';
+const VERSION = 'puplog-v2';
 const SHELL = ['./', './index.html', './config.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
