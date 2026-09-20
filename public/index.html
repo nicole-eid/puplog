@@ -67,7 +67,7 @@ img{max-width:100%}
 
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45;
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.5;
   -webkit-font-smoothing:antialiased;overflow-x:hidden}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 input,select,textarea{font:inherit;color:inherit}
@@ -98,8 +98,8 @@ input,select,textarea{font:inherit;color:inherit}
 .since::-webkit-scrollbar{display:none}
 .since-chip{flex:0 0 auto;display:flex;flex-direction:column;gap:1px;padding:6px 11px;border-radius:var(--r-m);
   background:var(--surface);border:1px solid var(--line);min-width:84px}
-.since-chip .k{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
-.since-chip .v{font-family:var(--mono);font-size:14px;font-weight:500;font-variant-numeric:tabular-nums}
+.since-chip .k{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.since-chip .v{font-family:var(--mono);font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
 .since-chip.warn{border-color:var(--c-bad);background:var(--c-bad-soft)}
 .since-chip.warn .v{color:var(--c-bad)}
 
@@ -117,17 +117,17 @@ input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- tiles ---------- */
 .sec-head{display:flex;align-items:center;gap:10px;margin:2px 0 -4px}
-.sec-head h2{margin:0;font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:-.012em}
+.sec-head h2{margin:0;font-family:var(--serif);font-size:16px;font-weight:700;letter-spacing:-.012em}
 .sec-head .rule{flex:1;height:1px;background:var(--line)}
 .sec-head .act{font-size:12px;color:var(--accent-ink);font-weight:600}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(76px,1fr));gap:8px}
-.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-  padding:13px 4px 11px;border-radius:var(--r-m);background:var(--surface);border:1px solid var(--line);
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:9px}
+.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
+  padding:16px 5px 14px;min-height:88px;border-radius:var(--r-m);background:var(--surface);border:1px solid var(--line);
   box-shadow:var(--shadow);transition:transform .12s ease,border-color .12s ease}
 .tile:active{transform:scale(.96)}
-.tile .ic{width:26px;height:26px;color:var(--tc)}
-.tile .nm{font-size:11.5px;font-weight:600;color:var(--ink-2);text-align:center;line-height:1.15;
+.tile .ic{width:29px;height:29px;color:var(--tc)}
+.tile .nm{font-size:12.5px;font-weight:600;color:var(--ink-2);text-align:center;line-height:1.15;
   overflow-wrap:anywhere;hyphens:auto;max-width:100%}
 .tile[data-on="1"]{border-color:var(--tc);background:color-mix(in srgb,var(--tc) 11%,var(--surface))}
 .tile[data-on="1"] .nm{color:var(--tc)}
@@ -142,16 +142,16 @@ input,select,textarea{font:inherit;color:inherit}
 .ev{display:grid;grid-template-columns:clamp(42px,12vw,52px) 20px minmax(0,1fr);gap:8px;align-items:flex-start;
   padding:7px 6px 7px 2px;border-radius:var(--r-s);text-align:left;width:100%}
 .ev:hover{background:var(--surface)}
-.ev .t{font-family:var(--mono);font-size:12px;color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums}
+.ev .t{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums}
 .ev .rail{position:relative;display:grid;place-items:center;padding-top:2px;align-self:stretch}
 .ev .rail::before{content:"";position:absolute;top:0;bottom:-14px;width:1px;background:var(--line)}
 .ev:last-child .rail::before{display:none}
 .ev .ic{position:relative;width:18px;height:18px;color:var(--tc);background:var(--bg);padding:1px 0}
 .ev .body{min-width:0;display:block}
-.ev .ttl{font-size:14px;font-weight:600;display:flex;width:100%;gap:5px 6px;flex-wrap:wrap;align-items:baseline;
+.ev .ttl{font-size:15px;font-weight:600;display:flex;width:100%;gap:5px 6px;flex-wrap:wrap;align-items:baseline;
   overflow-wrap:anywhere;min-width:0}
-.ev .meta{display:block;font-size:12.5px;color:var(--ink-2);margin-top:2px;overflow-wrap:anywhere}
-.ev .by{display:block;font-size:11px;color:var(--ink-3);margin-top:2px;font-family:var(--mono)}
+.ev .meta{display:block;font-size:13.5px;color:var(--ink-2);margin-top:2px;overflow-wrap:anywhere}
+.ev .by{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px;font-family:var(--mono)}
 .pill{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;
   padding:1.5px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);white-space:nowrap}
 .pill.bad{background:var(--c-bad-soft);color:var(--c-bad)}
@@ -162,7 +162,7 @@ input,select,textarea{font:inherit;color:inherit}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:1px;background:var(--line);
   border:1px solid var(--line);border-radius:var(--r-l);overflow:hidden}
 .stat{background:var(--surface);padding:11px 12px 12px}
-.stat .k{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.stat .k{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
 .stat .v{font-family:var(--mono);font-size:clamp(17px,4.4vw,21px);overflow-wrap:anywhere;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.25;color:var(--sc,var(--ink))}
 .stat .u{font-size:11px;color:var(--ink-3);font-family:var(--sans)}
 
@@ -190,7 +190,7 @@ input,select,textarea{font:inherit;color:inherit}
 .item{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
 .item:last-child{border-bottom:0}
 .item .sw{width:4px;align-self:stretch;border-radius:3px;background:var(--tc);flex:0 0 4px}
-.item .nm{font-weight:600;font-size:14.5px}
+.item .nm{font-weight:600;font-size:15px}
 .item .br{font-size:12px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase;font-weight:600}
 .item .no{font-size:12.5px;color:var(--ink-2);margin-top:3px}
 .item .rt{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:0 0 auto;max-width:44%}
@@ -212,9 +212,9 @@ input,select,textarea{font:inherit;color:inherit}
   background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);
   border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
 .tabs-in{display:flex;width:100%;max-width:620px}
-.tab{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 9px;
-  color:var(--ink-3);font-size:clamp(9px,2.6vw,10.5px);font-weight:600;white-space:nowrap;overflow:hidden}
-.tab svg{width:21px;height:21px}
+.tab{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px 10px;
+  color:var(--ink-3);font-size:clamp(9.5px,2.7vw,11px);font-weight:600;white-space:nowrap;overflow:hidden}
+.tab svg{width:22px;height:22px}
 .tab[aria-selected="true"]{color:var(--accent-ink)}
 
 /* ---------- sheet ---------- */
@@ -231,8 +231,8 @@ input,select,textarea{font:inherit;color:inherit}
 .inp{width:100%;padding:9px 11px;border-radius:var(--r-s);border:1px solid var(--line-strong);background:var(--surface-2);font-size:15px}
 textarea.inp{min-height:62px;resize:vertical}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{padding:7px 13px;border-radius:999px;border:1px solid var(--line-strong);background:var(--surface-2);
-  font-size:13px;font-weight:500}
+.chip{padding:9px 14px;border-radius:999px;border:1px solid var(--line-strong);background:var(--surface-2);
+  font-size:13.5px;font-weight:500;min-height:38px;display:inline-flex;align-items:center}
 .chip[aria-pressed="true"]{background:var(--tc,var(--accent));border-color:var(--tc,var(--accent));color:var(--surface);font-weight:600}
 :root[data-theme="dark"] .chip[aria-pressed="true"],:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#0d1410}
 @media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .chip[aria-pressed="true"]{color:#fff}}
@@ -292,7 +292,7 @@ html,body{max-width:100%;overflow-x:clip}
 
 /* Tablets and up: a roomier column */
 @media (min-width:620px){
-  body{font-size:15.5px}
+  body{font-size:16px}
   .app{max-width:720px;padding-left:24px;padding-right:24px;padding-bottom:112px}
   .top{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
   .since{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
@@ -579,6 +579,37 @@ const ACCIDENT_TRIGGERS = [
   ['asked','She asked and we missed it'],
   ['crate','In the crate / pen']
 ];
+
+
+/* ---------- what lives on the home screen ----------
+   Ten tiles is a lot to scan one-handed while holding a puppy. Everyone picks
+   the handful they actually use; the rest stay one tap away under "Also track".
+   Per device rather than per household, because Rana's habits are not Nicole's. */
+const ALL_LOG_TYPES = PRIMARY.concat(SECONDARY);
+const TILE_PREF_KEY = 'same-page-tiles';
+
+function tilePrefs(){
+  try{
+    const v = JSON.parse(localStorage.getItem(TILE_PREF_KEY));
+    if(Array.isArray(v)) return v.filter(k => TYPES[k]);
+  }catch(e){}
+  return PRIMARY.slice();
+}
+function setTilePrefs(list){
+  try{ localStorage.setItem(TILE_PREF_KEY, JSON.stringify(list)); }catch(e){}
+}
+function homeTiles(){
+  const chosen = tilePrefs();
+  return ALL_LOG_TYPES.filter(k => chosen.indexOf(k) > -1);
+}
+function restTiles(){
+  const chosen = tilePrefs();
+  return ALL_LOG_TYPES.filter(k => chosen.indexOf(k) === -1);
+}
+function moreOpen(){
+  try{ return localStorage.getItem('same-page-more') === '1'; }catch(e){ return false; }
+}
+function setMoreOpen(v){ try{ localStorage.setItem('same-page-more', v ? '1' : '0'); }catch(e){} }
 
 /* ============================ utils ============================ */
 const $ = (s,r)=> (r||document).querySelector(s);
@@ -1411,8 +1442,14 @@ function viewLog(){
     frag.appendChild(wrap);
   }
 
-  frag.appendChild(sectionHead('Quick log'));
-  frag.appendChild(tileGrid(PRIMARY));
+  const home = homeTiles();
+  frag.appendChild(sectionHead('Quick log', 'Customize', ()=>openTileSheet()));
+  if(home.length) frag.appendChild(tileGrid(home));
+  else frag.appendChild(el('div',{class:'card empty'},[
+    el('div',{class:'hd', text:'No tiles chosen'}),
+    el('p',{text:'Pick the ones you use most and they will sit right here.'}),
+    el('button',{class:'btn p', style:'margin-top:14px;max-width:200px;margin-inline:auto', text:'Choose tiles', onclick:()=>openTileSheet()})
+  ]));
   const launch = el('button',{class:'clicker-launch', onclick:()=>openClicker()});
   launch.appendChild(el('span',{class:'ring'},[el('i')]));
   launch.appendChild(el('span',{},[
@@ -1422,8 +1459,16 @@ function viewLog(){
   launch.appendChild(el('span',{class:'go', text:'Open'}));
   frag.appendChild(launch);
 
-  frag.appendChild(sectionHead('Also track'));
-  frag.appendChild(tileGrid(SECONDARY));
+  const rest = restTiles();
+  if(rest.length){
+    let open = moreOpen();
+    const toggle = el('button',{class:'act', text: open ? 'Hide' : 'Show ' + rest.length, onclick:()=>{
+      open = !open; setMoreOpen(open); render();
+    }});
+    const head = el('div',{class:'sec-head'},[ el('h2',{text:'Also track'}), el('span',{class:'rule'}), toggle ]);
+    frag.appendChild(head);
+    if(open) frag.appendChild(tileGrid(rest));
+  }
 
   // today at a glance
   const today = dateKey(new Date());
@@ -2781,6 +2826,50 @@ async function uploadPhoto(file, onDone){
   toast('Photo saved');
 }
 
+
+/* Pick the tiles. A tap toggles; the order follows the app's own list so the
+   grid never reshuffles under your thumb. */
+function openTileSheet(){
+  let chosen = tilePrefs().slice();
+  openSheet(sheet=>{
+    head(sheet, 'note', 'Your home screen', 'Choose what sits under Quick log. Everything else stays one tap away under "Also track" — nothing is ever switched off, just tucked away.');
+
+    const grid = el('div',{class:'grid', style:'margin-bottom:14px'});
+    const paint = ()=>{
+      grid.innerHTML = '';
+      ALL_LOG_TYPES.forEach(k=>{
+        const T = TYPES[k];
+        const on = chosen.indexOf(k) > -1;
+        const b = el('button',{class:'tile', type:'button', style:'--tc:'+T.color, 'data-on': on? '1':null,
+          'aria-pressed': on, onclick:()=>{
+            const i = chosen.indexOf(k);
+            if(i > -1) chosen.splice(i,1); else chosen.push(k);
+            paint();
+          }});
+        b.innerHTML = svg(T.icon,'ic') + '<span class="nm">'+T.label+'</span>';
+        if(!on) b.style.opacity = '.42';
+        grid.appendChild(b);
+      });
+    };
+    paint();
+    sheet.appendChild(grid);
+
+    const row = el('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px'});
+    row.appendChild(el('button',{class:'chip', type:'button', text:'The usual nine', onclick:()=>{ chosen = PRIMARY.slice(); paint(); }}));
+    row.appendChild(el('button',{class:'chip', type:'button', text:'Just the essentials', onclick:()=>{ chosen = ['meal','potty','accident','crate','sleep']; paint(); }}));
+    row.appendChild(el('button',{class:'chip', type:'button', text:'Everything', onclick:()=>{ chosen = ALL_LOG_TYPES.slice(); paint(); }}));
+    row.appendChild(el('button',{class:'chip', type:'button', text:'Clear', onclick:()=>{ chosen = []; paint(); }}));
+    sheet.appendChild(field('Start from', row));
+
+    sheet.appendChild(el('div',{class:'hint', text:'This is yours alone — it lives on this phone, so everyone in the household can set their own.'}));
+
+    actions(sheet, ()=>{
+      setTilePrefs(chosen); closeSheet(); render();
+      toast(chosen.length + ' tile' + (chosen.length===1?'':'s') + ' on your home screen');
+    }, 'Save');
+  });
+}
+
 function openSettings(firstRun){
   const draft = Object.assign({}, state.profile);
   openSheet(sheet=>{
@@ -2797,7 +2886,7 @@ function openSettings(firstRun){
       if(f) uploadPhoto(f, url=>{ draft.photoUrl = url; shotImg.src = url; shotImg.hidden = false; shot.querySelector('.ph').textContent=''; });
     }});
     sheet.appendChild(shot); sheet.appendChild(picker);
-    sheet.appendChild(field('Her name', el('input',{class:'inp', id:'stName', placeholder:'Nala', value:draft.name||'', oninput:e=>draft.name=e.target.value.slice(0,30)})));
+    sheet.appendChild(field('Her name', el('input',{class:'inp', id:'stName', placeholder:'Olive', value:draft.name||'', oninput:e=>draft.name=e.target.value.slice(0,30)})));
     sheet.appendChild(field('Birthday', el('input',{class:'inp', id:'stBday', type:'date', value:draft.birthday||'', onchange:e=>draft.birthday=e.target.value}),
       'Everything on the Focus tab is scaled to her age — an estimate is fine if you only know roughly.'));
     const breedList = el('datalist',{id:'breedList'});
@@ -2808,6 +2897,11 @@ function openSettings(firstRun){
     sheet.appendChild(field('Grown-up size', chipSet(Object.keys(SIZE).map(k=>[k, SIZE[k].label]), draft.size||'toy', v=>draft.size=v),
       'Toy and small breeds hold it for noticeably less time than the usual one-hour-per-month rule, so this changes her potty window.'));
     sheet.appendChild(field('Weight unit', chipSet([['lb','Pounds'],['kg','Kilograms']], draft.unit||'lb', v=>draft.unit=v)));
+
+    sheet.appendChild(field('Home screen',
+      el('button',{class:'btn s', type:'button', style:'width:100%', text:'Choose which tiles show',
+        onclick:()=>{ closeSheet(); openTileSheet(); }}),
+      'Currently showing ' + homeTiles().length + ' of ' + ALL_LOG_TYPES.length + '.'));
 
     sheet.appendChild(field('Appearance', chipSet([['system','Match my phone'],['light','Always light'],['dark','Always dark']],
       savedTheme(), v=>applyTheme(v)), 'Matching your phone follows iOS Dark Mode, including the automatic sunset switch.'));
