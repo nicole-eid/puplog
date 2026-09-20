@@ -76,10 +76,10 @@ input,select,textarea{font-family:inherit;color:inherit;font-size:max(16px,1rem)
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
-.app{max-width:620px;margin:0 auto;padding:0 16px 104px;display:flex;flex-direction:column;gap:14px}
+.app{max-width:620px;margin:0 auto;padding:0 20px 112px;display:flex;flex-direction:column;gap:16px}
 
 /* ---------- header ---------- */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;margin:0 -16px;padding:10px 16px 10px;
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;margin:0 -20px;padding:12px 20px 12px;
   background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line)}
 .top-row{display:flex;align-items:center;gap:10px;min-width:0}
@@ -96,9 +96,9 @@ input,select,textarea{font-family:inherit;color:inherit;font-size:max(16px,1rem)
 .who img{width:22px;height:22px;border-radius:50%;display:block}
 
 /* since-strip */
-.since{display:flex;gap:6px;overflow-x:auto;margin:10px -16px -2px;padding:0 16px 2px;scrollbar-width:none}
+.since{display:flex;gap:7px;overflow-x:auto;margin:12px -20px -2px;padding:0 20px 2px;scrollbar-width:none}
 .since::-webkit-scrollbar{display:none}
-.since-chip{flex:0 0 auto;display:flex;flex-direction:column;gap:1px;padding:6px 11px;border-radius:var(--r-m);
+.since-chip{flex:0 0 auto;display:flex;flex-direction:column;gap:2px;padding:9px 13px;border-radius:var(--r-m);
   background:var(--surface);border:1px solid var(--line);min-width:84px}
 .since-chip .k{font-size:12px;color:var(--ink-3);font-weight:500}
 .since-chip .v{font-size:16px;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
@@ -223,11 +223,11 @@ input,select,textarea{font-family:inherit;color:inherit;font-size:max(16px,1rem)
 
 /* ---------- sheet ---------- */
 .scrim{position:fixed;inset:0;z-index:60;background:rgba(10,16,13,.45);display:grid;align-items:flex-end;justify-items:center}
-.sheet{width:100%;max-width:460px;background:var(--surface);border:1px solid var(--line);border-bottom:0;
+.sheet{position:relative;width:100%;max-width:460px;background:var(--surface);border:1px solid var(--line);border-bottom:0;
   border-radius:26px 26px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));
   max-height:min(88dvh,780px);overflow:auto;overscroll-behavior:contain;animation:up .2s ease}
 @keyframes up{from{transform:translateY(14px);opacity:.5}}
-.sheet h3{margin:0 0 2px;font-family:var(--serif);font-size:19px;font-weight:800;letter-spacing:-.018em;display:flex;align-items:center;gap:9px}
+.sheet h3{margin:0 44px 2px 0;font-family:var(--serif);font-size:19px;font-weight:800;letter-spacing:-.018em;display:flex;align-items:center;gap:9px}
 .sheet h3 svg{width:20px;height:20px;color:var(--tc)}
 .sheet .sub{font-size:13.5px;color:var(--ink-2);margin:2px 0 16px;line-height:1.45}
 .field{margin-bottom:14px}
@@ -242,6 +242,15 @@ textarea.inp{min-height:62px;resize:vertical}
 :root[data-theme="dark"] .chip[aria-pressed="true"],:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#0d1410}
 @media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .chip[aria-pressed="true"]{color:#fff}}
 .rowb{display:flex;gap:9px;margin-top:16px}
+/* A grab handle and a close button, because tapping the dimmed area behind a
+   sheet is not something anyone should have to guess at. */
+.sheet-grip{width:38px;height:4px;border-radius:99px;background:var(--line-strong);
+  margin:-8px auto 14px;opacity:.7}
+.sheet-x{position:absolute;top:10px;right:10px;width:38px;height:38px;border-radius:50%;
+  display:grid;place-items:center;color:var(--ink-2);background:var(--surface-2);
+  border:1px solid var(--line);z-index:2}
+.sheet-x:hover{color:var(--ink);border-color:var(--line-strong)}
+.sheet-x svg{width:17px;height:17px}
 .btn{flex:1;padding:12px;border-radius:var(--r-m);font-weight:600;font-size:15px;text-align:center}
 .btn.p{background:var(--accent);color:var(--accent-on)}
 .btn.s{background:var(--surface-2);border:1px solid var(--line-strong);color:var(--ink-2)}
@@ -287,9 +296,9 @@ html,body{max-width:100%;overflow-x:clip}
 
 /* Small phones (iPhone SE and friends) */
 @media (max-width:359px){
-  .app{padding-left:12px;padding-right:12px}
-  .top{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
-  .since{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
+  .app{padding-left:16px;padding-right:16px}
+  .top{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
+  .since{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
   .grid{gap:6px}
   .tile{padding:11px 2px 9px}
   .who{display:none}
@@ -1141,7 +1150,6 @@ async function afterHousehold(){
   await loadAll();
   subscribe();
   await runDeepLink();
-  if(!state.profile.name) setTimeout(()=>{ if(!state.profile.name) openSettings(true); }, 400);
 }
 
 async function start(){
@@ -1431,6 +1439,19 @@ function renderSince(){
 function viewLog(){
   const frag = document.createDocumentFragment();
 
+  if(!state.profile.name || !state.profile.birthday){
+    frag.appendChild(el('div',{class:'card', style:'display:flex;align-items:center;gap:13px'},[
+      el('div',{style:'min-width:0;flex:1'},[
+        el('div',{style:'font-family:var(--serif);font-weight:700;font-size:16px;letter-spacing:-.015em',
+          text:'Who are we logging?'}),
+        el('div',{style:'font-size:13.5px;color:var(--ink-2);margin-top:3px',
+          text:'Add her name and birthday and the rest of the app switches on.'})
+      ]),
+      el('button',{class:'btn p', style:'flex:0 0 auto;padding:10px 16px;font-size:14px',
+        text:'Add', onclick:()=>openProfileSheet()})
+    ]));
+  }
+
   const open = openSessions();
   if(open.length){
     const wrap = el('div',{class:'running'});
@@ -1700,7 +1721,7 @@ function viewFocus(){
     frag.appendChild(el('div',{class:'card empty'},[
       el('div',{class:'hd', text:'Add her age first'}),
       el('p',{text:'Every target on this page is scaled to how old she is and how big she will get, so the logbook needs her birthday and size before it can say anything useful.'}),
-      el('button',{class:'btn p', style:'margin-top:14px;max-width:220px;margin-inline:auto', text:'Open settings', onclick:()=>openSettings(true)})
+      el('button',{class:'btn p', style:'margin-top:14px;max-width:220px;margin-inline:auto', text:'Add her details', onclick:()=>openProfileSheet()})
     ]));
     return frag;
   }
@@ -2490,6 +2511,10 @@ function openSheet(build){
   closeSheet();
   const scrim = el('div',{class:'scrim', onclick:(e)=>{ if(e.target===scrim) closeSheet(); }});
   const sheet = el('div',{class:'sheet', role:'dialog', 'aria-modal':'true'});
+  sheet.appendChild(el('div',{class:'sheet-grip'}));
+  const x = el('button',{class:'sheet-x', type:'button', 'aria-label':'Close', onclick:closeSheet});
+  x.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  sheet.appendChild(x);
   build(sheet);
   scrim.appendChild(sheet);
   document.body.appendChild(scrim);
@@ -2896,6 +2921,39 @@ function openTileSheet(){
     actions(sheet, ()=>{
       setTilePrefs(chosen); closeSheet(); render();
       toast(chosen.length + ' tile' + (chosen.length===1?'':'s') + ' on your home screen');
+    }, 'Save');
+  });
+}
+
+
+/* Her details on their own, rather than sending someone into the full Settings
+   screen for four fields. */
+function openProfileSheet(){
+  const draft = Object.assign({}, state.profile);
+  openSheet(sheet=>{
+    head(sheet, 'note', 'About Olive'.replace('Olive', state.profile.name || 'her'),
+      'Her age and size set the targets — how long she can hold it, how much sleep she needs, how long in the crate.');
+
+    sheet.appendChild(field('Name', el('input',{class:'inp', id:'pfName', placeholder:'Olive',
+      value:draft.name||'', oninput:e=>draft.name=e.target.value.slice(0,30)})));
+    sheet.appendChild(field('Birthday', el('input',{class:'inp', id:'pfBday', type:'date',
+      value:draft.birthday||'', onchange:e=>draft.birthday=e.target.value}),
+      'A rough guess is fine.'));
+    const dl = el('datalist',{id:'pfBreeds'});
+    ['Shih Tzu × Yorkshire Terrier','Shih Tzu','Yorkshire Terrier','Maltese','Poodle mix','Mixed breed']
+      .forEach(b=> dl.appendChild(el('option',{value:b})));
+    sheet.appendChild(dl);
+    sheet.appendChild(field('Breed', el('input',{class:'inp', id:'pfBreed', list:'pfBreeds',
+      placeholder:'Shih Tzu × Yorkshire Terrier', value:draft.breed||'',
+      oninput:e=>draft.breed=e.target.value.slice(0,60)})));
+    sheet.appendChild(field('How big will she get', chipSet(Object.keys(SIZE).map(k=>[k, SIZE[k].label]),
+      draft.size||'toy', v=>draft.size=v)));
+
+    actions(sheet, async ()=>{
+      closeSheet();
+      state.profile = draft; render();
+      await writeProfile();
+      toast('Saved');
     }, 'Save');
   });
 }
