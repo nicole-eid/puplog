@@ -2,7 +2,7 @@
    localStorage, so the worker's job is just making the app open instantly
    and survive a dead signal. Bump VERSION to push a new shell. */
 const VERSION = 'same-page-v1';
-const SHELL = ['/', '/index.html', '/config.js', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png'];
+const SHELL = ['./', './index.html', './config.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -24,6 +24,6 @@ self.addEventListener('fetch', e => {
         caches.open(VERSION).then(c => c.put(e.request, copy));
         return res;
       })
-      .catch(() => caches.match(e.request).then(r => r || caches.match('/index.html')))
+      .catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
   );
 });

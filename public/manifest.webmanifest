@@ -2,27 +2,27 @@
   "name": "Same Page \u2014 Puppy Logbook",
   "short_name": "Same Page",
   "description": "A shared household logbook for a puppy: meals, potty, crate and alone-time training, naps, teething and commands.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": ".",
+  "scope": ".",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#eef1ee",
   "theme_color": "#0f7a5a",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -32,10 +32,10 @@
     {
       "name": "Log a potty break",
       "short_name": "Potty",
-      "url": "/?log=potty",
+      "url": "./?log=potty",
       "icons": [
         {
-          "src": "/icon-192.png",
+          "src": "./icon-192.png",
           "sizes": "192x192"
         }
       ]
@@ -43,10 +43,10 @@
     {
       "name": "Log an accident",
       "short_name": "Accident",
-      "url": "/?log=accident",
+      "url": "./?log=accident",
       "icons": [
         {
-          "src": "/icon-192.png",
+          "src": "./icon-192.png",
           "sizes": "192x192"
         }
       ]
@@ -54,10 +54,10 @@
     {
       "name": "Log a meal",
       "short_name": "Meal",
-      "url": "/?log=meal",
+      "url": "./?log=meal",
       "icons": [
         {
-          "src": "/icon-192.png",
+          "src": "./icon-192.png",
           "sizes": "192x192"
         }
       ]
@@ -65,10 +65,10 @@
     {
       "name": "Start or end crate time",
       "short_name": "Crate",
-      "url": "/?timer=crate",
+      "url": "./?timer=crate",
       "icons": [
         {
-          "src": "/icon-192.png",
+          "src": "./icon-192.png",
           "sizes": "192x192"
         }
       ]

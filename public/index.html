@@ -10,9 +10,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Same Page">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="/manifest.webmanifest">
-<link rel="apple-touch-icon" href="/icon-180.png">
-<link rel="icon" href="/icon-192.png" sizes="192x192">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<link rel="icon" href="./icon-192.png" sizes="192x192">
 <style>
 /* Baseline the artifact host used to provide, now ours. */
 :root{color-scheme:light dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -430,7 +430,7 @@ html,body{max-width:100%;overflow-x:clip}
 <nav class="tabs"><div class="tabs-in" id="tabs" role="tablist"></div></nav>
 </div>
 
-<script src="/config.js"></script>
+<script src="./config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 
 <script>
@@ -2951,7 +2951,7 @@ function openSettings(firstRun){
     if(!firstRun){
       const list = el('div',{style:'display:flex;flex-direction:column;gap:6px'});
       DEEP_LINKS.forEach(([q,label,what])=>{
-        const url = location.origin + '/' + q;
+        const url = location.origin + location.pathname.replace(/index\.html$/,'') + q;
         list.appendChild(el('div',{style:'display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:var(--r-s);background:var(--surface-2);border:1px solid var(--line)'},[
           el('div',{style:'min-width:0;flex:1'},[
             el('div',{style:'font-weight:600;font-size:13px', text:label}),
@@ -2998,7 +2998,7 @@ $('#settingsBtn').addEventListener('click', ()=>openSettings(false));
 
 <script>
 if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=> navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+  window.addEventListener('load', ()=> navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 }
 </script>
 </body>
