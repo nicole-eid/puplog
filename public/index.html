@@ -2997,8 +2997,22 @@ $('#settingsBtn').addEventListener('click', ()=>openSettings(false));
 </script>
 
 <script>
+/* The worker caches the shell so the app opens instantly and survives a dead
+   signal. The cost of that is a stale UI after a deploy, so: check for a new
+   worker on every load, and reload once as soon as one takes over. */
 if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=> navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', ()=>{
+    if(reloaded) return;
+    reloaded = true;
+    location.reload();
+  });
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('./sw.js').then(reg=>{
+      reg.update();
+      setInterval(()=> reg.update(), 60*60*1000);
+    }).catch(()=>{});
+  });
 }
 </script>
 </body>
