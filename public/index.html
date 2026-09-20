@@ -1,0 +1,2631 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eef1ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101510" media="(prefers-color-scheme: dark)">
+<meta name="description" content="A shared household logbook for a puppy: meals, potty, crate and alone-time training, naps, teething and commands.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Same Page">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icon-180.png">
+<link rel="icon" href="/icon-192.png" sizes="192x192">
+<style>
+/* Baseline the artifact host used to provide, now ours. */
+:root{color-scheme:light dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;font-size:14px}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Same Page</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#eef1ee; --surface:#ffffff; --surface-2:#f6f9f6; --line:#dce3dd; --line-strong:#c3cec6;
+  --ink:#16201b; --ink-2:#4d5b53; --ink-3:#7b8981;
+  --accent:#0f7a5a; --accent-ink:#0b5c44; --accent-soft:#dcefe6; --accent-on:#ffffff;
+  --shadow:0 1px 2px rgba(22,32,27,.06), 0 6px 18px -12px rgba(22,32,27,.25);
+  --c-meal:#c2741b; --c-water:#2f8fb3; --c-potty:#3f7fa6; --c-walk:#12805c; --c-play:#6a9c1f;
+  --c-crate:#7159c1; --c-sleep:#485c99; --c-treat:#c0467e; --c-training:#8f6a12;
+  --c-meds:#5b7083; --c-note:#6b7a72; --c-vet:#b03a3a; --c-groom:#a06ac0; --c-weight:#5b7083;
+  --c-symptom:#b5562c; --c-mood:#2a7f8f; --c-chew:#8a6a3f;
+  --c-bad:#c0392b; --c-bad-soft:#fae4e1; --c-good:#12805c;
+  --r-s:8px; --r-m:12px; --r-l:18px;
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#101510; --surface:#18201b; --surface-2:#1e2721; --line:#2b352e; --line-strong:#3c483f;
+  --ink:#e7efe9; --ink-2:#a8b7ae; --ink-3:#7c8b82;
+  --accent:#4fc39a; --accent-ink:#8ad9ba; --accent-soft:#1b3a2d; --accent-on:#07130e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.8);
+  --c-meal:#e9a25a; --c-water:#6cc2e0; --c-potty:#7db6d8; --c-walk:#4fc39a; --c-play:#a8d45e;
+  --c-crate:#a795ea; --c-sleep:#93a6e0; --c-treat:#ef8cb6; --c-training:#d9b352;
+  --c-meds:#9db0c2; --c-note:#a3b3aa; --c-vet:#ef8a8a; --c-groom:#cba3e4; --c-weight:#9db0c2;
+  --c-symptom:#e8926a; --c-mood:#6cc3d4;
+  --c-bad:#f08b7f; --c-bad-soft:#3a1f1c; --c-good:#4fc39a;
+}}
+:root[data-theme="dark"]{
+  --bg:#101510; --surface:#18201b; --surface-2:#1e2721; --line:#2b352e; --line-strong:#3c483f;
+  --ink:#e7efe9; --ink-2:#a8b7ae; --ink-3:#7c8b82;
+  --accent:#4fc39a; --accent-ink:#8ad9ba; --accent-soft:#1b3a2d; --accent-on:#07130e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.8);
+  --c-meal:#e9a25a; --c-water:#6cc2e0; --c-potty:#7db6d8; --c-walk:#4fc39a; --c-play:#a8d45e;
+  --c-crate:#a795ea; --c-sleep:#93a6e0; --c-treat:#ef8cb6; --c-training:#d9b352;
+  --c-meds:#9db0c2; --c-note:#a3b3aa; --c-vet:#ef8a8a; --c-groom:#cba3e4; --c-weight:#9db0c2;
+  --c-symptom:#e8926a; --c-mood:#6cc3d4;
+  --c-bad:#f08b7f; --c-bad-soft:#3a1f1c; --c-good:#4fc39a;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+.app{max-width:620px;margin:0 auto;padding:0 16px 104px;display:flex;flex-direction:column;gap:14px}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;margin:0 -16px;padding:10px 16px 10px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line)}
+.top-row{display:flex;align-items:center;gap:10px}
+.pup{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;min-width:0}
+.pup h1{margin:0;font-family:var(--serif);font-weight:700;font-size:23px;letter-spacing:-.015em;line-height:1.1}
+.pup .age{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+.top-actions{margin-left:auto;display:flex;gap:6px;align-items:center}
+.iconbtn{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;color:var(--ink-2);
+  border:1px solid transparent}
+.iconbtn:hover{background:var(--surface);border-color:var(--line)}
+.who{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-3);padding:3px 9px 3px 3px;
+  border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.who img{width:22px;height:22px;border-radius:50%;display:block}
+
+/* since-strip */
+.since{display:flex;gap:6px;overflow-x:auto;margin:10px -16px -2px;padding:0 16px 2px;scrollbar-width:none}
+.since::-webkit-scrollbar{display:none}
+.since-chip{flex:0 0 auto;display:flex;flex-direction:column;gap:1px;padding:6px 11px;border-radius:var(--r-m);
+  background:var(--surface);border:1px solid var(--line);min-width:84px}
+.since-chip .k{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.since-chip .v{font-family:var(--mono);font-size:14px;font-weight:500;font-variant-numeric:tabular-nums}
+.since-chip.warn{border-color:var(--c-bad);background:var(--c-bad-soft)}
+.since-chip.warn .v{color:var(--c-bad)}
+
+/* ---------- running sessions ---------- */
+.running{display:flex;flex-direction:column;gap:8px}
+.run{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:var(--r-m);
+  background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--tc,var(--accent));box-shadow:var(--shadow)}
+.run .dot{width:8px;height:8px;border-radius:50%;background:var(--tc);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.run .lbl{font-weight:600;font-size:14px}
+.run .el{font-family:var(--mono);font-size:19px;font-weight:500;font-variant-numeric:tabular-nums;margin-left:auto;color:var(--tc)}
+.run .stop{padding:7px 14px;border-radius:999px;background:var(--tc);color:var(--surface);font-weight:600;font-size:13px}
+:root[data-theme="dark"] .run .stop,:root:not([data-theme="light"]) .run .stop{color:#0d1410}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .run .stop{color:#fff}}
+
+/* ---------- tiles ---------- */
+.sec-head{display:flex;align-items:center;gap:10px;margin:2px 0 -4px}
+.sec-head h2{margin:0;font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.01em}
+.sec-head .rule{flex:1;height:1px;background:var(--line)}
+.sec-head .act{font-size:12px;color:var(--accent-ink);font-weight:600}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media (max-width:420px){.grid{grid-template-columns:repeat(3,1fr)}}
+.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  padding:13px 4px 11px;border-radius:var(--r-m);background:var(--surface);border:1px solid var(--line);
+  box-shadow:var(--shadow);transition:transform .12s ease,border-color .12s ease}
+.tile:active{transform:scale(.96)}
+.tile .ic{width:26px;height:26px;color:var(--tc)}
+.tile .nm{font-size:11.5px;font-weight:600;letter-spacing:.005em;color:var(--ink-2);text-align:center;line-height:1.15}
+.tile[data-on="1"]{border-color:var(--tc);background:color-mix(in srgb,var(--tc) 11%,var(--surface))}
+.tile[data-on="1"] .nm{color:var(--tc)}
+
+/* ---------- timeline ---------- */
+.day{display:flex;flex-direction:column;gap:0}
+.day-h{display:flex;align-items:baseline;gap:8px;padding:12px 2px 6px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 54px);
+  background:linear-gradient(var(--bg) 70%,transparent);z-index:5}
+.day-h .d{font-family:var(--serif);font-size:14.5px;font-weight:700}
+.day-h .s{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-left:auto}
+.ev{display:grid;grid-template-columns:52px 20px 1fr;gap:10px;align-items:flex-start;padding:7px 8px 7px 2px;
+  border-radius:var(--r-s);text-align:left;width:100%}
+.ev:hover{background:var(--surface)}
+.ev .t{font-family:var(--mono);font-size:12px;color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums}
+.ev .rail{position:relative;display:grid;place-items:center;padding-top:2px;align-self:stretch}
+.ev .rail::before{content:"";position:absolute;top:0;bottom:-14px;width:1px;background:var(--line)}
+.ev:last-child .rail::before{display:none}
+.ev .ic{position:relative;width:18px;height:18px;color:var(--tc);background:var(--bg);padding:1px 0}
+.ev .body{min-width:0}
+.ev .ttl{font-size:14px;font-weight:600;display:flex;gap:6px;flex-wrap:wrap;align-items:baseline}
+.ev .meta{font-size:12.5px;color:var(--ink-2);margin-top:1px;overflow-wrap:anywhere}
+.ev .by{font-size:11px;color:var(--ink-3);margin-top:2px}
+.pill{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;
+  padding:1.5px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);white-space:nowrap}
+.pill.bad{background:var(--c-bad-soft);color:var(--c-bad)}
+.pill.dur{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line);font-family:var(--mono);text-transform:none;letter-spacing:0}
+
+/* ---------- cards / stats ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:14px;box-shadow:var(--shadow)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r-l);overflow:hidden}
+.stat{background:var(--surface);padding:11px 12px 12px}
+.stat .k{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.stat .v{font-family:var(--mono);font-size:21px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.25;color:var(--sc,var(--ink))}
+.stat .u{font-size:11px;color:var(--ink-3);font-family:var(--sans)}
+
+.bars{display:flex;align-items:flex-end;gap:5px;height:88px;margin-top:10px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end;min-width:0}
+.bar{width:100%;max-width:26px;border-radius:4px 4px 2px 2px;background:var(--bc,var(--accent));min-height:2px}
+.bar-col .lab{font-family:var(--mono);font-size:9.5px;color:var(--ink-3)}
+.bar-col.today .lab{color:var(--ink);font-weight:500}
+.bar-val{font-family:var(--mono);font-size:9.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+
+.heat{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;margin-top:10px}
+.heat i{display:block;height:24px;border-radius:3px;background:var(--surface-2);border:1px solid var(--line)}
+.heat-ax{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--ink-3);margin-top:4px}
+
+/* 24-hour sleep band: one row per day, blocks placed by clock position */
+.band-row{display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:center;margin-top:4px}
+.band-row .dl{font-family:var(--mono);font-size:10px;color:var(--ink-3);text-align:right}
+.band-row.today .dl{color:var(--ink);font-weight:500}
+.band{position:relative;height:15px;border-radius:4px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.band i{position:absolute;top:0;bottom:0;background:var(--c-sleep)}
+.band i.in-crate{background:var(--c-crate)}
+.band .nowline{position:absolute;top:0;bottom:0;width:1.5px;background:var(--ink-3);opacity:.6}
+
+/* ---------- pantry ---------- */
+.item{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item .sw{width:4px;align-self:stretch;border-radius:3px;background:var(--tc);flex:0 0 4px}
+.item .nm{font-weight:600;font-size:14.5px}
+.item .br{font-size:12px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase;font-weight:600}
+.item .no{font-size:12.5px;color:var(--ink-2);margin-top:3px}
+.item .rt{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:0 0 auto}
+.count{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.verdict{font-size:11px;font-weight:600;padding:2.5px 9px;border-radius:999px;white-space:nowrap}
+.v5{background:var(--accent-soft);color:var(--accent-ink)}
+.v4{background:var(--surface-2);color:var(--c-good);border:1px solid var(--line)}
+.v3{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.v2{background:var(--surface-2);color:var(--c-meal);border:1px solid var(--line)}
+.v1{background:var(--c-bad-soft);color:var(--c-bad)}
+
+/* ---------- empty ---------- */
+.empty{text-align:center;padding:30px 18px;color:var(--ink-3)}
+.empty .hd{font-family:var(--serif);font-size:17px;color:var(--ink);margin-bottom:5px}
+.empty p{margin:0;font-size:13.5px;max-width:34ch;margin-inline:auto}
+
+/* ---------- tabbar ---------- */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:center;
+  background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);
+  border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs-in{display:flex;width:100%;max-width:620px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 9px;color:var(--ink-3);font-size:10.5px;font-weight:600}
+.tab svg{width:21px;height:21px}
+.tab[aria-selected="true"]{color:var(--accent-ink)}
+
+/* ---------- sheet ---------- */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(10,16,13,.45);display:grid;align-items:flex-end;justify-items:center}
+.sheet{width:100%;max-width:560px;background:var(--surface);border:1px solid var(--line);border-bottom:0;
+  border-radius:var(--r-l) var(--r-l) 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px));
+  max-height:88vh;overflow:auto;animation:up .2s ease}
+@keyframes up{from{transform:translateY(14px);opacity:.5}}
+.sheet h3{margin:0 0 2px;font-family:var(--serif);font-size:19px;font-weight:700;display:flex;align-items:center;gap:9px}
+.sheet h3 svg{width:20px;height:20px;color:var(--tc)}
+.sheet .sub{font-size:12.5px;color:var(--ink-3);margin:0 0 14px}
+.field{margin-bottom:13px}
+.field>label{display:block;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px;font-weight:600}
+.inp{width:100%;padding:9px 11px;border-radius:var(--r-s);border:1px solid var(--line-strong);background:var(--surface-2);font-size:15px}
+textarea.inp{min-height:62px;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:7px 13px;border-radius:999px;border:1px solid var(--line-strong);background:var(--surface-2);
+  font-size:13px;font-weight:500}
+.chip[aria-pressed="true"]{background:var(--tc,var(--accent));border-color:var(--tc,var(--accent));color:var(--surface);font-weight:600}
+:root[data-theme="dark"] .chip[aria-pressed="true"],:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#0d1410}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .chip[aria-pressed="true"]{color:#fff}}
+.rowb{display:flex;gap:9px;margin-top:16px}
+.btn{flex:1;padding:12px;border-radius:var(--r-m);font-weight:600;font-size:15px;text-align:center}
+.btn.p{background:var(--accent);color:var(--accent-on)}
+.btn.s{background:var(--surface-2);border:1px solid var(--line-strong);color:var(--ink-2)}
+.btn.d{background:transparent;border:1px solid var(--c-bad);color:var(--c-bad);flex:0 0 auto;padding-inline:16px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:70;
+  background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:500;
+  box-shadow:var(--shadow);animation:up .18s ease}
+.banner{display:flex;gap:9px;align-items:flex-start;padding:10px 12px;border-radius:var(--r-m);
+  background:var(--surface-2);border:1px solid var(--line);font-size:12.5px;color:var(--ink-2)}
+.banner svg{width:16px;height:16px;flex:0 0 16px;color:var(--ink-3);margin-top:1px}
+.hint{font-size:12px;color:var(--ink-3);margin-top:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- clicker ---------- */
+.clicker-launch{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;border-radius:var(--r-m);
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);text-align:left}
+.clicker-launch .ring{width:30px;height:30px;border-radius:50%;border:2px solid var(--c-training);display:grid;place-items:center;flex:0 0 30px}
+.clicker-launch .ring i{width:11px;height:11px;border-radius:50%;background:var(--c-training);display:block}
+.clicker-launch .cl{font-weight:600;font-size:14px}
+.clicker-launch .cs{font-size:12px;color:var(--ink-3)}
+.clicker-launch .go{margin-left:auto;font-size:12px;font-weight:600;color:var(--accent-ink)}
+
+.pad{position:relative;width:100%;aspect-ratio:1/1;max-width:250px;margin:6px auto 4px;border-radius:50%;
+  background:radial-gradient(circle at 50% 38%, color-mix(in srgb,var(--c-training) 26%,var(--surface)), var(--surface) 72%);
+  border:2px solid var(--c-training);display:grid;place-items:center;user-select:none;-webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:transform .06s ease}
+.pad:active{transform:scale(.97)}
+.pad.hit{animation:ping .3s ease-out}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c-training) 55%,transparent)}100%{box-shadow:0 0 0 26px transparent}}
+.pad .n{font-family:var(--mono);font-size:52px;font-weight:500;line-height:1;color:var(--c-training);font-variant-numeric:tabular-nums}
+.pad .w{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
+.clk-meta{display:flex;justify-content:center;gap:18px;font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-bottom:12px;font-variant-numeric:tabular-nums}
+
+/* ---------- puppy photo ---------- */
+.pupshot{width:36px;height:36px;border-radius:50%;object-fit:cover;flex:0 0 36px;
+  border:2px solid var(--accent-soft);background:var(--surface-2)}
+.shot-edit{position:relative;display:block;width:96px;height:96px;margin:0 auto 6px;border-radius:50%;
+  overflow:hidden;border:2px solid var(--line-strong);background:var(--surface-2);cursor:pointer}
+.shot-edit img{width:100%;height:100%;object-fit:cover;display:block}
+.shot-edit .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:0 8px}
+.shot-edit:hover .ph{color:var(--accent-ink)}
+
+/* ---------- palettes ---------- */
+/* Each palette restates only the accent family and the neutral's hue bias, so
+   the event colours stay consistent from one palette to the next. */
+:root[data-palette="clay"]{--accent:#b4562c;--accent-ink:#8d3f1d;--accent-soft:#f6e3d8;--accent-on:#fff;--bg:#f2efec;--surface-2:#faf6f3;--line:#e3dad3;--ink:#241a14;--ink-2:#5d4e45;--ink-3:#8a786d}
+:root[data-palette="dusk"]{--accent:#5851c4;--accent-ink:#413b9e;--accent-soft:#e2e0f7;--accent-on:#fff;--bg:#eeeef4;--surface-2:#f7f7fb;--line:#dcdbe6;--ink:#1a1830;--ink-2:#4e4b67;--ink-3:#7d7a94}
+:root[data-palette="berry"]{--accent:#b23a6d;--accent-ink:#8d2a54;--accent-soft:#f8e0eb;--accent-on:#fff;--bg:#f4eef1;--surface-2:#fbf6f8;--line:#e6d8de;--ink:#26161d;--ink-2:#5e4750;--ink-3:#8c7279}
+:root[data-palette="slate"]{--accent:#2f6f8f;--accent-ink:#22556e;--accent-soft:#dce9f0;--accent-on:#fff;--bg:#eef1f3;--surface-2:#f7f9fa;--line:#dbe2e6;--ink:#161f24;--ink-2:#4b5a62;--ink-3:#7a8890}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"])[data-palette="clay"]{--accent:#e08a5c;--accent-ink:#f0ab84;--accent-soft:#3a251a;--accent-on:#1a0f08;--bg:#15110e;--surface:#1f1915;--surface-2:#271f1a;--line:#352b24;--ink:#f0e7e0;--ink-2:#b5a498;--ink-3:#8a786d}
+  :root:not([data-theme="light"])[data-palette="dusk"]{--accent:#9b95ee;--accent-ink:#b8b3f5;--accent-soft:#252262;--accent-on:#0c0a1c;--bg:#111119;--surface:#1a1a26;--surface-2:#22222f;--line:#2f2f3e;--ink:#e8e7f2;--ink-2:#a9a7c0;--ink-3:#7d7a94}
+  :root:not([data-theme="light"])[data-palette="berry"]{--accent:#ef85b3;--accent-ink:#f5a6c8;--accent-soft:#3d1b2c;--accent-on:#1a0810;--bg:#161013;--surface:#20181c;--surface-2:#282025;--line:#362a30;--ink:#f2e6ec;--ink-2:#bba3ad;--ink-3:#8c7279}
+  :root:not([data-theme="light"])[data-palette="slate"]{--accent:#6fb6d6;--accent-ink:#96cde5;--accent-soft:#17323f;--accent-on:#07131a;--bg:#0e1316;--surface:#171f23;--surface-2:#1e272c;--line:#2a343a;--ink:#e4edf1;--ink-2:#9db0ba;--ink-3:#7a8890}
+}
+:root[data-theme="dark"][data-palette="clay"]{--accent:#e08a5c;--accent-ink:#f0ab84;--accent-soft:#3a251a;--accent-on:#1a0f08;--bg:#15110e;--surface:#1f1915;--surface-2:#271f1a;--line:#352b24;--ink:#f0e7e0;--ink-2:#b5a498;--ink-3:#8a786d}
+:root[data-theme="dark"][data-palette="dusk"]{--accent:#9b95ee;--accent-ink:#b8b3f5;--accent-soft:#252262;--accent-on:#0c0a1c;--bg:#111119;--surface:#1a1a26;--surface-2:#22222f;--line:#2f2f3e;--ink:#e8e7f2;--ink-2:#a9a7c0;--ink-3:#7d7a94}
+:root[data-theme="dark"][data-palette="berry"]{--accent:#ef85b3;--accent-ink:#f5a6c8;--accent-soft:#3d1b2c;--accent-on:#1a0810;--bg:#161013;--surface:#20181c;--surface-2:#282025;--line:#362a30;--ink:#f2e6ec;--ink-2:#bba3ad;--ink-3:#8c7279}
+:root[data-theme="dark"][data-palette="slate"]{--accent:#6fb6d6;--accent-ink:#96cde5;--accent-soft:#17323f;--accent-on:#07131a;--bg:#0e1316;--surface:#171f23;--surface-2:#1e272c;--line:#2a343a;--ink:#e4edf1;--ink-2:#9db0ba;--ink-3:#7a8890}
+
+.swatches{display:flex;gap:9px;flex-wrap:wrap}
+.sw-btn{width:42px;height:42px;border-radius:12px;border:2px solid var(--line-strong);position:relative;
+  display:grid;place-items:center}
+.sw-btn[aria-pressed="true"]{border-color:var(--ink)}
+.sw-btn i{width:20px;height:20px;border-radius:50%;display:block}
+.invite{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:var(--r-m);
+  background:var(--surface-2);border:1px dashed var(--line-strong)}
+.invite code{font-family:var(--mono);font-size:17px;letter-spacing:.12em;font-weight:500;flex:1;
+  overflow-wrap:anywhere}
+.invite button{font-size:12px;font-weight:600;color:var(--accent-ink);white-space:nowrap}
+
+/* ---------- sign-in / onboarding gate ---------- */
+#gate{min-height:100dvh;display:grid;place-items:center;padding:28px 16px}
+.gate-card{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r-l);padding:24px 20px;box-shadow:var(--shadow)}
+.gate-brand{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.gate-brand .mk{width:34px;height:34px;border-radius:10px;background:var(--accent);display:grid;place-items:center;flex:0 0 34px}
+.gate-brand .mk svg{width:20px;height:20px;color:var(--accent-on)}
+.gate-brand b{font-family:var(--serif);font-size:19px;font-weight:700;letter-spacing:-.01em}
+.gate-h{margin:0 0 4px;font-family:var(--serif);font-size:21px;font-weight:700;letter-spacing:-.01em}
+.gate-p{margin:0 0 18px;font-size:13.5px;color:var(--ink-2);max-width:42ch}
+.gate-err{margin-top:10px;padding:9px 11px;border-radius:var(--r-s);background:var(--c-bad-soft);
+  color:var(--c-bad);font-size:13px}
+.gate-alt{display:block;width:100%;margin-top:14px;padding:8px;font-size:13px;color:var(--ink-2);text-decoration:underline}
+.gate-or{text-align:center;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);margin:16px 0 14px;position:relative}
+.gate-or::before,.gate-or::after{content:"";position:absolute;top:50%;width:calc(50% - 22px);height:1px;background:var(--line)}
+.gate-or::before{left:0}.gate-or::after{right:0}
+#gate .field{margin-bottom:12px}
+</style>
+
+</head>
+<body>
+
+<div id="gate" hidden>
+  <div class="gate-card">
+    <div class="gate-brand">
+      <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="6.5" cy="9.5" rx="2" ry="2.6"/><ellipse cx="11.6" cy="7.4" rx="2" ry="2.6"/><ellipse cx="16.8" cy="9.5" rx="2" ry="2.6"/><path d="M12 13c-3 0-5 1.9-5 4.2 0 1.7 1.4 2.8 3 2.4 1.4-.4 2.6-.4 4 0 1.6.4 3-.7 3-2.4C17 14.9 15 13 12 13Z"/></svg></span>
+      <b>Same Page</b>
+    </div>
+    <div id="gateBody"></div>
+  </div>
+</div>
+
+<div id="shell" hidden>
+<div class="app">
+  <header class="top">
+    <div class="top-row">
+      <img class="pupshot" id="pupPhoto" alt="" hidden>
+      <div class="pup">
+        <h1 id="pupName">Puppy Logbook</h1>
+        <span class="age" id="pupAge"></span>
+      </div>
+      <div class="top-actions">
+        <div class="who" id="who" hidden><img id="whoImg" alt=""><span id="whoName">you</span></div>
+        <button class="iconbtn" id="settingsBtn" aria-label="Settings">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="since" id="since"></div>
+  </header>
+  <main id="view"></main>
+</div>
+
+<nav class="tabs"><div class="tabs-in" id="tabs" role="tablist"></div></nav>
+</div>
+
+<script src="/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+
+<script>
+"use strict";
+/* ============================ config ============================ */
+const ICONS = {
+  meal:'<path d="M4 11h16a8 8 0 0 1-16 0Z"/><path d="M7 11c0-3 2-5 5-5s5 2 5 5"/><path d="M12 3v1.6"/>',
+  water:'<path d="M12 3s6 6.4 6 10.4A6 6 0 0 1 6 13.4C6 9.4 12 3 12 3Z"/>',
+  potty:'<ellipse cx="6.5" cy="9.5" rx="2" ry="2.6"/><ellipse cx="11.6" cy="7.4" rx="2" ry="2.6"/><ellipse cx="16.8" cy="9.5" rx="2" ry="2.6"/><path d="M12 13c-3 0-5 1.9-5 4.2 0 1.7 1.4 2.8 3 2.4 1.4-.4 2.6-.4 4 0 1.6.4 3-.7 3-2.4C17 14.9 15 13 12 13Z"/>',
+  walk:'<path d="M13.5 4.5a1.4 1.4 0 1 0 0-.1"/><path d="M11 21l1.4-5.2-2.6-2.3.9-4.6 3 1.2 1.8 2.6 2.6.9"/><path d="M8.2 9.4 5.6 11l-.6 3"/><path d="m12.4 15.8-3.2 1.5L7 21"/>',
+  play:'<circle cx="12" cy="12" r="8.2"/><path d="M4.4 9.4c3.8 1 7.4 1 11.2-.6M19.6 14.6c-3.8-1-7.4-1-11.2.6"/>',
+  crate:'<rect x="3.5" y="5" width="17" height="14" rx="1.6"/><path d="M8 5v14M12 5v14M16 5v14M3.5 12h17"/>',
+  sleep:'<path d="M20 14.2A8 8 0 0 1 9.8 4 8.2 8.2 0 1 0 20 14.2Z"/>',
+  treat:'<path d="M6.6 8.4a2.4 2.4 0 1 0-1.2 3.1l3 3a2.4 2.4 0 1 0 3.1 3.1l3.1 3.1a2.4 2.4 0 1 0 3.1-3.1"/><path d="M17.4 15.6a2.4 2.4 0 1 0 1.2-3.1l-3-3a2.4 2.4 0 1 0-3.1-3.1L9.4 3.3a2.4 2.4 0 1 0-3.1 3.1"/>',
+  training:'<path d="m12 3.6 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8Z"/>',
+  meds:'<rect x="2.6" y="8.6" width="18.8" height="6.8" rx="3.4" transform="rotate(-38 12 12)"/><path d="M9.2 7.4 14.8 16"/>',
+  weight:'<path d="M5 20h14l-2.2-9.4H7.2Z"/><circle cx="12" cy="6" r="2.4"/><path d="M12 8.4v2.2"/>',
+  vet:'<path d="M12 20.4S3.8 15.6 3.8 9.8A4.4 4.4 0 0 1 12 7.3a4.4 4.4 0 0 1 8.2 2.5c0 5.8-8.2 10.6-8.2 10.6Z"/><path d="M12 10.6v4M10 12.6h4"/>',
+  groom:'<path d="M6 3.6v7.2c0 1.4 1.1 2.4 2.4 2.4h1.2v7.2M6 6.6h4.8"/><path d="M16.8 3.6c1.4 1.8 2 3.6 2 5.4 0 2-1.4 3.2-2.6 3.2h-.6v8.2"/>',
+  note:'<path d="M5 4.6h14v10.6L14.4 20H5Z"/><path d="M19 15.2h-4.6V20M8.2 8.6h7.6M8.2 11.8h5.4"/>',
+  clock:'<circle cx="12" cy="12" r="8.4"/><path d="M12 7.4V12l3 1.8"/>',
+  list:'<path d="M8 6.5h12M8 12h12M8 17.5h12"/><circle cx="4.2" cy="6.5" r="1.1"/><circle cx="4.2" cy="12" r="1.1"/><circle cx="4.2" cy="17.5" r="1.1"/>',
+  chart:'<path d="M4 20V4"/><path d="M4 20h16"/><rect x="7.4" y="12" width="3.2" height="5"/><rect x="12.6" y="8" width="3.2" height="9"/><rect x="17.8" y="14" width="0" height="0"/><rect x="17.4" y="5" width="3.2" height="12"/>',
+  bag:'<path d="M5.4 8.4h13.2l-1 11.2H6.4Z"/><path d="M9 8.4V6.2a3 3 0 0 1 6 0v2.2"/>',
+  symptom:'<path d="M3 12.4h3.6L9 7l3.2 10 2.4-6.4 1.8 1.8H21"/>',
+  chew:'<path d="M9.4 6.2a2.6 2.6 0 1 0-3.6 3.5l5.4 5.4a2.6 2.6 0 1 0 3.5 3.6 2.6 2.6 0 1 0 3.5-3.6l-5.4-5.4a2.6 2.6 0 1 0-3.4-3.5Z"/><path d="M7.2 13.6 5.4 15.4M16.8 10.4l1.8-1.8"/>',
+  mood:'<path d="M13.4 3 5.6 13.4h5L9.8 21l8-10.6h-5.2Z"/>',
+  info:'<circle cx="12" cy="12" r="8.4"/><path d="M12 11v5"/><circle cx="12" cy="7.9" r=".9" fill="currentColor" stroke="none"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>'
+};
+function svg(name, cls){
+  return '<svg class="'+(cls||'')+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICONS[name]||'')+'</svg>';
+}
+
+const TYPES = {
+  meal:     {label:'Meal',     icon:'meal',     color:'var(--c-meal)',     mode:'instant'},
+  potty:    {label:'Potty',    icon:'potty',    color:'var(--c-potty)',    mode:'instant'},
+  walk:     {label:'Walk',     icon:'walk',     color:'var(--c-walk)',     mode:'timer'},
+  crate:    {label:'Crate',    icon:'crate',    color:'var(--c-crate)',    mode:'timer'},
+  sleep:    {label:'Nap',      icon:'sleep',    color:'var(--c-sleep)',    mode:'timer'},
+  play:     {label:'Play',     icon:'play',     color:'var(--c-play)',     mode:'timer'},
+  chew:     {label:'Chew',     icon:'chew',     color:'var(--c-chew)',     mode:'instant'},
+  treat:    {label:'Treat',    icon:'treat',    color:'var(--c-treat)',    mode:'instant'},
+  training: {label:'Training', icon:'training', color:'var(--c-training)', mode:'instant'},
+  health:   {label:'Symptom',  icon:'symptom',  color:'var(--c-symptom)',  mode:'instant'},
+  mood:     {label:'How she seems', icon:'mood', color:'var(--c-mood)',    mode:'instant'},
+  water:    {label:'Water',    icon:'water',    color:'var(--c-water)',    mode:'instant'},
+  meds:     {label:'Meds',     icon:'meds',     color:'var(--c-meds)',     mode:'instant'},
+  weight:   {label:'Weigh-in', icon:'weight',   color:'var(--c-weight)',   mode:'instant'},
+  groom:    {label:'Grooming', icon:'groom',    color:'var(--c-groom)',    mode:'instant'},
+  vet:      {label:'Vet',      icon:'vet',      color:'var(--c-vet)',      mode:'instant'},
+  note:     {label:'Note',     icon:'note',     color:'var(--c-note)',     mode:'instant'}
+};
+/* Not a stored type — it logs a potty event with where:'accident'. It earns a
+   tile of its own because an accident is the one thing you want recorded before
+   you have finished cleaning it up. */
+TYPES.accident = {label:'Accident', icon:'potty', color:'var(--c-bad)', mode:'instant'};
+
+const PRIMARY = ['meal','potty','accident','walk','crate','sleep','chew','treat','training','play'];
+const SECONDARY = ['health','mood','water','meds','weight','groom','vet','note'];
+
+/* The command list she is actually working through. Order is roughly the order
+   most puppies get them; the board on the Focus tab follows this sequence. */
+const CUES = ['Sit','Lay down','Stay','Come','Drop it','Leave it','Crate','Place','Off','Wait','Touch','Shake','Roll over','Spin','Heel','Loose leash','Quiet','Settle','Name recall','Handling','Bite inhibition'];
+
+const SYMPTOMS = [
+  ['itching','Scratching / itching'],
+  ['licking','Licking or chewing paws'],
+  ['ears','Ear scratching or head shaking'],
+  ['eyes','Runny or goopy eyes'],
+  ['sneezing','Sneezing'],
+  ['reverse','Reverse sneezing'],
+  ['cough','Coughing or honking'],
+  ['vomit','Vomiting'],
+  ['diarrhea','Loose stool / diarrhea'],
+  ['appetite','Off her food'],
+  ['scooting','Scooting'],
+  ['limping','Limping or sore'],
+  ['skin','Red skin, rash or hot spot'],
+  ['breathing','Noisy or laboured breathing']
+];
+const BODY_AREAS = [['ears','Ears'],['face','Face / muzzle'],['paws','Paws'],['belly','Belly'],['back','Back / sides'],['rear','Rear end'],['all','All over']];
+const ENERGY = [[1,'Flat / lethargic'],[2,'Quiet'],[3,'Normal'],[4,'Bouncy'],[5,'Full zoomies']];
+
+/* Teething. The question worth answering is which of these actually holds her
+   attention long enough to save the furniture. */
+const CHEW_KINDS = [
+  ['kong','Kong with peanut butter'],
+  ['frozenkong','Frozen Kong'],
+  ['stick','Teething stick'],
+  ['rubber','Rubber teether'],
+  ['rope','Rope toy'],
+  ['plush','Plush toy'],
+  ['nylabone','Nylon chew'],
+  ['bully','Bully stick'],
+  ['ice','Ice cube / frozen cloth'],
+  ['other','Something else']
+];
+const NAP_WHERE = [
+  ['crate','In her crate'],
+  ['pen','Pen / playpen'],
+  ['bed','Her own bed'],
+  ['person','On someone'],
+  ['floor','Wherever she dropped'],
+  ['car','Car / out']
+];
+const NAP_SETTLED = [
+  ['own','Went down on her own'],
+  ['helped','Settled with us there'],
+  ['put','Had to be put down'],
+  ['crashed','Crashed mid-play']
+];
+const CRATE_SLEPT = [['no','Awake the whole time'],['dozed','Dozed on and off'],['slept','Slept in there']];
+
+const CHEW_EFFECT = [
+  ['settled','Settled her right down'],
+  ['busy','Kept her busy'],
+  ['quick','Lost interest fast'],
+  ['wound','Wound her up more'],
+  ['guard','Got possessive over it']
+];
+
+/* Size class drives the age-based rules of thumb. Toy breeds hold it for less
+   time than the "one hour per month of age" line you see everywhere. */
+const SIZE = {
+  toy:    {label:'Toy — under 12 lb',  bladder:0.75, cap:4},
+  small:  {label:'Small — 12 to 25 lb', bladder:0.85, cap:5},
+  medium: {label:'Medium — 25 to 50 lb', bladder:1,   cap:6},
+  large:  {label:'Large — over 50 lb',  bladder:1,    cap:8}
+};
+const CRATE_LADDER = [2,5,10,15,20,30,45,60,90,120,180,240];
+const CRATE_OUTCOMES = [
+  ['settled','Settled right away'],
+  ['fussed','Fussed, then settled'],
+  ['whined','Whined most of it'],
+  ['panicked','Barked or panicked'],
+  ['soiled','Soiled the crate']
+];
+const OUTCOME_OK = {settled:1, fussed:1};
+const ACCIDENT_TRIGGERS = [
+  ['unwatched','Nobody was watching'],
+  ['excited','Excited / greeting'],
+  ['play','Mid-play'],
+  ['waking','Just woke up'],
+  ['meal','Just after eating'],
+  ['asked','She asked and we missed it'],
+  ['crate','In the crate / pen']
+];
+
+/* ============================ utils ============================ */
+const $ = (s,r)=> (r||document).querySelector(s);
+const pad = n => String(n).padStart(2,'0');
+function dateKey(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function keyToDate(k){ const [y,m,d]=k.split('-').map(Number); return new Date(y,m-1,d); }
+function fmtTime(iso){
+  const d = new Date(iso); let h = d.getHours(); const ap = h<12?'am':'pm';
+  h = h%12 || 12; return h+':'+pad(d.getMinutes())+ap;
+}
+function fmtDur(ms){
+  if(ms==null || !isFinite(ms)) return '—';
+  const m = Math.max(0, Math.round(ms/60000));
+  if(m<60) return m+'m';
+  const h = Math.floor(m/60); return h+'h '+pad(m%60)+'m';
+}
+function fmtClock(ms){
+  const s = Math.max(0, Math.floor(ms/1000));
+  const h = Math.floor(s/3600), m = Math.floor(s%3600/60), sec = s%60;
+  return (h? h+':'+pad(m) : m)+':'+pad(sec);
+}
+function fmtAgo(ms){
+  const m = Math.floor(ms/60000);
+  if(m<1) return 'just now';
+  if(m<60) return m+'m ago';
+  const h = Math.floor(m/60);
+  if(h<24) return h+'h '+pad(m%60)+'m ago';
+  return Math.floor(h/24)+'d ago';
+}
+function dayLabel(k){
+  const today = dateKey(new Date());
+  const y = new Date(); y.setDate(y.getDate()-1);
+  if(k===today) return 'Today';
+  if(k===dateKey(y)) return 'Yesterday';
+  return keyToDate(k).toLocaleDateString(undefined,{weekday:'long', month:'short', day:'numeric'});
+}
+function localInput(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes()); }
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,8); }
+function el(tag, attrs, kids){
+  const n = document.createElement(tag);
+  for(const k in (attrs||{})){
+    const v = attrs[k];
+    if(v===null||v===undefined||v===false) continue;
+    if(k==='text') n.textContent = v;
+    else if(k==='html') n.innerHTML = v;
+    else if(k==='style') n.setAttribute('style', v);
+    else if(k.slice(0,2)==='on') n.addEventListener(k.slice(2), v);
+    else n.setAttribute(k, v===true?'':v);
+  }
+  (kids||[]).forEach(c=>{ if(c) n.appendChild(typeof c==='string'?document.createTextNode(c):c); });
+  return n;
+}
+
+/* ============================ state ============================ */
+const state = {
+  profile: {name:'', birthday:'', unit:'lb', breed:'', size:'toy', photoUrl:'', theme:'moss'},
+  invite: null,
+  events: [],            // the source of truth, newest first-ish
+  days: {},              // derived: date key -> {date, events:[]}
+  pantry: {items:[]},
+  members: {},           // user id -> display name
+  session: null,
+  householdId: null,
+  dogId: null,
+  me: null,
+  canWrite: true,
+  tab: 'log',
+  storage: 'shared',
+  ready: false
+};
+
+function allEvents(){
+  const out = [];
+  Object.keys(state.days).forEach(k => (state.days[k].events||[]).forEach(e => out.push(e)));
+  out.sort((a,b)=> new Date(b.at) - new Date(a.at));
+  return out;
+}
+function eventsOn(key){
+  const d = state.days[key];
+  return d && d.events ? d.events.slice().sort((a,b)=> new Date(b.at)-new Date(a.at)) : [];
+}
+function openSessions(){ return allEvents().filter(e => TYPES[e.type] && TYPES[e.type].mode==='timer' && !e.endAt); }
+function lastOf(pred){ return allEvents().find(pred) || null; }
+
+/* ============================ storage: supabase ============================ */
+/* The rendering and analysis code above and below this block is unchanged from
+   the original single-file version. It reads `state.days` — a map of date key to
+   {date, events:[]} — so this layer's only job is to keep that map in sync with
+   the `events` table and to push writes back. Each logged thing is its own row,
+   so two people tapping at the same moment no longer overwrite each other. */
+
+const SB = window.supabase.createClient(window.APP_CONFIG.supabaseUrl, window.APP_CONFIG.supabaseKey, {
+  auth: {persistSession: true, autoRefreshToken: true},
+  realtime: {params: {eventsPerSecond: 5}}
+});
+
+const LS = 'puppy-logbook-cache-v1';
+
+/* Row <-> event. Everything type-specific rides in `data` so adding an event
+   type never needs a migration. */
+function rowToEvent(r){
+  return Object.assign({}, r.data || {}, {
+    id: r.id, type: r.type, at: r.at,
+    endAt: r.ended_at || null, by: r.by_user || null
+  });
+}
+function eventToRow(ev){
+  const data = Object.assign({}, ev);
+  delete data.id; delete data.type; delete data.at; delete data.endAt; delete data.by; delete data.createdAt;
+  return {type: ev.type, at: ev.at, ended_at: ev.endAt || null, data};
+}
+
+/* state.days is derived, never edited directly. */
+function rebuildDays(){
+  const days = {};
+  state.events.forEach(e=>{
+    const k = dateKey(new Date(e.at));
+    (days[k] = days[k] || {date:k, events:[]}).events.push(e);
+  });
+  state.days = days;
+}
+function putEvent(ev){
+  const i = state.events.findIndex(e=>e.id===ev.id);
+  if(i>-1) state.events[i] = ev; else state.events.push(ev);
+  rebuildDays();
+}
+function dropEvent(id){
+  state.events = state.events.filter(e=>e.id!==id);
+  rebuildDays();
+}
+
+function saveLocal(){
+  try{
+    localStorage.setItem(LS, JSON.stringify({
+      profile: state.profile, events: state.events.slice(0, 1500),
+      pantry: state.pantry, dogId: state.dogId, householdId: state.householdId
+    }));
+  }catch(e){}
+}
+function loadLocal(){
+  try{
+    const raw = localStorage.getItem(LS); if(!raw) return;
+    const o = JSON.parse(raw);
+    if(o.profile) state.profile = Object.assign(state.profile, o.profile);
+    if(Array.isArray(o.events)) state.events = o.events;
+    if(o.pantry) state.pantry = o.pantry;
+    if(o.dogId) state.dogId = o.dogId;
+    if(o.householdId) state.householdId = o.householdId;
+    rebuildDays();
+  }catch(e){}
+}
+
+function dbError(err, what){
+  console.error(what, err);
+  const msg = (err && err.message) || '';
+  if(/row-level security|permission/i.test(msg)) toast("You are not a member of this household any more.");
+  else if(/JWT|session/i.test(msg)) toast("Your session expired — sign in again.");
+  else toast("Couldn't save. It is still on this device; it will retry when you are back online.");
+}
+
+/* ---- writes ---- */
+async function addEvent(ev){
+  if(!state.dogId){ toast('Add her details first.'); return null; }
+  const optimistic = Object.assign({id:'tmp-'+uid(), at:new Date().toISOString(), by:state.me && state.me.id}, ev);
+  putEvent(optimistic); render(); saveLocal();
+  const row = Object.assign(eventToRow(optimistic), {dog_id: state.dogId, by_user: state.me && state.me.id});
+  const {data, error} = await SB.from('events').insert(row).select().single();
+  if(error){ dropEvent(optimistic.id); render(); dbError(error, 'addEvent'); return null; }
+  dropEvent(optimistic.id); putEvent(rowToEvent(data)); render(); saveLocal();
+  return rowToEvent(data);
+}
+function findEvent(id){
+  const ev = state.events.find(e=>e.id===id);
+  return ev ? {ev, key: dateKey(new Date(ev.at))} : null;
+}
+async function patchEvent(id, patch){
+  const f = findEvent(id); if(!f) return;
+  const before = f.ev;
+  const merged = Object.assign({}, before, patch);
+  putEvent(merged); render(); saveLocal();
+  if(String(id).indexOf('tmp-')===0) return;
+  const row = eventToRow(merged);
+  const {error} = await SB.from('events').update(row).eq('id', id);
+  if(error){ putEvent(before); render(); dbError(error, 'patchEvent'); }
+}
+async function removeEvent(id){
+  const f = findEvent(id); if(!f) return;
+  const before = f.ev;
+  dropEvent(id); render(); saveLocal();
+  if(String(id).indexOf('tmp-')===0) return;
+  const {error} = await SB.from('events').delete().eq('id', id);
+  if(error){ putEvent(before); render(); dbError(error, 'removeEvent'); }
+}
+async function writePantry(){
+  saveLocal();
+  // Pantry writes are handled per-item by openItemSheet through savePantryItem.
+}
+async function savePantryItem(item, isNew){
+  const row = {dog_id: state.dogId, kind:item.kind, brand:item.brand, name:item.name,
+    rating:item.rating, note:item.note};
+  if(isNew){
+    row.added_by = state.me && state.me.id;
+    const {data, error} = await SB.from('pantry_items').insert(row).select().single();
+    if(error) return dbError(error, 'pantry insert');
+    item.id = data.id;
+  } else {
+    const {error} = await SB.from('pantry_items').update(row).eq('id', item.id);
+    if(error) return dbError(error, 'pantry update');
+  }
+  saveLocal();
+}
+async function deletePantryItem(id){
+  const {error} = await SB.from('pantry_items').delete().eq('id', id);
+  if(error) dbError(error, 'pantry delete');
+  saveLocal();
+}
+async function writeProfile(){
+  saveLocal();
+  if(!state.dogId) return;
+  const p = state.profile;
+  const {error} = await SB.from('dogs').update({
+    name:p.name, birthday:p.birthday || null, breed:p.breed, size:p.size, unit:p.unit,
+    photo_url:p.photoUrl || '', theme:p.theme || 'moss'
+  }).eq('id', state.dogId);
+  if(error) dbError(error, 'writeProfile');
+}
+
+/* ---- loading ---- */
+async function loadAll(){
+  const [evs, pantry, dogRes, members, hh] = await Promise.all([
+    SB.from('events').select('*').eq('dog_id', state.dogId).order('at', {ascending:false}).limit(4000),
+    SB.from('pantry_items').select('*').eq('dog_id', state.dogId),
+    SB.from('dogs').select('*').eq('id', state.dogId).single(),
+    SB.from('household_members').select('user_id, display_name').eq('household_id', state.householdId),
+    SB.from('households').select('invite_code, name').eq('id', state.householdId).single()
+  ]);
+  if(evs.data) state.events = evs.data.map(rowToEvent);
+  if(pantry.data) state.pantry = {items: pantry.data.map(r=>({
+    id:r.id, kind:r.kind, brand:r.brand, name:r.name, rating:r.rating, note:r.note
+  }))};
+  if(dogRes.data){
+    const d = dogRes.data;
+    state.profile = {name:d.name||'', birthday:d.birthday||'', breed:d.breed||'', size:d.size||'toy', unit:d.unit||'lb', photoUrl:d.photo_url||'', theme:d.theme||'moss'};
+    applyPalette(state.profile.theme);
+  }
+  if(hh.data){ state.invite = hh.data.invite_code; state.householdName = hh.data.name; }
+  state.members = {};
+  (members.data||[]).forEach(m=>{ state.members[m.user_id] = m.display_name || ''; });
+  rebuildDays(); state.ready = true; saveLocal(); render();
+}
+
+let channel = null;
+function subscribe(){
+  if(channel) SB.removeChannel(channel);
+  channel = SB.channel('log-'+state.dogId)
+    .on('postgres_changes', {event:'*', schema:'public', table:'events', filter:'dog_id=eq.'+state.dogId}, payload=>{
+      if(payload.eventType === 'DELETE'){ dropEvent(payload.old.id); }
+      else { putEvent(rowToEvent(payload.new)); }
+      saveLocal(); render();
+    })
+    .on('postgres_changes', {event:'*', schema:'public', table:'pantry_items', filter:'dog_id=eq.'+state.dogId}, ()=>{
+      SB.from('pantry_items').select('*').eq('dog_id', state.dogId).then(({data})=>{
+        if(data) state.pantry = {items:data.map(r=>({id:r.id,kind:r.kind,brand:r.brand,name:r.name,rating:r.rating,note:r.note}))};
+        saveLocal(); render();
+      });
+    })
+    .on('postgres_changes', {event:'UPDATE', schema:'public', table:'dogs', filter:'id=eq.'+state.dogId}, payload=>{
+      const d = payload.new;
+      state.profile = {name:d.name||'', birthday:d.birthday||'', breed:d.breed||'', size:d.size||'toy', unit:d.unit||'lb', photoUrl:d.photo_url||'', theme:d.theme||'moss'};
+      applyPalette(state.profile.theme);
+      saveLocal(); render();
+    })
+    .subscribe();
+}
+
+/* ============================ auth & onboarding ============================ */
+function showGate(html){
+  document.getElementById('gate').hidden = false;
+  document.getElementById('shell').hidden = true;
+  document.getElementById('gateBody').innerHTML = '';
+  document.getElementById('gateBody').appendChild(html);
+}
+function hideGate(){
+  document.getElementById('gate').hidden = true;
+  document.getElementById('shell').hidden = false;
+}
+
+function authScreen(mode){
+  const wrap = el('div',{});
+  wrap.appendChild(el('h2',{class:'gate-h', text: mode==='up' ? 'Create your account' : 'Welcome back'}));
+  wrap.appendChild(el('p',{class:'gate-p', text: mode==='up'
+    ? 'One account each. Everyone in the household logs to the same record.'
+    : 'Sign in to pick up the log where the rest of the house left off.'}));
+
+  const email = el('input',{class:'inp', id:'authEmail', type:'email', autocomplete:'email', placeholder:'you@example.com'});
+  const pass  = el('input',{class:'inp', id:'authPass', type:'password',
+    autocomplete: mode==='up' ? 'new-password' : 'current-password', placeholder:'At least 8 characters'});
+  const name  = el('input',{class:'inp', id:'authName', autocomplete:'name', placeholder:'The name the others will see'});
+
+  wrap.appendChild(field('Email', email));
+  if(mode==='up') wrap.appendChild(field('Your name', name));
+  wrap.appendChild(field('Password', pass));
+
+  const err = el('div',{class:'gate-err', hidden:true});
+  wrap.appendChild(err);
+  const fail = m => { err.hidden = false; err.textContent = m; };
+
+  const go = el('button',{class:'btn p', style:'width:100%;margin-top:6px',
+    text: mode==='up' ? 'Create account' : 'Sign in', onclick: async ()=>{
+    err.hidden = true;
+    const e = email.value.trim(), p = pass.value;
+    if(!e || !p) return fail('Email and password, please.');
+    go.disabled = true; go.textContent = 'One moment…';
+    const res = mode==='up'
+      ? await SB.auth.signUp({email:e, password:p, options:{data:{display_name:name.value.trim()}}})
+      : await SB.auth.signInWithPassword({email:e, password:p});
+    go.disabled = false; go.textContent = mode==='up' ? 'Create account' : 'Sign in';
+    if(res.error) return fail(res.error.message);
+    if(!res.data.session) return fail('Check your email to confirm the account, then sign in.');
+    start();
+  }});
+  wrap.appendChild(go);
+
+  wrap.appendChild(el('button',{class:'gate-alt', text: mode==='up'
+    ? 'I already have an account' : 'I need to create an account',
+    onclick:()=> showGate(authScreen(mode==='up' ? 'in' : 'up'))}));
+  return wrap;
+}
+
+function onboardScreen(){
+  const wrap = el('div',{});
+  wrap.appendChild(el('h2',{class:'gate-h', text:'Set up the household'}));
+  wrap.appendChild(el('p',{class:'gate-p', text:'One household, one shared record. Start it, or join the one someone already made.'}));
+
+  const hname = el('input',{class:'inp', id:'hhName', placeholder:'The Eid household'});
+  wrap.appendChild(field('Household name', hname));
+  const err = el('div',{class:'gate-err', hidden:true});
+  const fail = m => { err.hidden=false; err.textContent = m; };
+
+  wrap.appendChild(el('button',{class:'btn p', style:'width:100%', text:'Start a new household', onclick: async ()=>{
+    err.hidden = true;
+    const {data, error} = await SB.rpc('create_household', {hname: hname.value.trim(), who: displayName()});
+    if(error) return fail(error.message);
+    state.householdId = data;
+    await ensureDog(); await afterHousehold();
+  }}));
+
+  wrap.appendChild(el('div',{class:'gate-or', text:'or'}));
+
+  const code = el('input',{class:'inp', id:'joinCode', placeholder:'e.g. 4f9c2a1b7e', autocapitalize:'off', autocorrect:'off'});
+  wrap.appendChild(field('Invite code', code, 'Ask whoever set it up — it is in their Settings.'));
+  wrap.appendChild(el('button',{class:'btn s', style:'width:100%', text:'Join with a code', onclick: async ()=>{
+    err.hidden = true;
+    const c = code.value.trim();
+    if(!c) return fail('Paste the invite code first.');
+    const {data, error} = await SB.rpc('join_household', {code: c, who: displayName()});
+    if(error) return fail(error.message);
+    state.householdId = data;
+    await afterHousehold();
+  }}));
+  wrap.appendChild(err);
+
+  wrap.appendChild(el('button',{class:'gate-alt', text:'Sign out', onclick: async ()=>{ await SB.auth.signOut(); start(); }}));
+  return wrap;
+}
+
+function displayName(){
+  const u = state.session && state.session.user;
+  return (u && u.user_metadata && u.user_metadata.display_name) || (u && u.email ? u.email.split('@')[0] : '');
+}
+
+async function ensureDog(){
+  const {data} = await SB.from('dogs').select('id').eq('household_id', state.householdId).limit(1);
+  if(data && data.length){ state.dogId = data[0].id; return; }
+  const {data:made, error} = await SB.from('dogs').insert({household_id: state.householdId}).select().single();
+  if(error) return dbError(error, 'ensureDog');
+  state.dogId = made.id;
+}
+
+async function afterHousehold(){
+  await ensureDog();
+  if(!state.dogId) return;
+  hideGate();
+  renderTabs();
+  await loadAll();
+  subscribe();
+  if(!state.profile.name) setTimeout(()=>{ if(!state.profile.name) openSettings(true); }, 400);
+}
+
+async function start(){
+  const {data:{session}} = await SB.auth.getSession();
+  state.session = session;
+  if(!session){ showGate(authScreen('in')); return; }
+
+  state.me = {id: session.user.id, name: displayName()};
+  const who = document.getElementById('who');
+  who.hidden = false;
+  document.getElementById('whoName').textContent = state.me.name || 'you';
+  document.getElementById('whoImg').hidden = true;
+
+  const {data: memberships, error} = await SB.from('household_members')
+    .select('household_id').eq('user_id', session.user.id).limit(1);
+  if(error){ dbError(error, 'memberships'); return; }
+  if(!memberships || !memberships.length){ showGate(onboardScreen()); return; }
+  state.householdId = memberships[0].household_id;
+  await afterHousehold();
+}
+
+/* ============================ boot ============================ */
+loadLocal();
+render();
+start();
+
+SB.auth.onAuthStateChange((event)=>{
+  if(event === 'SIGNED_OUT'){ location.reload(); }
+});
+
+setInterval(()=>{
+  document.querySelectorAll('[data-elapsed]').forEach(n=>{
+    n.textContent = fmtClock(Date.now() - new Date(n.getAttribute('data-elapsed')).getTime());
+  });
+  document.querySelectorAll('[data-ago]').forEach(n=>{
+    n.textContent = fmtAgo(Date.now() - new Date(n.getAttribute('data-ago')).getTime());
+  });
+  document.querySelectorAll('[data-ago-raw]').forEach(n=>{
+    n.textContent = fmtDur(Date.now() - +n.getAttribute('data-ago-raw'));
+  });
+  document.querySelectorAll('[data-due]').forEach(n=>{
+    const left = +n.getAttribute('data-due') - Date.now();
+    if(n.textContent!=='—') n.textContent = fmtDur(Math.abs(left));
+  });
+}, 1000);
+
+/* ============================ profile helpers ============================ */
+function ageWeeks(){
+  if(!state.profile.birthday) return null;
+  const b = keyToDate(state.profile.birthday);
+  return Math.max(0, Math.floor((Date.now()-b.getTime())/(7*864e5)));
+}
+function ageText(){
+  const w = ageWeeks(); if(w===null) return '';
+  if(w < 16) return w+' weeks old';
+  const months = Math.floor(w/4.345);
+  if(months < 24) return months+' months old';
+  return (months/12).toFixed(1)+' years old';
+}
+function ageMonths(){ const w = ageWeeks(); return w===null? null : w/4.345; }
+function sizeSpec(){ return SIZE[state.profile.size] || SIZE.toy; }
+
+/* Rough bladder-hold window while awake: the usual "one hour per month of age",
+   scaled down for toy breeds and capped. A guide for setting a timer, nothing more. */
+function holdHours(){
+  const m = ageMonths(); if(m===null) return null;
+  const s = sizeSpec();
+  return Math.min(s.cap, Math.max(1, Math.round(m * s.bladder)));
+}
+/* Standard puppy exercise guide: five minutes per month of age, twice a day. */
+function walkTarget(){ const m = ageMonths(); return m===null? null : Math.round(m*5); }
+/* Meals per day taper: 4 until 12 weeks, 3 until 6 months, then 2. */
+function mealTarget(){ const w = ageWeeks(); if(w===null) return null; return w<12? 4 : w<26? 3 : 2; }
+/* Daytime crate ceiling for this age, in hours. */
+function crateCeiling(){ const h = holdHours(); return h===null? null : Math.min(5, h+1); }
+
+/* Sleep a puppy this age needs, in hours per 24. */
+function sleepTarget(){
+  const m = ageMonths();
+  if(m===null) return 18;
+  return m < 6 ? 18 : m < 12 ? 16 : 14;
+}
+/* How long she can reasonably stay awake between naps, in minutes. Under six
+   months an hour to ninety minutes is the usual ceiling before she tips over. */
+function awakeCeiling(){
+  const m = ageMonths();
+  if(m===null) return 120;
+  return m < 4 ? 60 : m < 6 ? 90 : m < 9 ? 150 : 210;
+}
+
+/* Every sleep stretch, as absolute {start,end} ms. A running nap ends "now".
+   Crate sessions count only when someone said she actually slept in there. */
+function sleepSessions(){
+  const out = [];
+  allEvents().forEach(e=>{
+    let crate = false;
+    if(e.type==='sleep'){ crate = e.where==='crate'; }
+    else if(e.type==='crate' && (e.sleptIn==='slept' || e.sleptIn==='dozed')){ crate = true; }
+    else return;
+    const start = new Date(e.at).getTime();
+    const end = e.endAt ? new Date(e.endAt).getTime() : Date.now();
+    if(end > start) out.push({start, end, crate, ev:e});
+  });
+  return out.sort((a,b)=>a.start-b.start);
+}
+/* Those stretches clipped to one calendar day and merged, so an overnight
+   nap is counted against both days it actually covers. */
+function sleepSpansOn(key){
+  const dayStart = keyToDate(key).getTime(), dayEnd = dayStart + 864e5;
+  const clipped = sleepSessions()
+    .map(s => ({start: Math.max(s.start, dayStart), end: Math.min(s.end, dayEnd), crate: s.crate}))
+    .filter(s => s.end > s.start)
+    .sort((a,b)=>a.start-b.start);
+  const merged = [];
+  clipped.forEach(s=>{
+    const prev = merged[merged.length-1];
+    if(prev && s.start <= prev.end){ prev.end = Math.max(prev.end, s.end); prev.crate = prev.crate || s.crate; }
+    else merged.push(Object.assign({}, s));
+  });
+  return merged;
+}
+function sleepMinutesOn(key){
+  return sleepSpansOn(key).reduce((t,s)=> t + (s.end-s.start)/60000, 0);
+}
+/* Gaps between naps today, up to right now. */
+function awakeStretches(key){
+  const dayStart = keyToDate(key).getTime();
+  const end = Math.min(dayStart + 864e5, Date.now());
+  const spans = sleepSpansOn(key);
+  const gaps = [];
+  let cursor = dayStart;
+  spans.forEach(s=>{ if(s.start > cursor) gaps.push({start:cursor, end:s.start}); cursor = Math.max(cursor, s.end); });
+  if(cursor < end) gaps.push({start:cursor, end});
+  return gaps.filter(g=> g.end - g.start > 0);
+}
+function awakeSince(){
+  const sessions = sleepSessions().filter(s=> s.end <= Date.now());
+  if(!sessions.length) return null;
+  const nappingNow = sleepSessions().some(s=> s.end >= Date.now()-1000 && !s.ev.endAt);
+  if(nappingNow) return null;
+  return Math.max.apply(null, sessions.map(s=>s.end));
+}
+
+function breedNotes(){
+  const b = (state.profile.breed||'').toLowerCase();
+  const m = ageMonths();
+  const out = [];
+  if(m!==null && m<7 && (state.profile.size==='toy' || state.profile.size==='small')){
+    out.push(['Small bladder, slower house-training',
+      'Toy and small breeds are genuinely harder to house-train than the books admit — less bladder, more floor to find. Take her out on a timer rather than waiting for a signal, and treat every clean day as the win.']);
+  }
+  if(b.indexOf('york')>-1 && m!==null && m<6){
+    out.push(['Keep meals close together',
+      'Young Yorkshire-type puppies can drop their blood sugar if meals stretch too far apart. Aim for '+(mealTarget()||3)+' meals a day and no more than about five waking hours between them. Wobbliness or unusual lethargy after a long gap is worth a call to the vet.']);
+  }
+  if(b.indexOf('shih')>-1){
+    out.push(['A short muzzle cools badly',
+      'Shih Tzus are brachycephalic — they shed heat through panting less efficiently than a longer-nosed dog. Keep sessions to about '+(walkTarget()||20)+' minutes, go early or late in warm weather, and stop at noisy or laboured breathing.']);
+  }
+  if(b.indexOf('shih')>-1){
+    out.push(['Watch the eyes and the skin',
+      'Big, forward-set eyes sit close to whatever she sticks her face into, so squinting, pawing at an eye or a sudden discharge is a same-day vet call rather than a wait-and-see. The breed also runs itchy — log scratching under Symptom and the pattern will be there when you need it.']);
+  }
+  if(b.indexOf('york')>-1){
+    out.push(['A harness, not a collar',
+      'Yorkshire Terriers are prone to a weak windpipe, and lead pressure on the throat is the thing that aggravates it. Walk her on a harness, and treat a honking, goose-like cough as something to get looked at.']);
+  }
+  if(m!==null && m<7){
+    out.push(['Teething runs to about six months',
+      'Puppy teeth give way to adult teeth from roughly three to six months, and the chewing peaks in the middle of that. Frozen chews do more than hard ones — cold is what actually helps a sore mouth. Check the Teething card for which ones hold her.']);
+  }
+  if(b.indexOf('shih')>-1 || b.indexOf('york')>-1){
+    out.push(['A coat that never stops growing',
+      'Both of those breeds carry hair rather than fur, so it keeps growing and mats instead of shedding out. Short daily brushing now is really handling practice — it buys you a dog who tolerates a groomer later. Log it under Grooming so you can see the habit hold.']);
+  }
+  if(m!==null && m<6){
+    out.push(['She still needs to sleep most of the day',
+      'Puppies this age run on 18 to 20 hours of sleep. Overtiredness looks exactly like bad behaviour — biting, zoomies, refusing to settle in the crate. If a crate session goes badly, check the nap log before you blame the crate.']);
+  }
+  return out;
+}
+
+/* Potty prediction: last break plus the hold window, but the clock effectively
+   pauses while she is asleep or crated. */
+function pottyDue(){
+  const h = holdHours(); if(h===null) return null;
+  const last = lastOf(e=>e.type==='potty');
+  if(!last) return null;
+  const from = new Date(last.endAt || last.at).getTime();
+  const resting = openSessions().some(e=> e.type==='sleep' || e.type==='crate');
+  return {due: from + h*3600e3, from, resting};
+}
+
+/* ============================ render ============================ */
+function renderTabs(){
+  const tabs = [['log','Log','plus'],['focus','Focus','training'],['timeline','Timeline','list'],['pantry','Pantry','bag'],['trends','Trends','chart']];
+  const box = $('#tabs'); box.innerHTML='';
+  tabs.forEach(([k,label,icon])=>{
+    const b = el('button',{class:'tab', role:'tab', 'aria-selected': state.tab===k, onclick:()=>{ state.tab=k; renderTabs(); render(); window.scrollTo({top:0}); }});
+    b.innerHTML = svg(icon) + '<span>'+label+'</span>';
+    box.appendChild(b);
+  });
+}
+
+function render(){
+  $('#pupName').textContent = state.profile.name ? state.profile.name + "'s Logbook" : 'Puppy Logbook';
+  const shot = $('#pupPhoto');
+  if(state.profile.photoUrl){ shot.src = state.profile.photoUrl; shot.hidden = false; shot.alt = state.profile.name || 'The puppy'; }
+  else shot.hidden = true;
+  $('#pupAge').textContent = ageText();
+  renderSince();
+  const v = $('#view'); v.innerHTML='';
+  if(state.tab==='log') v.appendChild(viewLog());
+  else if(state.tab==='focus') v.appendChild(viewFocus());
+  else if(state.tab==='timeline') v.appendChild(viewTimeline());
+  else if(state.tab==='pantry') v.appendChild(viewPantry());
+  else v.appendChild(viewTrends());
+  resolveNames();
+}
+
+function renderSince(){
+  const box = $('#since'); box.innerHTML='';
+  const hold = holdHours();
+
+  const due = pottyDue();
+  if(due){
+    const left = due.due - Date.now();
+    const chip = el('div',{class:'since-chip'+(left<0 && !due.resting ?' warn':'')},[
+      el('span',{class:'k', text: due.resting? 'Out when she wakes' : (left<0? 'Overdue out' : 'Due out in')}),
+      el('span',{class:'v','data-due':due.due, text: due.resting? '—' : fmtDur(Math.abs(left))})
+    ]);
+    box.appendChild(chip);
+  }
+
+  const wake = awakeSince();
+  if(wake){
+    const up = Date.now() - wake;
+    box.appendChild(el('div',{class:'since-chip'+(up > awakeCeiling()*60000 ? ' warn':'')},[
+      el('span',{class:'k', text:'Awake for'}),
+      el('span',{class:'v','data-ago-raw':wake, text:fmtDur(up)})
+    ]));
+  }
+
+  const specs = [
+    ['Last potty', lastOf(e=>e.type==='potty'), hold ? hold*3600e3 : null],
+    ['Last meal',  lastOf(e=>e.type==='meal'), null],
+    ['Last walk',  lastOf(e=>e.type==='walk'), null],
+    ['Last crate', lastOf(e=>e.type==='crate'), null]
+  ];
+  let any = false;
+  specs.forEach(([label, ev, warnAfter])=>{
+    if(!ev) return; any = true;
+    const t = ev.endAt || ev.at;
+    const age = Date.now() - new Date(t).getTime();
+    const warn = warnAfter && age > warnAfter;
+    const chip = el('div',{class:'since-chip'+(warn?' warn':'')},[
+      el('span',{class:'k', text:label}),
+      el('span',{class:'v', 'data-ago':t, text:fmtAgo(age)})
+    ]);
+    box.appendChild(chip);
+  });
+  if(!any && hold){
+    box.appendChild(el('div',{class:'since-chip'},[
+      el('span',{class:'k',text:'Bladder rule'}),
+      el('span',{class:'v',text:'~'+hold+'h'})
+    ]));
+  }
+  box.hidden = box.children.length===0;
+}
+
+/* ---------- LOG tab ---------- */
+function viewLog(){
+  const frag = document.createDocumentFragment();
+
+  const open = openSessions();
+  if(open.length){
+    const wrap = el('div',{class:'running'});
+    open.forEach(ev=>{
+      const T = TYPES[ev.type];
+      const row = el('div',{class:'run', style:'--tc:'+T.color},[
+        el('span',{class:'dot'}),
+        el('span',{class:'lbl', text:T.label+' in progress'}),
+        el('span',{class:'el','data-elapsed':ev.at, text:fmtClock(Date.now()-new Date(ev.at).getTime())}),
+        el('button',{class:'stop', onclick:()=>endSession(ev), text:'End'})
+      ]);
+      wrap.appendChild(row);
+    });
+    frag.appendChild(wrap);
+  }
+
+  frag.appendChild(sectionHead('Quick log'));
+  frag.appendChild(tileGrid(PRIMARY));
+  const launch = el('button',{class:'clicker-launch', onclick:()=>openClicker()});
+  launch.appendChild(el('span',{class:'ring'},[el('i')]));
+  launch.appendChild(el('span',{},[
+    el('span',{class:'cl', style:'display:block', text:'Clicker'}),
+    el('span',{class:'cs', text:'Mark the moment, then log the session'})
+  ]));
+  launch.appendChild(el('span',{class:'go', text:'Open'}));
+  frag.appendChild(launch);
+
+  frag.appendChild(sectionHead('Also track'));
+  frag.appendChild(tileGrid(SECONDARY));
+
+  // today at a glance
+  const today = dateKey(new Date());
+  const evs = eventsOn(today);
+  frag.appendChild(sectionHead('Today so far', evs.length? 'See all' : null, ()=>{ state.tab='timeline'; renderTabs(); render(); }));
+  if(evs.length){
+    const card = el('div',{class:'card'});
+    const list = el('div',{class:'day'});
+    evs.slice(0,6).forEach(e=> list.appendChild(eventRow(e)));
+    card.appendChild(list);
+    frag.appendChild(card);
+  } else {
+    frag.appendChild(el('div',{class:'card empty'},[
+      el('div',{class:'hd', text:'Nothing logged yet today'}),
+      el('p',{text:'Tap a tile above the moment it happens — meals, potty breaks, crate time. Everyone on this link sees it right away.'})
+    ]));
+  }
+
+  if(!navigator.onLine){
+    frag.appendChild(el('div',{class:'banner', html: svg('info') + '<span>You are offline. What you log is held on this phone and goes up to the shared record as soon as you have signal again.</span>'}));
+  }
+  return frag;
+}
+function sectionHead(title, actionLabel, onAction){
+  const h = el('div',{class:'sec-head'},[ el('h2',{text:title}), el('span',{class:'rule'}) ]);
+  if(actionLabel) h.appendChild(el('button',{class:'act', text:actionLabel, onclick:onAction}));
+  return h;
+}
+function tileGrid(keys){
+  const g = el('div',{class:'grid'});
+  const open = openSessions();
+  keys.forEach(k=>{
+    const T = TYPES[k];
+    const running = open.find(e=>e.type===k);
+    const b = el('button',{class:'tile', style:'--tc:'+T.color, 'data-on': running?'1':null,
+      onclick:()=> running ? endSession(running) : startType(k)});
+    b.innerHTML = svg(T.icon,'ic') + '<span class="nm">'+(running? 'End '+T.label.toLowerCase() : T.label)+'</span>';
+    g.appendChild(b);
+  });
+  return g;
+}
+
+/* ---------- TIMELINE tab ---------- */
+function viewTimeline(){
+  const frag = document.createDocumentFragment();
+  const keys = Object.keys(state.days).filter(k=> (state.days[k].events||[]).length).sort().reverse();
+  if(!keys.length){
+    frag.appendChild(el('div',{class:'card empty'},[
+      el('div',{class:'hd', text:'The timeline starts with your first tap'}),
+      el('p',{text:'Every entry lands here in order, stamped with the time and whoever logged it.'})
+    ]));
+    return frag;
+  }
+  keys.slice(0,45).forEach(k=>{
+    const evs = eventsOn(k);
+    const day = el('div',{class:'day'});
+    day.appendChild(el('div',{class:'day-h'},[
+      el('span',{class:'d', text:dayLabel(k)}),
+      el('span',{class:'s', text:daySummary(evs)})
+    ]));
+    evs.forEach(e=> day.appendChild(eventRow(e)));
+    frag.appendChild(day);
+  });
+  return frag;
+}
+function daySummary(evs){
+  const n = t => evs.filter(e=>e.type===t).length;
+  const bits = [];
+  if(n('meal')) bits.push(n('meal')+' meals');
+  if(n('potty')) bits.push(n('potty')+' potty');
+  const acc = evs.filter(e=>e.type==='potty'&&e.where==='accident').length;
+  if(acc) bits.push(acc+' accident'+(acc>1?'s':''));
+  const walkMin = evs.filter(e=>e.type==='walk'&&e.endAt).reduce((s,e)=>s+(new Date(e.endAt)-new Date(e.at)),0);
+  if(walkMin) bits.push(Math.round(walkMin/60000)+'m walked');
+  return bits.join(' · ');
+}
+function eventRow(e){
+  const T = TYPES[e.type] || TYPES.note;
+  const row = el('button',{class:'ev', style:'--tc:'+T.color, onclick:()=>openEventSheet(e)});
+  const rail = el('span',{class:'rail'});
+  rail.innerHTML = svg(T.icon,'ic');
+  const ttl = el('span',{class:'ttl'});
+  ttl.appendChild(el('span',{text: eventTitle(e)}));
+  if(e.type==='potty' && e.where==='accident') ttl.appendChild(el('span',{class:'pill bad', text:'accident'}));
+  if(T.mode==='timer'){
+    if(e.endAt) ttl.appendChild(el('span',{class:'pill dur', text: fmtDur(new Date(e.endAt)-new Date(e.at))}));
+    else ttl.appendChild(el('span',{class:'pill', text:'running'}));
+  }
+  if(e.type==='training' && e.score) ttl.appendChild(el('span',{class:'pill dur', text:'★ '+e.score+'/5'}));
+  const body = el('span',{class:'body'},[ttl]);
+  const meta = eventMeta(e);
+  if(meta) body.appendChild(el('span',{class:'meta', text:meta}));
+  if(e.by) body.appendChild(el('span',{class:'by', 'data-uid':e.by, text:'…'}));
+  row.appendChild(el('span',{class:'t', text:fmtTime(e.at)}));
+  row.appendChild(rail);
+  row.appendChild(body);
+  return row;
+}
+function eventTitle(e){
+  const T = TYPES[e.type] || TYPES.note;
+  if(e.type==='meal') return e.meal || 'Meal';
+  if(e.type==='potty'){
+    const m = {pee:'Pee', poop:'Poop', both:'Pee + poop'};
+    return m[e.kind] || 'Potty';
+  }
+  if(e.type==='training') return e.cue ? 'Training · '+e.cue : 'Training';
+  if(e.type==='weight') return e.weight ? 'Weighed '+e.weight+' '+(state.profile.unit||'lb') : 'Weigh-in';
+  if(e.type==='health'){
+    const s = e.symptoms||[];
+    if(!s.length) return 'Symptom';
+    const first = (SYMPTOMS.find(x=>x[0]===s[0])||[,'Symptom'])[1];
+    return s.length>1 ? first+' +'+(s.length-1) : first;
+  }
+  if(e.type==='mood') return (ENERGY.find(x=>x[0]===e.energy)||[,'How she seems'])[1];
+  if(e.type==='chew') return (CHEW_KINDS.find(x=>x[0]===e.chewKind)||[,'Chew'])[1];
+  return T.label;
+}
+function eventMeta(e){
+  const bits = [];
+  const item = e.itemId && state.pantry.items.find(i=>i.id===e.itemId);
+  if(item) bits.push(item.brand ? item.brand+' · '+item.name : item.name);
+  if(e.type==='meal'){
+    if(e.amount) bits.push(e.amount);
+    if(e.ate) bits.push({all:'ate it all', most:'ate most', half:'ate about half', little:'barely touched it', none:'refused it'}[e.ate]);
+  }
+  if(e.type==='potty'){
+    if(e.where && e.where!=='accident') bits.push({outside:'outside', pad:'on the pad'}[e.where] || e.where);
+    if(e.quality && e.quality!=='normal') bits.push('stool: '+e.quality);
+  }
+  if(e.type==='treat' && e.reaction) bits.push({loved:'loved it', liked:'liked it', meh:'took it or left it', no:'spat it out'}[e.reaction]);
+  if(e.type==='training'){
+    if(e.minutes) bits.push(e.minutes+' min');
+    if(e.clicks) bits.push(e.clicks+' marks');
+    if(e.lesson) bits.push(e.lesson);
+  }
+  if(e.type==='crate'){
+    if(e.alone) bits.push({alone:'alone in the house', home:'someone home', room:'someone in the room'}[e.alone]);
+    if(e.outcome){ const o = CRATE_OUTCOMES.find(x=>x[0]===e.outcome); if(o) bits.push(o[1].toLowerCase()); }
+    if(e.settleMin!=null) bits.push('settled in '+e.settleMin+'m');
+    if(e.sleptIn && e.sleptIn!=='no') bits.push(e.sleptIn==='slept'? 'slept in there' : 'dozed');
+  }
+  if(e.type==='sleep'){
+    if(e.where){ const w = NAP_WHERE.find(x=>x[0]===e.where); if(w) bits.push(w[1].toLowerCase()); }
+    if(e.settled){ const s = NAP_SETTLED.find(x=>x[0]===e.settled); if(s) bits.push(s[1].toLowerCase()); }
+  }
+  if(e.type==='health'){
+    if(e.severity && e.severity!=='mild') bits.push({noticeable:'noticeable', bad:'bad'}[e.severity]);
+    if(e.areas && e.areas.length) bits.push(e.areas.map(a=>(BODY_AREAS.find(x=>x[0]===a)||[,a])[1].toLowerCase()).join(', '));
+    const extra = (e.symptoms||[]).slice(1).map(s=>(SYMPTOMS.find(x=>x[0]===s)||[,s])[1].toLowerCase());
+    if(extra.length) bits.push(extra.join(', '));
+  }
+  if(e.type==='mood' && e.tags && e.tags.length) bits.push(e.tags.join(', '));
+  if(e.type==='chew'){
+    if(e.minutes) bits.push(e.minutes+' min');
+    if(e.effect){ const f = CHEW_EFFECT.find(x=>x[0]===e.effect); if(f) bits.push(f[1].toLowerCase()); }
+    if(e.teething && e.teething.length) bits.push(e.teething.join(', '));
+  }
+  if(e.type==='walk' && e.where) bits.push(e.where);
+  if(e.type==='water' && e.amount) bits.push(e.amount);
+  if(e.type==='meds' && e.what) bits.push(e.what);
+  if(e.note) bits.push(e.note);
+  return bits.join(' · ');
+}
+function resolveNames(){
+  document.querySelectorAll('[data-uid]').forEach(n=>{
+    const id = n.getAttribute('data-uid');
+    if(state.me && id === state.me.id){ n.textContent = 'logged by you'; return; }
+    n.textContent = 'logged by ' + (state.members[id] || 'someone in the house');
+  });
+}
+
+/* ---------- PANTRY tab ---------- */
+function viewPantry(){
+  const frag = document.createDocumentFragment();
+  const kinds = [['food','Food','meal','var(--c-meal)'],['treat','Treats','treat','var(--c-treat)'],['chew','Chews & toys','play','var(--c-play)']];
+  const uses = {};
+  allEvents().forEach(e=>{ if(e.itemId) uses[e.itemId] = (uses[e.itemId]||0)+1; });
+
+  frag.appendChild(sectionHead('What she eats', 'Add item', ()=>openItemSheet()));
+  if(!state.pantry.items.length){
+    frag.appendChild(el('div',{class:'card empty'},[
+      el('div',{class:'hd', text:'No brands saved yet'}),
+      el('p',{text:'Add a bag of kibble or a box of training treats and it becomes a one-tap option when you log a meal — with a running tally of how she felt about it.'}),
+      el('button',{class:'btn p', style:'margin-top:14px;max-width:220px;margin-inline:auto', text:'Add the first one', onclick:()=>openItemSheet()})
+    ]));
+    return frag;
+  }
+  kinds.forEach(([kind,label,icon,color])=>{
+    const items = state.pantry.items.filter(i=>i.kind===kind);
+    if(!items.length) return;
+    const card = el('div',{class:'card'});
+    card.appendChild(el('div',{class:'sec-head', style:'margin:0 0 4px'},[ el('h2',{text:label}), el('span',{class:'rule'}) ]));
+    items.slice().sort((a,b)=>(b.rating||0)-(a.rating||0)).forEach(i=>{
+      const row = el('div',{class:'item', style:'--tc:'+color});
+      row.appendChild(el('span',{class:'sw'}));
+      const mid = el('div',{style:'min-width:0;flex:1'});
+      if(i.brand) mid.appendChild(el('div',{class:'br', text:i.brand}));
+      mid.appendChild(el('div',{class:'nm', text:i.name}));
+      if(i.note) mid.appendChild(el('div',{class:'no', text:i.note}));
+      row.appendChild(mid);
+      const rt = el('div',{class:'rt'});
+      if(i.rating) rt.appendChild(el('span',{class:'verdict v'+i.rating, text:VERDICT[i.rating]}));
+      rt.appendChild(el('span',{class:'count', text:(uses[i.id]||0)+'× given'}));
+      rt.appendChild(el('button',{class:'count', style:'text-decoration:underline', text:'edit', onclick:()=>openItemSheet(i)}));
+      row.appendChild(rt);
+      card.appendChild(row);
+    });
+    frag.appendChild(card);
+  });
+  return frag;
+}
+const VERDICT = {5:'Obsessed',4:'Likes it',3:'Takes it or leaves it',2:'Not a fan',1:'Upset her tummy'};
+
+/* ---------- FOCUS tab: crate + potty programs ---------- */
+function viewFocus(){
+  const frag = document.createDocumentFragment();
+  if(!state.profile.birthday){
+    frag.appendChild(el('div',{class:'card empty'},[
+      el('div',{class:'hd', text:'Add her age first'}),
+      el('p',{text:'Every target on this page is scaled to how old she is and how big she will get, so the logbook needs her birthday and size before it can say anything useful.'}),
+      el('button',{class:'btn p', style:'margin-top:14px;max-width:220px;margin-inline:auto', text:'Open settings', onclick:()=>openSettings(true)})
+    ]));
+    return frag;
+  }
+
+  frag.appendChild(healthWatch());
+  frag.appendChild(focusPotty());
+  frag.appendChild(focusCrate());
+  frag.appendChild(focusSleep());
+  frag.appendChild(focusCommands());
+  frag.appendChild(focusTeething());
+
+  // breed + age guidance
+  const notes = breedNotes();
+  if(notes.length){
+    frag.appendChild(sectionHead('For a '+(state.profile.breed || 'puppy')+' this age'));
+    const c = el('div',{class:'card'});
+    notes.forEach((n,i)=>{
+      c.appendChild(el('div',{style:'padding:'+(i?'12px':'0')+' 0 12px;border-bottom:1px solid var(--line)'},[
+        el('div',{style:'font-weight:600;font-size:14px;margin-bottom:3px', text:n[0]}),
+        el('div',{style:'font-size:13px;color:var(--ink-2);max-width:60ch', text:n[1]})
+      ]));
+    });
+    c.appendChild(el('div',{class:'hint', style:'padding-top:10px', text:'These are the ordinary rules of thumb trainers and vets use, scaled to her age and size — not veterinary advice. Anything that worries you goes to your vet, not to an app.'}));
+    frag.appendChild(c);
+  }
+
+  // today's targets
+  frag.appendChild(sectionHead("Today's targets"));
+  const today = dateKey(new Date());
+  const tEv = eventsOn(today);
+  const durOf = list => list.filter(e=>e.endAt).reduce((s,e)=>s+(new Date(e.endAt)-new Date(e.at)),0);
+  const tc = el('div',{class:'card'});
+  [
+    ['Meals', tEv.filter(e=>e.type==='meal').length, mealTarget(), 'a day at '+Math.round(ageMonths())+' months', 'var(--c-meal)'],
+    ['Walk minutes', Math.round(durOf(tEv.filter(e=>e.type==='walk'))/60000), (walkTarget()||0)*2, 'five minutes per month of age, twice a day', 'var(--c-walk)'],
+    ['Potty breaks', tEv.filter(e=>e.type==='potty').length, Math.max(4, Math.round(14/(holdHours()||3))), 'roughly one every '+holdHours()+'h awake', 'var(--c-potty)'],
+    ['Hours asleep', Math.round(sleepMinutesOn(today)/60), sleepTarget(), 'naps plus overnight, across the whole 24 hours', 'var(--c-sleep)']
+  ].forEach(([label,have,target,why,color],i)=>{
+    const pct = target? Math.min(100, Math.round(100*have/target)) : 0;
+    tc.appendChild(el('div',{style:'padding:'+(i?'12px':'0')+' 0 12px;border-bottom:1px solid var(--line)'},[
+      el('div',{style:'display:flex;align-items:baseline;gap:8px'},[
+        el('span',{style:'font-weight:600;font-size:14px', text:label}),
+        el('span',{class:'count', style:'margin-left:auto;font-size:13px', text:have+' of '+target})
+      ]),
+      el('div',{style:'height:6px;border-radius:3px;background:var(--surface-2);margin-top:6px;overflow:hidden'},[
+        el('div',{style:'height:100%;width:'+pct+'%;background:'+color+';border-radius:3px'})
+      ]),
+      el('div',{class:'hint', text:why})
+    ]));
+  });
+  frag.appendChild(tc);
+  return frag;
+}
+
+function focusPotty(){
+  const c = el('div',{class:'card', style:'--tc:var(--c-potty)'});
+  c.appendChild(el('div',{class:'sec-head', style:'margin:0 0 10px'},[
+    el('h2',{text:'Potty training'}), el('span',{class:'rule'})
+  ]));
+
+  const due = pottyDue();
+  const hold = holdHours();
+  if(due){
+    const left = due.due - Date.now();
+    const over = left < 0 && !due.resting;
+    c.appendChild(el('div',{style:'display:flex;align-items:baseline;gap:10px;margin-bottom:12px'},[
+      el('span',{style:'font-family:var(--mono);font-size:34px;font-weight:500;line-height:1;color:'+(over?'var(--c-bad)':'var(--c-potty)'),
+        'data-due':due.due, text: due.resting? '—' : fmtDur(Math.abs(left))}),
+      el('span',{style:'font-size:13px;color:var(--ink-2);max-width:26ch',
+        text: due.resting ? 'She is resting — the clock restarts when she is up. Take her straight out.'
+             : over ? 'past her usual window. Take her out now.'
+             : 'until the end of her usual '+hold+'-hour window.'})
+    ]));
+  } else {
+    c.appendChild(el('div',{class:'hint', style:'margin-bottom:10px', text:'Log one potty break and the countdown starts.'}));
+  }
+
+  // success rate, 7 days
+  const cut = Date.now() - 7*864e5;
+  const p = allEvents().filter(e=>e.type==='potty' && new Date(e.at).getTime()>cut);
+  const acc = p.filter(e=>e.where==='accident').length;
+  const rate = p.length? Math.round(100*(p.length-acc)/p.length) : null;
+  const streak = accidentFreeStreak();
+  const stats = el('div',{class:'stats', style:'margin-bottom:12px'});
+  const addStat = (k,v,color)=> stats.appendChild(el('div',{class:'stat', style:color?'--sc:'+color:null},[el('div',{class:'k',text:k}),el('div',{class:'v',text:v})]));
+  addStat('Made it outside', rate===null? '—' : rate+'%', rate===null? null : rate>=90?'var(--c-good)': rate>=75?'var(--c-meal)':'var(--c-bad)');
+  addStat('Accidents · 7d', String(acc), acc? 'var(--c-bad)':'var(--c-good)');
+  addStat('Clean-day streak', streak===null? '—' : String(streak), streak? 'var(--c-good)':null);
+  c.appendChild(stats);
+
+  // accident triggers
+  const trig = {};
+  allEvents().filter(e=>e.type==='potty'&&e.where==='accident'&&e.trigger).forEach(e=>{ trig[e.trigger]=(trig[e.trigger]||0)+1; });
+  const tk = Object.keys(trig).sort((a,b)=>trig[b]-trig[a]);
+  if(tk.length){
+    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:6px', text:'Where the accidents come from'}));
+    const maxT = trig[tk[0]];
+    tk.slice(0,5).forEach(k=>{
+      const lab = (ACCIDENT_TRIGGERS.find(x=>x[0]===k)||[k,k])[1];
+      c.appendChild(el('div',{style:'display:flex;align-items:center;gap:9px;padding:4px 0'},[
+        el('span',{style:'font-size:13px;flex:0 0 46%', text:lab}),
+        el('span',{style:'flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden'},[
+          el('span',{style:'display:block;height:100%;width:'+Math.round(100*trig[k]/maxT)+'%;background:var(--c-bad);border-radius:4px'})
+        ]),
+        el('span',{class:'count', text:String(trig[k])})
+      ]));
+    });
+    const top = (ACCIDENT_TRIGGERS.find(x=>x[0]===tk[0])||[])[1];
+    c.appendChild(el('div',{class:'hint', style:'margin-top:8px', text:'"'+top+'" is her most common one. That is the moment to add a scheduled trip outside rather than a correction.'}));
+  }
+
+  // her own pattern
+  const hours = {};
+  allEvents().filter(e=>e.type==='potty' && e.where!=='accident' && new Date(e.at).getTime() > Date.now()-14*864e5)
+    .forEach(e=>{ const h = new Date(e.at).getHours(); hours[h]=(hours[h]||0)+1; });
+  const hk = Object.keys(hours).map(Number).sort((a,b)=>hours[b]-hours[a]).slice(0,7).sort((a,b)=>a-b);
+  if(hk.length>=3){
+    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:12px 0 6px', text:'Her own schedule so far'}));
+    const row = el('div',{class:'chips'});
+    hk.forEach(h=> row.appendChild(el('span',{class:'chip', style:'cursor:default', text:((h%12)||12)+(h<12?'am':'pm')})));
+    c.appendChild(row);
+    c.appendChild(el('div',{class:'hint', style:'margin-top:7px', text:'Built from the last two weeks of successful breaks. Setting phone alarms just before these is usually faster than waiting for her to ask.'}));
+  }
+  return c;
+}
+
+function focusCrate(){
+  const c = el('div',{class:'card', style:'--tc:var(--c-crate)'});
+  c.appendChild(el('div',{class:'sec-head', style:'margin:0 0 10px'},[
+    el('h2',{text:'Crate & alone time'}), el('span',{class:'rule'})
+  ]));
+
+  const sessions = allEvents().filter(e=>e.type==='crate' && e.endAt);
+  const mins = e => (new Date(e.endAt)-new Date(e.at))/60000;
+  const aloneOk = sessions.filter(e=> e.alone==='alone' && OUTCOME_OK[e.outcome]);
+  const best = aloneOk.length? Math.round(Math.max.apply(null, aloneOk.map(mins))) : 0;
+  const nextStep = CRATE_LADDER.find(v=> v > best) || CRATE_LADDER[CRATE_LADDER.length-1];
+  const ceiling = crateCeiling();
+
+  c.appendChild(el('div',{style:'display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-bottom:12px'},[
+    el('div',{},[
+      el('div',{class:'k', style:'font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)', text:'Longest calm stretch alone'}),
+      el('div',{style:'font-family:var(--mono);font-size:34px;font-weight:500;line-height:1.1;color:var(--c-crate)', text: best? fmtDur(best*60000) : '—'})
+    ]),
+    el('div',{style:'flex:1;min-width:170px;padding-bottom:3px'},[
+      el('div',{style:'font-size:13.5px;color:var(--ink-2)', text: best
+        ? 'Next rung on the ladder: '+fmtDur(nextStep*60000)+' alone with the door closed. Hold a rung until she settles in under two minutes twice in a row before you move up.'
+        : 'Log a crate session with "Nobody — she was alone" and how it went, and the ladder starts building itself.'})
+    ])
+  ]));
+
+  // ladder
+  const lad = el('div',{class:'chips', style:'margin-bottom:12px'});
+  CRATE_LADDER.forEach(v=>{
+    const done = v <= best;
+    const isNext = v === nextStep;
+    lad.appendChild(el('span',{class:'chip', style:'cursor:default;font-family:var(--mono);font-size:12px;'+
+      (done? 'background:var(--c-crate);border-color:var(--c-crate);color:var(--surface)' :
+       isNext? 'border-color:var(--c-crate);color:var(--c-crate);font-weight:700' : 'opacity:.55'),
+      text: v<60? v+'m' : (v/60)+'h'}));
+  });
+  c.appendChild(lad);
+
+  if(!sessions.length){
+    c.appendChild(el('div',{class:'hint', text:'Tap Crate on the Log tab when she goes in, End when she comes out. The sheet then asks the two things that matter: whether she was actually alone, and how long she took to settle.'}));
+    return c;
+  }
+
+  // settle-time trend
+  const withSettle = sessions.filter(e=> e.settleMin!=null).slice(0,10).reverse();
+  if(withSettle.length>1){
+    const max = Math.max.apply(null, withSettle.map(e=>e.settleMin).concat([1]));
+    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600', text:'Minutes to settle — last '+withSettle.length+' sessions'}));
+    const bars = el('div',{class:'bars', style:'height:70px'});
+    withSettle.forEach(e=>{
+      const h = e.settleMin? Math.max(4, Math.round(64*(e.settleMin/max))) : 2;
+      bars.appendChild(el('div',{class:'bar-col'},[
+        el('span',{class:'bar-val', text:String(e.settleMin)}),
+        el('div',{class:'bar', style:'--bc:'+(OUTCOME_OK[e.outcome]?'var(--c-crate)':'var(--c-bad)')+';height:'+h+'px'}),
+        el('span',{class:'lab', text:fmtDur(mins(e)*60000).replace(' ','')})
+      ]));
+    });
+    c.appendChild(bars);
+    const first = withSettle[0].settleMin, last = withSettle[withSettle.length-1].settleMin;
+    c.appendChild(el('div',{class:'hint', text: last < first
+      ? 'Trending down — she is settling faster than she was. Bar labels are the length of each session.'
+      : last > first ? 'Settle time is creeping up. That usually means the jump was too big, or she went in overtired — check the nap log.'
+      : 'Holding steady. Bar labels are the length of each session; red bars are sessions that went badly.'}));
+  }
+
+  // outcome mix
+  const cut = Date.now()-14*864e5;
+  const recent = sessions.filter(e=> new Date(e.at).getTime()>cut && e.outcome);
+  if(recent.length){
+    const counts = {};
+    recent.forEach(e=> counts[e.outcome]=(counts[e.outcome]||0)+1);
+    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:12px 0 6px', text:'How the last two weeks went'}));
+    const bar = el('div',{style:'display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--surface-2)'});
+    const colors = {settled:'var(--c-good)', fussed:'var(--c-crate)', whined:'var(--c-meal)', panicked:'var(--c-bad)', soiled:'var(--c-bad)'};
+    CRATE_OUTCOMES.forEach(([k])=>{ if(counts[k]) bar.appendChild(el('span',{style:'width:'+(100*counts[k]/recent.length)+'%;background:'+colors[k]})); });
+    c.appendChild(bar);
+    const legend = el('div',{style:'display:flex;flex-wrap:wrap;gap:10px;margin-top:7px'});
+    CRATE_OUTCOMES.forEach(([k,label])=>{ if(!counts[k]) return;
+      legend.appendChild(el('span',{style:'display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-2)'},[
+        el('span',{style:'width:8px;height:8px;border-radius:2px;background:'+colors[k]}), el('span',{text:label+' · '+counts[k]})
+      ]));
+    });
+    c.appendChild(legend);
+    const bad = (counts.panicked||0)+(counts.soiled||0);
+    if(counts.soiled) c.appendChild(el('div',{class:'hint', text:'She has soiled the crate. That is usually the crate being too big — she can use one end and sleep in the other — or the stretch being longer than her bladder. Shorten it and block off the spare space before anything else.'}));
+    else if(bad) c.appendChild(el('div',{class:'hint', text:'A few sessions went badly. Drop back a rung on the ladder for a week rather than pushing through — panic in the crate is the one thing that sets this back hardest.'}));
+  }
+
+  const longest = sessions.filter(e=> new Date(e.at).getTime()>Date.now()-864e5);
+  const longestToday = longest.length? Math.round(Math.max.apply(null, longest.map(mins))) : 0;
+  if(ceiling && longestToday > ceiling*60){
+    c.appendChild(el('div',{class:'banner', style:'margin-top:12px', html: svg('info') +
+      '<span>A stretch today ran to '+fmtDur(longestToday*60000)+'. At her age, daytime crate stretches are usually kept under about '+ceiling+' hours — overnight is different, since she is asleep.</span>'}));
+  }
+  return c;
+}
+
+function focusSleep(){
+  const c = el('div',{class:'card', style:'--tc:var(--c-sleep)'});
+  c.appendChild(el('div',{class:'sec-head', style:'margin:0 0 10px'},[
+    el('h2',{text:'Sleep & naps'}), el('span',{class:'rule'}),
+    el('button',{class:'act', text:'Start a nap', onclick:()=>startType('sleep')})
+  ]));
+
+  const today = dateKey(new Date());
+  const sessions = sleepSessions();
+  if(!sessions.length){
+    c.appendChild(el('div',{style:'font-size:13.5px;color:var(--ink-2);max-width:60ch;margin-bottom:10px',
+      text:'A four-month-old needs around '+sleepTarget()+' hours of sleep in every 24 — most of it in naps. Overtiredness looks exactly like bad behaviour: nipping, zoomies, and a puppy who will not settle in the crate.'}));
+    c.appendChild(el('div',{class:'hint', text:'Tap Nap when she goes down and End when she wakes, or record an overnight crate stretch with "Slept in there". This card then shows her daily total, how long she is staying awake between naps, and where she actually sleeps.'}));
+    return c;
+  }
+
+  const mins = sleepMinutesOn(today);
+  const target = sleepTarget()*60;
+  const pct = Math.min(100, Math.round(100*mins/target));
+  const short = mins < target*0.8;
+
+  c.appendChild(el('div',{style:'display:flex;align-items:baseline;gap:10px;margin-bottom:8px'},[
+    el('span',{style:'font-family:var(--mono);font-size:34px;font-weight:500;line-height:1;color:'+(short?'var(--c-meal)':'var(--c-sleep)'), text:fmtDur(mins*60000)}),
+    el('span',{style:'font-size:13px;color:var(--ink-2);max-width:26ch', text:'slept today, against a rough target of '+sleepTarget()+' hours.'})
+  ]));
+  c.appendChild(el('div',{style:'height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;margin-bottom:4px'},[
+    el('div',{style:'height:100%;border-radius:4px;width:'+pct+'%;background:'+(short?'var(--c-meal)':'var(--c-sleep)')})
+  ]));
+  c.appendChild(el('div',{class:'hint', style:'margin-bottom:12px', text: short
+    ? 'Running short. A puppy who is behind on sleep gets harder to crate, not easier — the fix is usually an earlier nap, not a longer walk.'
+    : 'On track. Overnight counts too, as long as the crate stretch is logged with "Slept in there".'}));
+
+  // awake windows today
+  const gaps = awakeStretches(today);
+  const ceiling = awakeCeiling();
+  const longest = gaps.length? Math.max.apply(null, gaps.map(g=>(g.end-g.start)/60000)) : 0;
+  const naps = sleepSpansOn(today).length;
+  const stats = el('div',{class:'stats', style:'margin-bottom:12px'});
+  const addStat = (k,v,color)=> stats.appendChild(el('div',{class:'stat', style:color?'--sc:'+color:null},[el('div',{class:'k',text:k}),el('div',{class:'v',text:v})]));
+  addStat('Naps today', String(naps));
+  addStat('Longest awake', longest? fmtDur(longest*60000) : '—', longest > ceiling ? 'var(--c-bad)' : 'var(--c-good)');
+  addStat('Awake ceiling', fmtDur(ceiling*60000));
+  c.appendChild(stats);
+  if(longest > ceiling){
+    c.appendChild(el('div',{class:'banner', style:'margin-bottom:12px', html: svg('info') +
+      '<span>She was up for '+fmtDur(longest*60000)+' at a stretch today. At '+Math.round(ageMonths())+' months the usual ceiling is about '+fmtDur(ceiling*60000)+
+      ' before she tips into overtired — that is the window where the biting and the crate screaming start.</span>'}));
+  }
+
+  // 7-day nap map
+  c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600', text:'When she sleeps'}));
+  const days = last7();
+  days.forEach(k=>{
+    const spans = sleepSpansOn(k);
+    const dayStart = keyToDate(k).getTime();
+    const band = el('div',{class:'band'});
+    spans.forEach(s=>{
+      const left = 100*(s.start-dayStart)/864e5;
+      const w = 100*(s.end-s.start)/864e5;
+      band.appendChild(el('i',{class: s.crate? 'in-crate':null, style:'left:'+left+'%;width:'+w+'%',
+        title: fmtTime(new Date(s.start).toISOString())+' – '+fmtTime(new Date(s.end).toISOString())}));
+    });
+    if(k===today){
+      const nowPct = 100*(Date.now()-dayStart)/864e5;
+      band.appendChild(el('div',{class:'nowline', style:'left:'+nowPct+'%'}));
+    }
+    const total = sleepMinutesOn(k);
+    band.setAttribute('aria-label', dayLabel(k)+': '+fmtDur(total*60000)+' of sleep');
+    const row = el('div',{class:'band-row'+(k===today?' today':'')},[
+      el('span',{class:'dl', text: keyToDate(k).toLocaleDateString(undefined,{weekday:'short'})}),
+      band
+    ]);
+    c.appendChild(row);
+  });
+  c.appendChild(el('div',{class:'heat-ax', style:'padding-left:38px'},[
+    el('span',{text:'12a'}),el('span',{text:'6a'}),el('span',{text:'12p'}),el('span',{text:'6p'}),el('span',{text:'12a'})
+  ]));
+  c.appendChild(el('div',{style:'display:flex;gap:12px;margin-top:8px;flex-wrap:wrap'},[
+    el('span',{style:'display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-2)'},[
+      el('span',{style:'width:9px;height:9px;border-radius:2px;background:var(--c-sleep)'}), el('span',{text:'Asleep'})]),
+    el('span',{style:'display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-2)'},[
+      el('span',{style:'width:9px;height:9px;border-radius:2px;background:var(--c-crate)'}), el('span',{text:'Asleep in the crate'})])
+  ]));
+
+  // where she naps — the crate-training angle
+  const placed = allEvents().filter(e=>e.type==='sleep' && e.where);
+  if(placed.length >= 3){
+    const counts = {};
+    placed.forEach(e=> counts[e.where]=(counts[e.where]||0)+1);
+    const inCrate = Math.round(100*(counts.crate||0)/placed.length);
+    const rows = Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
+    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:14px 0 6px', text:'Where she naps'}));
+    const maxN = counts[rows[0]];
+    rows.forEach(k=>{
+      const label = (NAP_WHERE.find(x=>x[0]===k)||[,k])[1];
+      c.appendChild(el('div',{style:'display:flex;align-items:center;gap:9px;padding:4px 0'},[
+        el('span',{style:'font-size:13px;flex:0 0 44%', text:label}),
+        el('span',{style:'flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden'},[
+          el('span',{style:'display:block;height:100%;border-radius:4px;width:'+Math.round(100*counts[k]/maxN)+'%;background:'+(k==='crate'?'var(--c-crate)':'var(--c-sleep)')})
+        ]),
+        el('span',{class:'count', text:counts[k]+'×'})
+      ]));
+    });
+    c.appendChild(el('div',{class:'hint', style:'margin-top:8px', text: inCrate >= 50
+      ? inCrate+'% of her naps are in the crate. That is the cheapest crate training there is — she is building the association asleep rather than protesting.'
+      : 'Only '+inCrate+'% of her naps are in the crate. Putting her down in there when she is already drowsy is far easier than asking her to settle wide awake, and it moves the ladder above along without a fight.'}));
+  }
+
+  // did overtiredness precede the bad crate sessions?
+  const crates = allEvents().filter(e=>e.type==='crate' && e.outcome && e.endAt);
+  const bad = crates.filter(e=> !OUTCOME_OK[e.outcome]);
+  if(bad.length >= 2){
+    const sess = sleepSessions();
+    const awakeBefore = e => {
+      const start = new Date(e.at).getTime();
+      const prior = sess.filter(s=> s.end <= start).map(s=>s.end);
+      return prior.length ? (start - Math.max.apply(null, prior))/60000 : null;
+    };
+    const tired = bad.map(awakeBefore).filter(v=> v!==null && v > ceiling).length;
+    if(tired >= 2){
+      c.appendChild(el('div',{class:'banner', style:'margin-top:12px', html: svg('info') +
+        '<span>'+tired+' of her '+bad.length+' rough crate sessions started after she had already been awake past that ceiling. Worth trying the crate earlier, while she is drowsy, before blaming the crate itself.</span>'}));
+    }
+  }
+  return c;
+}
+
+/* Commands board. A cue counts as solid when her last three sessions averaged
+   4.5 or better; "learning" once there is a session on the board at all. */
+function cueStats(){
+  const by = {};
+  allEvents().filter(e=>e.type==='training' && e.cue).forEach(e=>{
+    const k = e.cue.trim();
+    (by[k] || (by[k] = {cue:k, sessions:[]})).sessions.push(e);
+  });
+  return Object.keys(by).map(k=>{
+    const s = by[k].sessions.sort((a,b)=> new Date(b.at)-new Date(a.at));
+    const recent = s.slice(0,3).filter(e=>e.score);
+    const avg = recent.length? recent.reduce((t,e)=>t+e.score,0)/recent.length : 0;
+    const all = s.filter(e=>e.score);
+    const allAvg = all.length? all.reduce((t,e)=>t+e.score,0)/all.length : 0;
+    return {cue:k, n:s.length, avg, allAvg, last:s[0].at,
+      status: (recent.length>=3 && avg>=4.5) ? 'solid' : (recent.length && avg>=3.5) ? 'nearly' : 'learning'};
+  });
+}
+function focusCommands(){
+  const c = el('div',{class:'card', style:'--tc:var(--c-training)'});
+  c.appendChild(el('div',{class:'sec-head', style:'margin:0 0 10px'},[
+    el('h2',{text:'Commands'}), el('span',{class:'rule'}),
+    el('button',{class:'act', text:'Clicker', onclick:()=>openClicker()})
+  ]));
+  const stats = cueStats();
+  const byCue = {}; stats.forEach(s=> byCue[s.cue.toLowerCase()] = s);
+  const solid = stats.filter(s=>s.status==='solid').length;
+
+  c.appendChild(el('div',{style:'display:flex;align-items:baseline;gap:10px;margin-bottom:12px'},[
+    el('span',{style:'font-family:var(--mono);font-size:34px;font-weight:500;line-height:1;color:var(--c-training)', text: solid+'/'+CUES.length}),
+    el('span',{style:'font-size:13px;color:var(--ink-2);max-width:28ch', text: solid
+      ? 'cues solid — three sessions in a row at four or better.'
+      : 'cues solid. Tap any card below to log a session against it.'})
+  ]));
+
+  const board = el('div',{style:'display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:7px'});
+  CUES.forEach(cue=>{
+    const s = byCue[cue.toLowerCase()];
+    const st = s? s.status : 'none';
+    const style = {
+      solid:'border-color:var(--c-good);background:color-mix(in srgb,var(--c-good) 12%,var(--surface))',
+      nearly:'border-color:var(--c-training);background:color-mix(in srgb,var(--c-training) 10%,var(--surface))',
+      learning:'border-color:var(--line-strong)',
+      none:'border-style:dashed;opacity:.72'
+    }[st];
+    const b = el('button',{style:'text-align:left;padding:9px 10px;border-radius:var(--r-m);border:1px solid var(--line);background:var(--surface);'+style,
+      onclick:()=>{ const d = openLogSheet('training'); setTimeout(()=>{ const i = document.getElementById('trCue'); if(i){ i.value = cue; i.dispatchEvent(new Event('input')); } },0); }});
+    b.appendChild(el('div',{style:'font-weight:600;font-size:13px;line-height:1.2', text:cue}));
+    b.appendChild(el('div',{class:'count', style:'margin-top:3px', text: s
+      ? s.n+' session'+(s.n===1?'':'s')+' · '+(s.allAvg? s.allAvg.toFixed(1)+'/5' : '–')
+      : 'not started'}));
+    if(s) b.appendChild(el('div',{style:'height:4px;border-radius:2px;background:var(--surface-2);margin-top:6px;overflow:hidden'},[
+      el('div',{style:'height:100%;width:'+Math.round(100*(s.allAvg/5))+'%;border-radius:2px;background:'+(st==='solid'?'var(--c-good)':'var(--c-training)')})
+    ]));
+    board.appendChild(b);
+  });
+  c.appendChild(board);
+
+  const lessons = allEvents().filter(e=>e.type==='training' && e.lesson);
+  if(lessons.length){
+    c.appendChild(el('div',{class:'hint', style:'margin-top:10px', text:'Latest lesson logged: '+lessons[0].lesson+'.'}));
+  }
+
+  const stale = stats.filter(s=> s.status!=='solid' && (Date.now()-new Date(s.last).getTime()) > 5*864e5).sort((a,b)=> new Date(a.last)-new Date(b.last))[0];
+  if(stale) c.appendChild(el('div',{class:'hint', style:'margin-top:10px', text:'"'+stale.cue+'" has not come up in '+Math.round((Date.now()-new Date(stale.last).getTime())/864e5)+' days. Half-learned cues fade fastest — a two-minute refresher is usually enough.'}));
+  else if(stats.length) c.appendChild(el('div',{class:'hint', style:'margin-top:10px', text:'Two or three short sessions a day beat one long one at this age — she has a few minutes of real attention in her, not twenty.'}));
+  return c;
+}
+
+function focusTeething(){
+  const c = el('div',{class:'card', style:'--tc:var(--c-chew)'});
+  c.appendChild(el('div',{class:'sec-head', style:'margin:0 0 10px'},[
+    el('h2',{text:'Teething'}), el('span',{class:'rule'})
+  ]));
+  const chews = allEvents().filter(e=>e.type==='chew');
+  const m = ageMonths();
+  if(m!==null){
+    c.appendChild(el('div',{style:'font-size:13.5px;color:var(--ink-2);margin-bottom:12px;max-width:60ch',
+      text: m < 6
+        ? 'She is in it — puppy teeth come out and adult teeth come in between roughly three and six months, and the worst of the chewing usually sits right in the middle. Expect it to ease off around six months.'
+        : 'The adult teeth should be through by now. If she is still chewing hard, it is habit or boredom rather than sore gums — which is a different fix.'}));
+  }
+  if(!chews.length){
+    c.appendChild(el('div',{class:'hint', text:'Tap Chew on the Log tab each time you hand her a Kong, a teething stick or a chew toy, with how long she stayed with it. After a week or two this card ranks them by what actually buys you peace.'}));
+    return c;
+  }
+  const by = {};
+  chews.forEach(e=>{
+    const k = e.chewKind || 'other';
+    const g = by[k] || (by[k] = {k, n:0, mins:[], good:0});
+    g.n++;
+    if(e.minutes) g.mins.push(e.minutes);
+    if(e.effect==='settled' || e.effect==='busy') g.good++;
+  });
+  const rows = Object.keys(by).map(k=>{
+    const g = by[k];
+    return {k, n:g.n, avg: g.mins.length? g.mins.reduce((a,b)=>a+b,0)/g.mins.length : 0, rate: g.good/g.n};
+  }).sort((a,b)=> b.avg - a.avg);
+  const max = Math.max.apply(null, rows.map(r=>r.avg).concat([1]));
+
+  c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:6px', text:'What holds her attention'}));
+  rows.forEach(r=>{
+    const label = (CHEW_KINDS.find(x=>x[0]===r.k)||[,r.k])[1];
+    c.appendChild(el('div',{style:'display:flex;align-items:center;gap:9px;padding:5px 0'},[
+      el('span',{style:'font-size:13px;flex:0 0 44%;line-height:1.25', text:label}),
+      el('span',{style:'flex:1;height:9px;border-radius:5px;background:var(--surface-2);overflow:hidden'},[
+        el('span',{style:'display:block;height:100%;border-radius:5px;width:'+Math.round(100*r.avg/max)+'%;background:var(--c-chew)'})
+      ]),
+      el('span',{class:'count', style:'flex:0 0 auto', text: (r.avg? Math.round(r.avg)+'m' : '–')+' · '+r.n+'×'})
+    ]));
+  });
+  const best = rows[0];
+  if(best && best.avg){
+    c.appendChild(el('div',{class:'hint', style:'margin-top:8px',
+      text:'"'+(CHEW_KINDS.find(x=>x[0]===best.k)||[,best.k])[1]+'" holds her longest, around '+Math.round(best.avg)+' minutes. Worth keeping two in the freezer — cold is half of why it works.'}));
+  }
+  const guard = chews.filter(e=>e.effect==='guard').length;
+  if(guard>1) c.appendChild(el('div',{class:'banner', style:'margin-top:10px', html: svg('info') +
+    '<span>She has got possessive over a chew '+guard+' times. Worth trading up — offering something better in exchange rather than taking it — and worth raising with a trainer early rather than late.</span>'}));
+  const signs = {};
+  chews.forEach(e=> (e.teething||[]).forEach(t=> signs[t]=(signs[t]||0)+1));
+  const sk = Object.keys(signs);
+  if(sk.length){
+    const row = el('div',{class:'chips', style:'margin-top:10px'});
+    sk.sort((a,b)=>signs[b]-signs[a]).forEach(k=> row.appendChild(el('span',{class:'chip', style:'cursor:default;font-size:12px', text:k+' · '+signs[k]})));
+    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-top:12px', text:'Teething signs logged'}));
+    c.appendChild(row);
+  }
+  return c;
+}
+
+/* Health watch: symptom counts, and a nudge when something repeats. */
+function healthWatch(){
+  const c = el('div',{class:'card', style:'--tc:var(--c-symptom)'});
+  c.appendChild(el('div',{class:'sec-head', style:'margin:0 0 10px'},[
+    el('h2',{text:'How she has been'}), el('span',{class:'rule'}),
+    el('button',{class:'act', text:'Log a symptom', onclick:()=>openLogSheet('health')})
+  ]));
+
+  const evs = allEvents();
+  const moods = evs.filter(e=>e.type==='mood' && e.energy).slice(0,14).reverse();
+  if(moods.length>1){
+    const bars = el('div',{class:'bars', style:'height:56px;margin-top:0;margin-bottom:10px'});
+    moods.forEach(e=>{
+      const color = e.energy<=1? 'var(--c-bad)' : e.energy===2? 'var(--c-meal)' : 'var(--c-mood)';
+      bars.appendChild(el('div',{class:'bar-col'},[
+        el('div',{class:'bar', style:'--bc:'+color+';height:'+(10+e.energy*9)+'px', title:(ENERGY.find(x=>x[0]===e.energy)||[,''])[1]}),
+        el('span',{class:'lab', text:new Date(e.at).toLocaleDateString(undefined,{month:'numeric',day:'numeric'})})
+      ]));
+    });
+    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600', text:'Energy, most recent '+moods.length+' check-ins'}));
+    c.appendChild(bars);
+    const flat = moods.slice(-3).filter(e=>e.energy<=2).length;
+    if(flat>=2) c.appendChild(el('div',{class:'banner', style:'margin-bottom:10px', html: svg('info') +
+      '<span>Her last few check-ins have been flat. In a puppy this size a quiet spell alongside skipped meals is worth a call to the vet rather than a wait-and-see.</span>'}));
+  }
+
+  const cut = Date.now() - 14*864e5;
+  const counts = {}, lastSeen = {};
+  evs.filter(e=>e.type==='health' && new Date(e.at).getTime()>cut).forEach(e=>{
+    (e.symptoms||[]).forEach(s=>{ counts[s]=(counts[s]||0)+1; if(!lastSeen[s]) lastSeen[s]=e.at; });
+  });
+  const keys = Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
+  if(!keys.length){
+    c.appendChild(el('div',{class:'hint', text: moods.length>1
+      ? 'Nothing logged in the last fortnight. Scratching, ear-shaking, loose stool, a skipped meal — tap Symptom the moment you notice, and this card starts spotting the repeats for you.'
+      : 'Nothing logged yet. Tap Symptom when something looks off and How she seems once or twice a day, and this card turns it into something you can show a vet.'}));
+    return c;
+  }
+  c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:6px', text:'Logged in the last 14 days'}));
+  const maxC = counts[keys[0]];
+  keys.slice(0,6).forEach(k=>{
+    const label = (SYMPTOMS.find(x=>x[0]===k)||[,k])[1];
+    c.appendChild(el('div',{style:'display:flex;align-items:center;gap:9px;padding:4px 0'},[
+      el('span',{style:'font-size:13px;flex:0 0 48%;line-height:1.25', text:label}),
+      el('span',{style:'flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden'},[
+        el('span',{style:'display:block;height:100%;border-radius:4px;width:'+Math.round(100*counts[k]/maxC)+'%;background:var(--c-symptom)'})
+      ]),
+      el('span',{class:'count', text:counts[k]+'×'})
+    ]));
+  });
+
+  const repeat = keys.filter(k=>counts[k]>=3);
+  if(repeat.length){
+    const names = repeat.map(k=>(SYMPTOMS.find(x=>x[0]===k)||[,k])[1].toLowerCase());
+    c.appendChild(el('div',{class:'banner', style:'margin-top:10px', html: svg('info') +
+      '<span>' + names.join(' and ') + ' have come up three or more times in a fortnight. That is the point where it stops being a one-off — worth mentioning at her next appointment, with this list in hand.</span>'}));
+  }
+  if(counts.itching || counts.licking || counts.skin){
+    const foods = state.pantry.items.filter(i=>i.kind==='food').map(i=> i.brand? i.brand+' '+i.name : i.name);
+    c.appendChild(el('div',{class:'hint', style:'margin-top:8px', text:'Itching in a puppy this young is more often food, fleas or a new shampoo than a true allergy.'+
+      (foods.length? ' Foods on file right now: '+foods.join(', ')+'. Note the date if you switch, so the two lines can be lined up later.' : '')}));
+  }
+  return c;
+}
+
+/* ---------- TRENDS tab ---------- */
+function viewTrends(){
+  const frag = document.createDocumentFragment();
+  const evs = allEvents();
+  if(evs.length < 3){
+    frag.appendChild(el('div',{class:'card empty'},[
+      el('div',{class:'hd', text:'Patterns show up after a few days'}),
+      el('p',{text:'Once there are a couple of days of entries this page fills in: crate hours, walk minutes, when she actually needs to go out, and the house-training streak.'})
+    ]));
+    return frag;
+  }
+  const today = dateKey(new Date());
+  const tEv = eventsOn(today);
+  const dur = list => list.filter(e=>e.endAt).reduce((s,e)=>s+(new Date(e.endAt)-new Date(e.at)),0);
+
+  frag.appendChild(sectionHead('Today'));
+  const stats = el('div',{class:'stats'});
+  const S = (k,v,u,c)=> stats.appendChild(el('div',{class:'stat', style:c?'--sc:'+c:null},[
+    el('div',{class:'k',text:k}), el('div',{class:'v',text:v},[el('span',{class:'u',text:u?' '+u:''})])
+  ]));
+  S('Meals', String(tEv.filter(e=>e.type==='meal').length), '');
+  S('Potty breaks', String(tEv.filter(e=>e.type==='potty').length), '');
+  S('Walked', fmtDur(dur(tEv.filter(e=>e.type==='walk'))), '', 'var(--c-walk)');
+  S('Crate', fmtDur(dur(tEv.filter(e=>e.type==='crate'))), '', 'var(--c-crate)');
+  S('Slept', fmtDur(sleepMinutesOn(today)*60000), '', 'var(--c-sleep)');
+  const accToday = tEv.filter(e=>e.type==='potty'&&e.where==='accident').length;
+  S('Accidents', String(accToday), '', accToday? 'var(--c-bad)':'var(--c-good)');
+  frag.appendChild(stats);
+
+  frag.appendChild(sectionHead('Last 7 days'));
+  frag.appendChild(barCard('Crate time', 'var(--c-crate)', d => dur(eventsOn(d).filter(e=>e.type==='crate')), ms=>fmtDur(ms)));
+  frag.appendChild(barCard('Walk time', 'var(--c-walk)', d => dur(eventsOn(d).filter(e=>e.type==='walk')), ms=>fmtDur(ms)));
+  frag.appendChild(barCard('Sleep', 'var(--c-sleep)', d => sleepMinutesOn(d)*60000, ms=>fmtDur(ms)));
+  frag.appendChild(barCard('Potty breaks', 'var(--c-potty)', d => eventsOn(d).filter(e=>e.type==='potty').length, n=>String(n)));
+
+  // hour heatmap
+  frag.appendChild(pottyClockCard());
+
+  // top treats
+  const uses = {};
+  allEvents().forEach(e=>{ if(e.itemId) uses[e.itemId]=(uses[e.itemId]||0)+1; });
+  const ranked = state.pantry.items.filter(i=>i.rating).sort((a,b)=>(b.rating-a.rating)||((uses[b.id]||0)-(uses[a.id]||0))).slice(0,5);
+  if(ranked.length){
+    const c = el('div',{class:'card'});
+    c.appendChild(el('div',{class:'sec-head', style:'margin:0 0 4px'},[el('h2',{text:'Her verdict so far'}),el('span',{class:'rule'})]));
+    ranked.forEach(i=>{
+      c.appendChild(el('div',{class:'item', style:'--tc:var(--c-treat)'},[
+        el('span',{class:'sw'}),
+        el('div',{style:'min-width:0;flex:1'},[ i.brand? el('div',{class:'br',text:i.brand}):null, el('div',{class:'nm',text:i.name}) ]),
+        el('div',{class:'rt'},[ el('span',{class:'verdict v'+i.rating, text:VERDICT[i.rating]}), el('span',{class:'count', text:(uses[i.id]||0)+'× given'}) ])
+      ]));
+    });
+    frag.appendChild(c);
+  }
+
+  // weight
+  const ws = evs.filter(e=>e.type==='weight' && e.weight).slice(0,10).reverse();
+  if(ws.length>1){
+    const c = el('div',{class:'card'});
+    c.appendChild(el('div',{class:'sec-head', style:'margin:0 0 6px'},[el('h2',{text:'Growth'}),el('span',{class:'rule'})]));
+    const max = Math.max.apply(null, ws.map(e=>+e.weight)), min = Math.min.apply(null, ws.map(e=>+e.weight));
+    const span = Math.max(.1, max-min);
+    const bars = el('div',{class:'bars'});
+    ws.forEach(e=>{
+      const h = 20 + 78*((+e.weight - min)/span);
+      bars.appendChild(el('div',{class:'bar-col'},[
+        el('span',{class:'bar-val', text:(+e.weight).toFixed(1)}),
+        el('div',{class:'bar', style:'--bc:var(--c-weight);height:'+h+'%'}),
+        el('span',{class:'lab', text:new Date(e.at).toLocaleDateString(undefined,{month:'numeric',day:'numeric'})})
+      ]));
+    });
+    c.appendChild(bars);
+    c.appendChild(el('div',{class:'hint', text:'Weights in '+(state.profile.unit||'lb')+'.'}));
+    frag.appendChild(c);
+  }
+  return frag;
+}
+function last7(){
+  const out = [];
+  for(let i=6;i>=0;i--){ const d=new Date(); d.setDate(d.getDate()-i); out.push(dateKey(d)); }
+  return out;
+}
+function barCard(title, color, valFn, fmt){
+  const days = last7(); const vals = days.map(valFn);
+  const max = Math.max.apply(null, vals.concat([1]));
+  const total = vals.reduce((a,b)=>a+b,0);
+  const c = el('div',{class:'card'});
+  c.appendChild(el('div',{class:'sec-head', style:'margin:0'},[
+    el('h2',{text:title}), el('span',{class:'rule'}),
+    el('span',{class:'count', text:'avg '+fmt(total/7)+'/day'})
+  ]));
+  const bars = el('div',{class:'bars'});
+  const today = dateKey(new Date());
+  days.forEach((d,i)=>{
+    const h = vals[i]? Math.max(4, Math.round(88*(vals[i]/max))) : 2;
+    bars.appendChild(el('div',{class:'bar-col'+(d===today?' today':'')},[
+      el('span',{class:'bar-val', text: vals[i]? fmt(vals[i]) : ''}),
+      el('div',{class:'bar', style:'--bc:'+color+';height:'+h+'px'}),
+      el('span',{class:'lab', text: keyToDate(d).toLocaleDateString(undefined,{weekday:'narrow'})})
+    ]));
+  });
+  c.appendChild(bars);
+  return c;
+}
+function pottyClockCard(){
+  const cut = Date.now() - 14*864e5;
+  const hours = new Array(24).fill(0), acc = new Array(24).fill(0);
+  allEvents().forEach(e=>{
+    if(e.type!=='potty') return;
+    const t = new Date(e.at); if(t.getTime()<cut) return;
+    hours[t.getHours()]++;
+    if(e.where==='accident') acc[t.getHours()]++;
+  });
+  const max = Math.max.apply(null, hours.concat([1]));
+  const c = el('div',{class:'card'});
+  c.appendChild(el('div',{class:'sec-head', style:'margin:0 0 2px'},[el('h2',{text:'When she needs to go'}),el('span',{class:'rule'}),el('span',{class:'count',text:'last 14 days'})]));
+  const heat = el('div',{class:'heat'});
+  for(let h=0;h<24;h++){
+    const v = hours[h]/max;
+    const bg = acc[h] ? 'color-mix(in srgb, var(--c-bad) '+Math.round(25+65*(acc[h]/max))+'%, var(--surface))'
+                      : (v? 'color-mix(in srgb, var(--c-potty) '+Math.round(14+76*v)+'%, var(--surface))' : 'var(--surface-2)');
+    heat.appendChild(el('i',{style:'background:'+bg, title:pad(h)+':00 — '+hours[h]+' break'+(hours[h]===1?'':'s')+(acc[h]?', '+acc[h]+' indoors':'')}));
+  }
+  c.appendChild(heat);
+  c.appendChild(el('div',{class:'heat-ax'},[el('span',{text:'12a'}),el('span',{text:'6a'}),el('span',{text:'12p'}),el('span',{text:'6p'}),el('span',{text:'11p'})]));
+  const hotAcc = acc.map((n,h)=>({n,h})).filter(x=>x.n).sort((a,b)=>b.n-a.n)[0];
+  c.appendChild(el('div',{class:'hint', text: hotAcc
+    ? 'Accidents cluster around '+((hotAcc.h%12)||12)+(hotAcc.h<12?'am':'pm')+' — worth a scheduled trip outside just before.'
+    : 'Darker squares are her usual times. No indoor accidents recorded in this window.'}));
+  return c;
+}
+function accidentFreeStreak(){
+  const keys = Object.keys(state.days).filter(k=>(state.days[k].events||[]).length).sort().reverse();
+  if(!keys.length) return null;
+  let n = 0;
+  const today = dateKey(new Date());
+  for(let i=0;i<400;i++){
+    const d = new Date(); d.setDate(d.getDate()-i);
+    const k = dateKey(d);
+    const evs = state.days[k] && state.days[k].events || [];
+    if(!evs.length){ if(k===today) continue; break; }
+    if(evs.some(e=>e.type==='potty'&&e.where==='accident')) break;
+    n++;
+  }
+  return n;
+}
+
+/* ============================ clicker ============================ */
+/* Marker sound, generated rather than loaded — a box clicker is a very short
+   broadband transient, so a noise burst through a bandpass is close enough and
+   there is no file to fetch. Timing is the whole point of a marker, so this
+   fires straight from the pointer event with nothing between. */
+let AC = null;
+function audioCtx(){
+  try{
+    if(!AC) AC = new (window.AudioContext || window.webkitAudioContext)();
+    if(AC.state === 'suspended') AC.resume();
+    return AC;
+  }catch(e){ return null; }
+}
+function playClick(){
+  const ctx = audioCtx(); if(!ctx) return;
+  const len = Math.floor(ctx.sampleRate * 0.02);
+  const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  for(let i=0;i<len;i++) data[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 14);
+  const src = ctx.createBufferSource(); src.buffer = buf;
+  const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2600; bp.Q.value = 1.2;
+  const g = ctx.createGain(); g.gain.value = 0.85;
+  src.connect(bp); bp.connect(g); g.connect(ctx.destination);
+  src.start();
+}
+function playWhistle(){
+  const ctx = audioCtx(); if(!ctx) return;
+  const t = ctx.currentTime;
+  const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.setValueAtTime(3600, t);
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(0.28, t + 0.012);
+  g.gain.setValueAtTime(0.28, t + 0.22);
+  g.gain.linearRampToValueAtTime(0, t + 0.3);
+  osc.connect(g); g.connect(ctx.destination);
+  osc.start(t); osc.stop(t + 0.32);
+}
+function marker(kind){ if(kind === 'whistle') playWhistle(); else playClick(); }
+function buzz(){ try{ if(navigator.vibrate) navigator.vibrate(12); }catch(e){} }
+
+function clickerPref(){
+  try{ return localStorage.getItem('puppy-logbook-marker') || 'click'; }catch(e){ return 'click'; }
+}
+function setClickerPref(v){ try{ localStorage.setItem('puppy-logbook-marker', v); }catch(e){} }
+
+function openClicker(cue){
+  let count = 0;
+  const started = Date.now();
+  let kind = clickerPref();
+  openSheet(sheet=>{
+    head(sheet, 'training', 'Clicker', 'Mark the behaviour the instant it happens, then treat. Everything you tap here rolls into one training session.');
+
+    const cueInput = el('input',{class:'inp', id:'clkCue', list:'cueListClk', placeholder:'What are you working on?', value:cue||''});
+    const list = el('datalist',{id:'cueListClk'});
+    CUES.forEach(c=> list.appendChild(el('option',{value:c})));
+    sheet.appendChild(list);
+    sheet.appendChild(field('Working on', cueInput));
+
+    sheet.appendChild(field('Marker', chipSet([['click','Clicker'],['whistle','Whistle']], kind, v=>{ kind = v; setClickerPref(v); marker(v); })));
+
+    const nEl = el('div',{class:'n', text:'0'});
+    const pad = el('button',{class:'pad', type:'button', 'aria-label':'Click'},[ el('div',{style:'text-align:center'},[ nEl, el('div',{class:'w', text:'tap to mark'}) ]) ]);
+    const fire = (e)=>{
+      e.preventDefault();
+      marker(kind); buzz();
+      count++; nEl.textContent = String(count);
+      rate.textContent = count + (count===1? ' mark' : ' marks');
+      pad.classList.remove('hit'); void pad.offsetWidth; pad.classList.add('hit');
+    };
+    pad.addEventListener('pointerdown', fire);
+    sheet.appendChild(pad);
+
+    const rate = el('span',{text:'0 marks'});
+    const clock = el('span',{'data-elapsed': new Date(started).toISOString(), text:'0:00'});
+    sheet.appendChild(el('div',{class:'clk-meta'},[ rate, clock ]));
+
+    sheet.appendChild(el('div',{class:'hint', style:'text-align:center;margin-bottom:4px',
+      text:'Turn your ringer on — the sound comes from this page, so silent mode will mute it.'}));
+
+    const row = el('div',{class:'rowb'});
+    row.appendChild(el('button',{class:'btn s', type:'button', text:'Close', onclick:closeSheet}));
+    row.appendChild(el('button',{class:'btn p', type:'button', text:'Save session', onclick:()=>{
+      const minutes = Math.max(1, Math.round((Date.now()-started)/60000));
+      closeSheet();
+      openLogSheet('training', null, {cue: cueInput.value.trim(), minutes, clicks: count});
+    }}));
+    sheet.appendChild(row);
+  });
+}
+
+/* ============================ sheets ============================ */
+let sheetEl = null;
+function closeSheet(){ if(sheetEl){ sheetEl.remove(); sheetEl=null; document.body.style.overflow=''; } }
+function openSheet(build){
+  closeSheet();
+  const scrim = el('div',{class:'scrim', onclick:(e)=>{ if(e.target===scrim) closeSheet(); }});
+  const sheet = el('div',{class:'sheet', role:'dialog', 'aria-modal':'true'});
+  build(sheet);
+  scrim.appendChild(sheet);
+  document.body.appendChild(scrim);
+  document.body.style.overflow='hidden';
+  sheetEl = scrim;
+  const f = sheet.querySelector('input,textarea,select,button');
+  if(f && f.type!=='button') try{ f.focus({preventScroll:true}); }catch(e){}
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeSheet(); });
+
+function toast(msg, actionLabel, onAction){
+  const old = document.querySelector('.toast'); if(old) old.remove();
+  const t = el('div',{class:'toast', role:'status'},[ el('span',{text:msg}) ]);
+  if(actionLabel){
+    t.appendChild(el('button',{style:'color:var(--accent);font-weight:700;margin-left:12px;text-decoration:underline',
+      text:actionLabel, onclick:()=>{ t.remove(); onAction(); }}));
+  }
+  document.body.appendChild(t);
+  setTimeout(()=>{ if(t.isConnected) t.remove(); }, actionLabel? 5200 : 2600);
+}
+
+function head(sheet, type, title, sub){
+  const T = TYPES[type] || TYPES.note;
+  sheet.style.setProperty('--tc', T.color);
+  const h = el('h3'); h.innerHTML = svg(T.icon); h.appendChild(el('span',{text:title}));
+  sheet.appendChild(h);
+  if(sub) sheet.appendChild(el('p',{class:'sub', text:sub}));
+}
+function field(label, node, hint){
+  const f = el('div',{class:'field'},[ el('label',{text:label}), node ]);
+  if(hint) f.appendChild(el('div',{class:'hint', text:hint}));
+  return f;
+}
+function chipSet(options, value, onPick){
+  const box = el('div',{class:'chips'});
+  let cur = value;
+  options.forEach(([val,label])=>{
+    const b = el('button',{type:'button', class:'chip', 'aria-pressed': cur===val, text:label, onclick:()=>{
+      cur = (cur===val && val!==options[0][0]) ? cur : val;
+      Array.from(box.children).forEach((c,i)=> c.setAttribute('aria-pressed', options[i][0]===cur));
+      onPick(cur);
+    }});
+    box.appendChild(b);
+  });
+  return box;
+}
+function chipMulti(options, values, onChange){
+  const box = el('div',{class:'chips'});
+  const cur = new Set(values||[]);
+  options.forEach(([val,label])=>{
+    box.appendChild(el('button',{type:'button', class:'chip', 'aria-pressed': cur.has(val), text:label, onclick:(e)=>{
+      if(cur.has(val)) cur.delete(val); else cur.add(val);
+      e.currentTarget.setAttribute('aria-pressed', cur.has(val));
+      onChange(Array.from(cur));
+    }}));
+  });
+  return box;
+}
+function timeField(draft){
+  const inp = el('input',{class:'inp', type:'datetime-local', id:'evTime', value: localInput(new Date(draft.at)),
+    onchange:(e)=>{ const v=e.target.value; if(v) draft.at = new Date(v).toISOString(); }});
+  return field('When', inp);
+}
+function actions(sheet, onSave, saveLabel, onDelete){
+  const row = el('div',{class:'rowb'});
+  if(onDelete) row.appendChild(el('button',{class:'btn d', type:'button', text:'Delete', onclick:onDelete}));
+  row.appendChild(el('button',{class:'btn s', type:'button', text:'Cancel', onclick:closeSheet}));
+  row.appendChild(el('button',{class:'btn p', type:'button', text:saveLabel||'Save', onclick:onSave}));
+  sheet.appendChild(row);
+}
+function itemPicker(kind, draft, label){
+  const items = state.pantry.items.filter(i=> kind.indexOf(i.kind)>-1);
+  const sel = el('select',{class:'inp', onchange:(e)=>{
+    if(e.target.value==='__new'){ e.target.value=''; openItemSheet(null, kind[0], (created)=>{ draft.itemId = created.id; }); return; }
+    draft.itemId = e.target.value || null;
+  }});
+  sel.appendChild(el('option',{value:'', text:'— not recorded —'}));
+  items.forEach(i=> sel.appendChild(el('option',{value:i.id, selected: draft.itemId===i.id, text:(i.brand? i.brand+' — ':'')+i.name})));
+  sel.appendChild(el('option',{value:'__new', text:'+ Add a new one…'}));
+  return field(label, sel);
+}
+
+async function startType(type){
+  const T = TYPES[type];
+  if(type==='accident'){
+    const ev = await addEvent({type:'potty', kind:'pee', where:'accident', trigger:'unwatched'});
+    if(ev) toast('Accident logged', 'Add detail', ()=>{
+      const f = findEvent(ev.id); if(f) openLogSheet('potty', f.ev);
+    });
+    return;
+  }
+  if(T.mode==='timer'){
+    addEvent({type, endAt:null});
+    toast(T.label+' started');
+    return;
+  }
+  openLogSheet(type);
+}
+async function endSession(ev){
+  const endAt = new Date().toISOString();
+  await patchEvent(ev.id, {endAt});
+  const T = TYPES[ev.type];
+  toast(T.label+' ended · '+fmtDur(new Date(endAt)-new Date(ev.at)));
+  if(ev.type==='crate' || ev.type==='sleep'){
+    const f = findEvent(ev.id);
+    if(f) openLogSheet(ev.type, f.ev);
+  }
+}
+
+function openLogSheet(type, existing, seed){
+  const T = TYPES[type];
+  const draft = existing ? Object.assign({}, existing) : Object.assign({type, at:new Date().toISOString()}, seed||{});
+  openSheet(sheet=>{
+    head(sheet, type, existing? 'Edit '+T.label.toLowerCase() : T.label, existing? null : subFor(type));
+    buildFields(sheet, type, draft);
+    sheet.appendChild(timeField(draft));
+    sheet.appendChild(field('Note', el('textarea',{class:'inp', id:'evNote', placeholder:notePlaceholder(type), value:draft.note||'',
+      oninput:e=>draft.note=e.target.value.slice(0,400)})));
+    actions(sheet, async ()=>{
+      closeSheet();
+      if(existing){ await patchEvent(existing.id, draft); toast('Updated'); }
+      else { await addEvent(draft); toast(T.label+' logged'); }
+    }, existing? 'Save changes' : 'Log it', existing ? async ()=>{ closeSheet(); await removeEvent(existing.id); toast('Deleted'); } : null);
+  });
+}
+function subFor(type){
+  return {
+    meal:'Which meal, what she got, and how much of it she actually ate.',
+    potty:'The detail here is what makes the schedule readable later.',
+    treat:'Tie it to a brand so her favourites rise to the top.',
+    training:'A minute or two counts. Rate how it went while it is fresh.',
+    weight:'Weekly weigh-ins are enough to see the growth curve.',
+    health:'Small things logged consistently are worth more at the vet than a good memory.',
+    mood:'A quick read on her energy. Two of these a day is plenty.',
+    chew:'Teething runs until about six months. Log what you handed her and how long it held.',
+    water:'', meds:'', groom:'', vet:'', note:''
+  }[type] || '';
+}
+function notePlaceholder(type){
+  return {
+    potty:'Straining, ate grass, pulled toward the door first…',
+    meal:'Slow feeder, added toppers, seemed off…',
+    training:'Distractions, what clicked, what to try next time…',
+    vet:'Reason for the visit, what the vet said…',
+    meds:'Dose and who gave it…',
+    health:'When it started, what changed beforehand, new food or treat…',
+    mood:'What set it off, what she had been doing…',
+    chew:'Where she took it, whether you had to swap it out…'
+  }[type] || 'Anything worth remembering';
+}
+
+function buildFields(sheet, type, draft){
+  if(type==='meal'){
+    if(!draft.meal){ const h = new Date(draft.at).getHours(); draft.meal = h<10?'Breakfast': h<15?'Lunch': h<21?'Dinner':'Snack'; }
+    sheet.appendChild(field('Which meal', chipSet([['Breakfast','Breakfast'],['Lunch','Lunch'],['Dinner','Dinner'],['Snack','Snack']], draft.meal, v=>draft.meal=v)));
+    sheet.appendChild(itemPicker(['food'], draft, 'Food'));
+    sheet.appendChild(field('Amount', el('input',{class:'inp', id:'mealAmt', placeholder:'e.g. 3/4 cup', value:draft.amount||'', oninput:e=>draft.amount=e.target.value.slice(0,40)})));
+    if(!draft.ate) draft.ate='all';
+    sheet.appendChild(field('How much did she eat', chipSet([['all','All of it'],['most','Most'],['half','About half'],['little','Barely'],['none','Refused']], draft.ate, v=>draft.ate=v)));
+  }
+  else if(type==='potty'){
+    if(!draft.kind) draft.kind='pee';
+    if(!draft.where) draft.where='outside';
+    sheet.appendChild(field('What happened', chipSet([['pee','Pee'],['poop','Poop'],['both','Both']], draft.kind, v=>{ draft.kind=v; qual.hidden = (v==='pee'); })));
+    sheet.appendChild(field('Where', chipSet([['outside','Outside'],['pad','On the pad'],['accident','Accident indoors']], draft.where, v=>draft.where=v)));
+    if(!draft.quality) draft.quality='normal';
+    const qual = field('Stool', chipSet([['normal','Normal'],['soft','Soft'],['loose','Loose'],['hard','Hard'],['blood','Blood / mucus']], draft.quality, v=>draft.quality=v),
+      'Worth logging if it changes — it is the first thing a vet asks.');
+    qual.hidden = (draft.kind==='pee');
+    sheet.appendChild(qual);
+    const trig = field('What was going on', chipSet(ACCIDENT_TRIGGERS, draft.trigger||'unwatched', v=>draft.trigger=v),
+      'Accidents cluster around a handful of moments. Naming them is how the pattern shows up on the Focus tab.');
+    trig.hidden = (draft.where!=='accident');
+    sheet.appendChild(trig);
+    const whereChips = sheet.querySelectorAll('.field')[1];
+    whereChips.addEventListener('click', ()=> setTimeout(()=>{ trig.hidden = (draft.where!=='accident'); },0));
+  }
+  else if(type==='treat'){
+    sheet.appendChild(itemPicker(['treat','chew'], draft, 'Which treat'));
+    if(!draft.reaction) draft.reaction='loved';
+    sheet.appendChild(field('Her reaction', chipSet([['loved','Loved it'],['liked','Liked it'],['meh','Meh'],['no','Spat it out']], draft.reaction, v=>draft.reaction=v)));
+    sheet.appendChild(field('What for', chipSet([['training','Training reward'],['crate','Crate / settle'],['just','Just because'],['chew','Long chew']], draft.purpose||'training', v=>draft.purpose=v)));
+  }
+  else if(type==='training'){
+    const list = el('datalist',{id:'cueList'});
+    CUES.forEach(c=> list.appendChild(el('option',{value:c})));
+    sheet.appendChild(list);
+    sheet.appendChild(field('Cue or skill', el('input',{class:'inp', id:'trCue', list:'cueList', placeholder:'Sit, Place, Loose leash…', value:draft.cue||'', oninput:e=>draft.cue=e.target.value.slice(0,40)})));
+    if(!draft.score) draft.score=3;
+    sheet.appendChild(field('How did it go', chipSet([[5,'Nailed it'],[4,'Good'],[3,'Getting there'],[2,'Rough'],[1,'Not today']], draft.score, v=>draft.score=v)));
+    sheet.appendChild(field('Minutes', el('input',{class:'inp', id:'trMin', type:'number', min:'1', max:'120', inputmode:'numeric', placeholder:'5', value:draft.minutes||'', oninput:e=>draft.minutes=e.target.value? +e.target.value : null})));
+    sheet.appendChild(itemPicker(['treat'], draft, 'Treat used'));
+    sheet.appendChild(field('Lesson', el('input',{class:'inp', id:'trLesson', placeholder:'Dogo week 3, day 2 — or leave blank', value:draft.lesson||'', oninput:e=>draft.lesson=e.target.value.slice(0,60)}),
+      'If you are following a course, put the lesson here so the board lines up with wherever you are in it.'));
+    if(!existing){
+      sheet.appendChild(el('button',{class:'btn s', type:'button', style:'width:100%;margin-bottom:4px', text:'Open the clicker instead',
+        onclick:()=>{ closeSheet(); openClicker(draft.cue); }}));
+    }
+  }
+  else if(type==='health'){
+    sheet.appendChild(field('What are you seeing', chipMulti(SYMPTOMS, draft.symptoms||[], v=>{
+      draft.symptoms = v;
+      areaF.hidden = !v.some(s=>['itching','licking','skin','ears'].indexOf(s)>-1);
+    }), 'Tick everything that applies — the pattern over time is what a vet will ask for.'));
+    if(!draft.severity) draft.severity='mild';
+    sheet.appendChild(field('How bad', chipSet([['mild','Mild'],['noticeable','Noticeable'],['bad','Bad — worrying me']], draft.severity, v=>draft.severity=v)));
+    const areaF = field('Where on her', chipMulti(BODY_AREAS, draft.areas||[], v=>draft.areas=v));
+    areaF.hidden = !(draft.symptoms||[]).some(s=>['itching','licking','skin','ears'].indexOf(s)>-1);
+    sheet.appendChild(areaF);
+  }
+  else if(type==='mood'){
+    if(!draft.energy) draft.energy=3;
+    sheet.appendChild(field('Energy right now', chipSet(ENERGY, draft.energy, v=>draft.energy=v),
+      'Logged a couple of times a day this becomes the fastest way to notice something is off before it looks like a symptom.'));
+    sheet.appendChild(field('Also', chipMulti([['clingy','Clingy'],['nippy','Nippy / mouthy'],['restless','Restless'],['hiding','Hiding away'],['vocal','Extra vocal'],['happy','Happy and settled']], draft.tags||[], v=>draft.tags=v)));
+  }
+  else if(type==='chew'){
+    sheet.appendChild(field('What she got', chipSet(CHEW_KINDS, draft.chewKind||'kong', v=>draft.chewKind=v)));
+    sheet.appendChild(itemPicker(['chew','treat'], draft, 'Saved item (optional)'));
+    sheet.appendChild(field('Minutes she stayed with it', el('input',{class:'inp', type:'number', min:'0', max:'240', inputmode:'numeric', placeholder:'15',
+      value: draft.minutes||'', oninput:e=> draft.minutes = e.target.value===''? null : +e.target.value}),
+      'This is the number that tells you which chew is worth buying again.'));
+    if(!draft.effect) draft.effect='busy';
+    sheet.appendChild(field('What it did for her', chipSet(CHEW_EFFECT, draft.effect, v=>draft.effect=v)));
+    sheet.appendChild(field('Teething signs', chipMulti([['gums','Sore or bloody gums'],['tooth','Lost a tooth'],['furniture','Chewing furniture'],['hands','Chewing hands / ankles'],['drool','Extra drooling']], draft.teething||[], v=>draft.teething=v)));
+  }
+  else if(type==='water'){
+    sheet.appendChild(field('Amount', chipSet([['Full bowl','Full bowl'],['Topped up','Topped up'],['Big drink','Big drink'],['Small sip','Small sip']], draft.amount||'Topped up', v=>draft.amount=v)));
+  }
+  else if(type==='meds'){
+    sheet.appendChild(field('What', el('input',{class:'inp', id:'medWhat', placeholder:'Flea & tick, dewormer, ear drops…', value:draft.what||'', oninput:e=>draft.what=e.target.value.slice(0,60)})));
+  }
+  else if(type==='weight'){
+    sheet.appendChild(field('Weight ('+(state.profile.unit||'lb')+')', el('input',{class:'inp', id:'wt', type:'number', step:'0.1', min:'0', inputmode:'decimal', placeholder:'12.4', value:draft.weight||'', oninput:e=>draft.weight=e.target.value})));
+  }
+  else if(type==='groom'){
+    sheet.appendChild(field('What', chipSet([['Bath','Bath'],['Brush','Brush'],['Nails','Nails'],['Ears','Ears'],['Teeth','Teeth'],['Groomer','Groomer']], draft.what||'Brush', v=>draft.what=v)));
+  }
+  else if(type==='vet'){
+    sheet.appendChild(field('Visit type', chipSet([['Check-up','Check-up'],['Vaccines','Vaccines'],['Sick visit','Sick visit'],['Spay/neuter','Spay/neuter'],['Other','Other']], draft.what||'Check-up', v=>draft.what=v)));
+  }
+  else if(TYPES[type].mode==='timer'){
+    if(type==='crate'){
+      sheet.appendChild(field('Who was home', chipSet([['alone','Nobody — she was alone'],['home','Someone in the house'],['room','Someone in the room']], draft.alone||'home', v=>draft.alone=v)));
+      sheet.appendChild(field('Door', chipSet([['closed','Closed'],['open','Open / gated'],['pen','Pen instead']], draft.door||'closed', v=>draft.door=v)));
+      sheet.appendChild(field('How did it go', chipSet(CRATE_OUTCOMES, draft.outcome||'settled', v=>draft.outcome=v)));
+      sheet.appendChild(field('Minutes until she settled', el('input',{class:'inp', type:'number', min:'0', max:'240', inputmode:'numeric', placeholder:'2',
+        value: draft.settleMin===0? '0' : (draft.settleMin||''), oninput:e=> draft.settleMin = e.target.value===''? null : +e.target.value}),
+        'The number that actually moves during crate training — it should fall even as the sessions get longer.'));
+      sheet.appendChild(field('Did she sleep in there', chipSet(CRATE_SLEPT, draft.sleptIn||'no', v=>draft.sleptIn=v),
+        'Crate sleep counts toward her daily total, so overnight goes in here rather than as a second entry.'));
+    }
+    if(type==='sleep'){
+      sheet.appendChild(field('Where', chipSet(NAP_WHERE, draft.where||'crate', v=>draft.where=v),
+        'Naps taken in the crate are the quiet half of crate training — she builds the association while asleep instead of while protesting.'));
+      sheet.appendChild(field('How she went down', chipSet(NAP_SETTLED, draft.settled||'own', v=>draft.settled=v)));
+    }
+    sheet.appendChild(field('Ended', el('input',{class:'inp', type:'datetime-local', value: draft.endAt? localInput(new Date(draft.endAt)) : '',
+      onchange:e=> draft.endAt = e.target.value? new Date(e.target.value).toISOString() : null}), 'Leave empty to keep it running.'));
+    if(type==='walk') sheet.appendChild(field('Where', el('input',{class:'inp', placeholder:'Around the block, dog park…', value:draft.where||'', oninput:e=>draft.where=e.target.value.slice(0,60)})));
+  }
+}
+
+function openEventSheet(e){
+  openLogSheet(e.type, e);
+}
+
+function openItemSheet(existing, defaultKind, onCreated){
+  const draft = existing ? Object.assign({}, existing) : {id:uid(), kind:defaultKind||'treat', brand:'', name:'', rating:4, note:'', by:(state.me&&state.me.id)||null};
+  openSheet(sheet=>{
+    head(sheet, draft.kind==='food'?'meal':'treat', existing? 'Edit item' : 'Add to the pantry',
+      existing? null : 'Brands you save here become one-tap options when logging meals and treats.');
+    sheet.appendChild(field('Type', chipSet([['food','Food'],['treat','Treat'],['chew','Chew / toy']], draft.kind, v=>draft.kind=v)));
+    sheet.appendChild(field('Brand', el('input',{class:'inp', id:'itBrand', placeholder:'Purina Pro Plan, Zuke’s…', value:draft.brand||'', oninput:e=>draft.brand=e.target.value.slice(0,50)})));
+    sheet.appendChild(field('Product', el('input',{class:'inp', id:'itName', placeholder:'Puppy Chicken & Rice, Mini Naturals…', value:draft.name||'', oninput:e=>draft.name=e.target.value.slice(0,70)})));
+    sheet.appendChild(field('Her verdict', chipSet([[5,'Obsessed'],[4,'Likes it'],[3,'Takes it or leaves it'],[2,'Not a fan'],[1,'Upset her tummy']], draft.rating, v=>draft.rating=v)));
+    sheet.appendChild(field('Notes', el('textarea',{class:'inp', id:'itNote', placeholder:'Where you buy it, price, size, whether it crumbles in a pocket…', value:draft.note||'', oninput:e=>draft.note=e.target.value.slice(0,300)})));
+    actions(sheet, async ()=>{
+      if(!draft.name.trim()){ toast('Give it a name first'); return; }
+      closeSheet();
+      const items = state.pantry.items.slice();
+      const i = items.findIndex(x=>x.id===draft.id);
+      if(i>-1) items[i]=draft; else items.push(draft);
+      state.pantry = {items}; render();
+      await savePantryItem(draft, i === -1);
+      render();
+      if(onCreated) onCreated(draft);
+      toast(existing? 'Saved' : 'Added to the pantry');
+    }, existing? 'Save' : 'Add', existing ? async ()=>{
+      closeSheet();
+      state.pantry = {items: state.pantry.items.filter(x=>x.id!==draft.id)};
+      render(); await deletePantryItem(draft.id); toast('Removed');
+    } : null);
+  });
+}
+
+/* ---------- appearance ---------- */
+/* Theme is per-device (your phone, your eyes); palette is shared, so the
+   logbook looks like one thing in both houses. */
+const PALETTES = [['moss','Moss','#0f7a5a'],['clay','Clay','#b4562c'],['dusk','Dusk','#5851c4'],['berry','Berry','#b23a6d'],['slate','Slate','#2f6f8f']];
+
+function savedTheme(){ try{ return localStorage.getItem('same-page-theme') || 'system'; }catch(e){ return 'system'; } }
+function applyTheme(mode){
+  const root = document.documentElement;
+  if(mode === 'system') root.removeAttribute('data-theme');
+  else root.setAttribute('data-theme', mode);
+  try{ localStorage.setItem('same-page-theme', mode); }catch(e){}
+  syncStatusBar();
+}
+function applyPalette(name){
+  const root = document.documentElement;
+  if(!name || name === 'moss') root.removeAttribute('data-palette');
+  else root.setAttribute('data-palette', name);
+  syncStatusBar();
+}
+/* Keep the iOS status bar and the Safari chrome on the same ground as the page. */
+function syncStatusBar(){
+  requestAnimationFrame(()=>{
+    const bg = getComputedStyle(document.body).backgroundColor;
+    document.querySelectorAll('meta[name="theme-color"]').forEach(m=> m.remove());
+    document.head.appendChild(el('meta',{name:'theme-color', content:bg}));
+  });
+}
+applyTheme(savedTheme());
+
+async function uploadPhoto(file, onDone){
+  if(!file || !state.dogId) return;
+  if(file.size > 5*1024*1024) return toast('That photo is over 5MB — try a smaller one.');
+  const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
+  const key = state.dogId + '/' + Date.now() + '.' + ext;
+  toast('Uploading…');
+  const {error} = await SB.storage.from('dog-photos').upload(key, file, {upsert:true, contentType:file.type});
+  if(error) return dbError(error, 'photo upload');
+  const {data} = SB.storage.from('dog-photos').getPublicUrl(key);
+  state.profile.photoUrl = data.publicUrl;
+  const {error:e2} = await SB.from('dogs').update({photo_url:data.publicUrl}).eq('id', state.dogId);
+  if(e2) return dbError(e2, 'photo save');
+  render(); if(onDone) onDone(data.publicUrl);
+  toast('Photo saved');
+}
+
+function openSettings(firstRun){
+  const draft = Object.assign({}, state.profile);
+  openSheet(sheet=>{
+    head(sheet, 'note', firstRun? 'Set up the logbook' : 'Settings', firstRun? 'Two quick things and everyone in the household is logging the same puppy.' : null);
+
+    // photo
+    const shot = el('button',{class:'shot-edit', type:'button', 'aria-label':'Change photo',
+      onclick:()=> picker.click()});
+    const shotImg = el('img',{alt:'', src: draft.photoUrl || '', hidden: !draft.photoUrl});
+    shot.appendChild(shotImg);
+    shot.appendChild(el('span',{class:'ph', text: draft.photoUrl? '' : 'Add a photo'}));
+    const picker = el('input',{type:'file', accept:'image/*', hidden:true, onchange:e=>{
+      const f = e.target.files && e.target.files[0];
+      if(f) uploadPhoto(f, url=>{ draft.photoUrl = url; shotImg.src = url; shotImg.hidden = false; shot.querySelector('.ph').textContent=''; });
+    }});
+    sheet.appendChild(shot); sheet.appendChild(picker);
+    sheet.appendChild(field('Her name', el('input',{class:'inp', id:'stName', placeholder:'Nala', value:draft.name||'', oninput:e=>draft.name=e.target.value.slice(0,30)})));
+    sheet.appendChild(field('Birthday', el('input',{class:'inp', id:'stBday', type:'date', value:draft.birthday||'', onchange:e=>draft.birthday=e.target.value}),
+      'Everything on the Focus tab is scaled to her age — an estimate is fine if you only know roughly.'));
+    const breedList = el('datalist',{id:'breedList'});
+    ['Shih Tzu × Yorkshire Terrier','Shih Tzu','Yorkshire Terrier','Maltese','Poodle mix','Mixed breed'].forEach(b=> breedList.appendChild(el('option',{value:b})));
+    sheet.appendChild(breedList);
+    sheet.appendChild(field('Breed', el('input',{class:'inp', id:'stBreed', list:'breedList', placeholder:'Shih Tzu × Yorkshire Terrier', value:draft.breed||'', oninput:e=>draft.breed=e.target.value.slice(0,60)}),
+      'Naming both sides of a mix turns on the guidance for each of them.'));
+    sheet.appendChild(field('Grown-up size', chipSet(Object.keys(SIZE).map(k=>[k, SIZE[k].label]), draft.size||'toy', v=>draft.size=v),
+      'Toy and small breeds hold it for noticeably less time than the usual one-hour-per-month rule, so this changes her potty window.'));
+    sheet.appendChild(field('Weight unit', chipSet([['lb','Pounds'],['kg','Kilograms']], draft.unit||'lb', v=>draft.unit=v)));
+
+    sheet.appendChild(field('Appearance', chipSet([['system','Match my phone'],['light','Always light'],['dark','Always dark']],
+      savedTheme(), v=>applyTheme(v)), 'Matching your phone follows iOS Dark Mode, including the automatic sunset switch.'));
+
+    const sw = el('div',{class:'swatches'});
+    PALETTES.forEach(([key,label,hex])=>{
+      const b = el('button',{class:'sw-btn', type:'button', title:label, 'aria-label':label,
+        'aria-pressed': (draft.theme||'moss')===key, style:'background:'+hex+'22',
+        onclick:()=>{
+          draft.theme = key; applyPalette(key);
+          Array.from(sw.children).forEach((c,i)=> c.setAttribute('aria-pressed', PALETTES[i][0]===key));
+        }});
+      b.appendChild(el('i',{style:'background:'+hex}));
+      sw.appendChild(b);
+    });
+    sheet.appendChild(field('Colour', sw, 'Shared — everyone in the household sees the one you pick.'));
+
+    if(!firstRun && state.invite){
+      const code = el('code',{text:state.invite});
+      sheet.appendChild(field('Invite the rest of the household',
+        el('div',{class:'invite'},[ code,
+          el('button',{type:'button', text:'Copy', onclick:async ()=>{
+            try{ await navigator.clipboard.writeText(state.invite); toast('Code copied'); }
+            catch(e){ toast('Select the code and copy it'); }
+          }})
+        ]),
+        'They install the app, create their own account, and enter this code to join. Same logbook, same puppy, live on both phones.'));
+    }
+
+    actions(sheet, async ()=>{
+      closeSheet();
+      state.profile = draft; render();
+      await writeProfile();
+      toast('Saved');
+    }, firstRun? 'Start logging' : 'Save');
+
+    if(!firstRun){
+      sheet.appendChild(el('button',{class:'gate-alt', text:'Sign out',
+        onclick: async ()=>{ closeSheet(); await SB.auth.signOut(); location.reload(); }}));
+    }
+  });
+}
+$('#settingsBtn').addEventListener('click', ()=>openSettings(false));
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=> navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
