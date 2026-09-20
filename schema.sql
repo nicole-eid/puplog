@@ -3,7 +3,7 @@
 --
 -- Access rule throughout: you can see and write a row only if you are a member
 -- of the household that owns it. Membership is the single source of truth, and
--- every policy below routes through is_member().
+-- every policy below routes through private.is_member().
 
 create extension if not exists "pgcrypto";
 
@@ -28,7 +28,12 @@ create table if not exists household_members (
 
 -- Membership check used by every policy. SECURITY DEFINER so that reading
 -- household_members inside a household_members policy cannot recurse.
-create or replace function is_member(h uuid)
+-- RLS helpers live in a schema PostgREST does not serve, so they are reachable
+-- from a policy but not from the REST API.
+create schema if not exists private;
+grant usage on schema private to authenticated, anon;
+
+create or replace function private.is_member(h uuid)
 returns boolean
 language sql
 stable
@@ -91,7 +96,7 @@ create table if not exists pantry_items (
 create index if not exists pantry_dog_idx on pantry_items (dog_id);
 
 -- Resolve a dog to its household, for the policies below.
-create or replace function dog_household(d uuid)
+create or replace function private.dog_household(d uuid)
 returns uuid
 language sql
 stable
@@ -114,11 +119,11 @@ drop policy if exists households_insert on households;
 drop policy if exists households_update on households;
 
 create policy households_read on households
-  for select using (is_member(id));
+  for select using (private.is_member(id));
 create policy households_insert on households
   for insert with check (created_by = auth.uid());
 create policy households_update on households
-  for update using (is_member(id)) with check (is_member(id));
+  for update using (private.is_member(id)) with check (private.is_member(id));
 
 drop policy if exists members_read   on household_members;
 drop policy if exists members_insert on household_members;
@@ -127,7 +132,7 @@ drop policy if exists members_delete on household_members;
 
 -- You can see everyone in a household you belong to.
 create policy members_read on household_members
-  for select using (is_member(household_id));
+  for select using (private.is_member(household_id));
 -- You may only ever add yourself. Joining is gated by knowing the invite code,
 -- which the client exchanges through join_household() below.
 create policy members_insert on household_members
@@ -139,17 +144,17 @@ create policy members_delete on household_members
 
 drop policy if exists dogs_all on dogs;
 create policy dogs_all on dogs
-  for all using (is_member(household_id)) with check (is_member(household_id));
+  for all using (private.is_member(household_id)) with check (private.is_member(household_id));
 
 drop policy if exists events_all on events;
 create policy events_all on events
-  for all using (is_member(dog_household(dog_id)))
-  with check (is_member(dog_household(dog_id)));
+  for all using (private.is_member(private.dog_household(dog_id)))
+  with check (private.is_member(private.dog_household(dog_id)));
 
 drop policy if exists pantry_all on pantry_items;
 create policy pantry_all on pantry_items
-  for all using (is_member(dog_household(dog_id)))
-  with check (is_member(dog_household(dog_id)));
+  for all using (private.is_member(private.dog_household(dog_id)))
+  with check (private.is_member(private.dog_household(dog_id)));
 
 -- ------------------------------------------------------------------- joining
 -- Swapping an invite code for membership. SECURITY DEFINER because the joiner
@@ -205,3 +210,17 @@ grant execute on function create_household(text, text) to authenticated;
 alter publication supabase_realtime add table events;
 alter publication supabase_realtime add table pantry_items;
 alter publication supabase_realtime add table dogs;
+
+-- Internal helpers are never part of the public API surface.
+revoke all on function private.is_member(uuid) from public;
+revoke all on function private.dog_household(uuid) from public;
+grant execute on function private.is_member(uuid) to authenticated;
+grant execute on function private.dog_household(uuid) to authenticated;
+
+-- These act on auth.uid(), so a signed-out caller achieves nothing, but there
+-- is no reason to leave them reachable either.
+revoke all on function claim_username(text, text)   from anon;
+revoke all on function create_household(text, text) from anon;
+revoke all on function join_household(text, text)   from anon;
+-- username_available() stays open to anon deliberately: the sign-up form checks
+-- a handle before the account exists, so there is no session to authenticate with.
