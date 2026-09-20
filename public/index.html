@@ -34,13 +34,13 @@ img{max-width:100%}
   --c-meds:#5b7083; --c-note:#6b7a72; --c-vet:#b03a3a; --c-groom:#a06ac0; --c-weight:#5b7083;
   --c-symptom:#b5562c; --c-mood:#2a7f8f; --c-chew:#8a6a3f;
   --c-bad:#c0392b; --c-bad-soft:#fae4e1; --c-good:#12805c;
-  --r-s:8px; --r-m:12px; --r-l:18px;
+  --r-s:12px; --r-m:16px; --r-l:22px;
   /* Bricolage Grotesque carries the headings — a variable grotesque with enough
      wobble to feel hand-made; Schibsted Grotesk is the neutral workhorse behind
      it; Spline Sans Mono has real tabular figures for the timers and counts. */
   --sans:"Schibsted Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --serif:"Bricolage Grotesque","Schibsted Grotesk",system-ui,sans-serif;
-  --mono:"Spline Sans Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --mono:"Schibsted Grotesk",ui-sans-serif,system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --bg:#101510; --surface:#18201b; --surface-2:#1e2721; --line:#2b352e; --line-strong:#3c483f;
@@ -100,8 +100,8 @@ input,select,textarea{font-family:inherit;color:inherit;font-size:max(16px,1rem)
 .since::-webkit-scrollbar{display:none}
 .since-chip{flex:0 0 auto;display:flex;flex-direction:column;gap:1px;padding:6px 11px;border-radius:var(--r-m);
   background:var(--surface);border:1px solid var(--line);min-width:84px}
-.since-chip .k{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
-.since-chip .v{font-family:var(--mono);font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
+.since-chip .k{font-size:12px;color:var(--ink-3);font-weight:500}
+.since-chip .v{font-size:16px;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
 .since-chip.warn{border-color:var(--c-bad);background:var(--c-bad-soft)}
 .since-chip.warn .v{color:var(--c-bad)}
 
@@ -144,7 +144,7 @@ input,select,textarea{font-family:inherit;color:inherit;font-size:max(16px,1rem)
 .ev{display:grid;grid-template-columns:clamp(42px,12vw,52px) 20px minmax(0,1fr);gap:8px;align-items:flex-start;
   padding:7px 6px 7px 2px;border-radius:var(--r-s);text-align:left;width:100%}
 .ev:hover{background:var(--surface)}
-.ev .t{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums}
+.ev .t{font-size:13px;color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums}
 .ev .rail{position:relative;display:grid;place-items:center;padding-top:2px;align-self:stretch}
 .ev .rail::before{content:"";position:absolute;top:0;bottom:-14px;width:1px;background:var(--line)}
 .ev:last-child .rail::before{display:none}
@@ -153,19 +153,21 @@ input,select,textarea{font-family:inherit;color:inherit;font-size:max(16px,1rem)
 .ev .ttl{font-size:15px;font-weight:600;display:flex;width:100%;gap:5px 6px;flex-wrap:wrap;align-items:baseline;
   overflow-wrap:anywhere;min-width:0}
 .ev .meta{display:block;font-size:13.5px;color:var(--ink-2);margin-top:2px;overflow-wrap:anywhere}
-.ev .by{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px;font-family:var(--mono)}
-.pill{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;
-  padding:1.5px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);white-space:nowrap}
+.ev .by{display:block;font-size:12px;color:var(--ink-3);margin-top:3px}
+.pill{display:inline-block;font-size:11.5px;font-weight:600;
+  padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);white-space:nowrap}
 .pill.bad{background:var(--c-bad-soft);color:var(--c-bad)}
 .pill.dur{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line);font-family:var(--mono);text-transform:none;letter-spacing:0}
 
 /* ---------- cards / stats ---------- */
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:14px;box-shadow:var(--shadow);overflow:hidden}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:17px 16px;
+  box-shadow:var(--shadow);overflow:hidden}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:1px;background:var(--line);
   border:1px solid var(--line);border-radius:var(--r-l);overflow:hidden}
-.stat{background:var(--surface);padding:11px 12px 12px}
-.stat .k{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
-.stat .v{font-family:var(--mono);font-size:clamp(17px,4.4vw,21px);overflow-wrap:anywhere;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.25;color:var(--sc,var(--ink))}
+.stat{background:var(--surface);padding:13px 14px 14px}
+.stat .k{font-size:12.5px;color:var(--ink-3);font-weight:500}
+.stat .v{font-size:clamp(19px,4.8vw,23px);overflow-wrap:anywhere;font-weight:700;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;line-height:1.25;color:var(--sc,var(--ink))}
 .stat .u{font-size:11px;color:var(--ink-3);font-family:var(--sans)}
 
 .bars{display:flex;align-items:flex-end;gap:5px;height:88px;margin-top:10px}
@@ -193,10 +195,10 @@ input,select,textarea{font-family:inherit;color:inherit;font-size:max(16px,1rem)
 .item:last-child{border-bottom:0}
 .item .sw{width:4px;align-self:stretch;border-radius:3px;background:var(--tc);flex:0 0 4px}
 .item .nm{font-weight:600;font-size:15px}
-.item .br{font-size:12px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase;font-weight:600}
+.item .br{font-size:13px;color:var(--ink-3);font-weight:500}
 .item .no{font-size:12.5px;color:var(--ink-2);margin-top:3px}
 .item .rt{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:0 0 auto;max-width:44%}
-.count{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.count{font-size:12.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .verdict{font-size:11px;font-weight:600;padding:2.5px 9px;border-radius:999px;text-align:right;line-height:1.25}
 .v5{background:var(--accent-soft);color:var(--accent-ink)}
 .v4{background:var(--surface-2);color:var(--c-good);border:1px solid var(--line)}
@@ -221,15 +223,15 @@ input,select,textarea{font-family:inherit;color:inherit;font-size:max(16px,1rem)
 
 /* ---------- sheet ---------- */
 .scrim{position:fixed;inset:0;z-index:60;background:rgba(10,16,13,.45);display:grid;align-items:flex-end;justify-items:center}
-.sheet{width:100%;max-width:560px;background:var(--surface);border:1px solid var(--line);border-bottom:0;
-  border-radius:var(--r-l) var(--r-l) 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px));
+.sheet{width:100%;max-width:460px;background:var(--surface);border:1px solid var(--line);border-bottom:0;
+  border-radius:26px 26px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));
   max-height:min(88dvh,780px);overflow:auto;overscroll-behavior:contain;animation:up .2s ease}
 @keyframes up{from{transform:translateY(14px);opacity:.5}}
 .sheet h3{margin:0 0 2px;font-family:var(--serif);font-size:19px;font-weight:800;letter-spacing:-.018em;display:flex;align-items:center;gap:9px}
 .sheet h3 svg{width:20px;height:20px;color:var(--tc)}
-.sheet .sub{font-size:12.5px;color:var(--ink-3);margin:0 0 14px}
-.field{margin-bottom:13px}
-.field>label{display:block;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px;font-weight:600}
+.sheet .sub{font-size:13.5px;color:var(--ink-2);margin:2px 0 16px;line-height:1.45}
+.field{margin-bottom:14px}
+.field>label{display:block;font-size:14px;color:var(--ink);margin-bottom:7px;font-weight:600}
 .inp{width:100%;padding:10px 11px;border-radius:var(--r-s);border:1px solid var(--line-strong);
   background:var(--surface-2);font-size:16px}
 textarea.inp{min-height:62px;resize:vertical}
@@ -250,7 +252,7 @@ textarea.inp{min-height:62px;resize:vertical}
 .banner{display:flex;gap:9px;align-items:flex-start;padding:10px 12px;border-radius:var(--r-m);
   background:var(--surface-2);border:1px solid var(--line);font-size:12.5px;color:var(--ink-2)}
 .banner svg{width:16px;height:16px;flex:0 0 16px;color:var(--ink-3);margin-top:1px}
-.hint{font-size:12px;color:var(--ink-3);margin-top:6px}
+.hint{font-size:13px;color:var(--ink-3);margin-top:7px;line-height:1.45}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- clicker ---------- */
@@ -270,7 +272,7 @@ textarea.inp{min-height:62px;resize:vertical}
 .pad.hit{animation:ping .3s ease-out}
 @keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c-training) 55%,transparent)}100%{box-shadow:0 0 0 26px transparent}}
 .pad .n{font-family:var(--mono);font-size:52px;font-weight:500;line-height:1;color:var(--c-training);font-variant-numeric:tabular-nums}
-.pad .w{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
+.pad .w{font-size:13px;color:var(--ink-3);margin-top:6px}
 .clk-meta{display:flex;justify-content:center;gap:18px;font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-bottom:12px;font-variant-numeric:tabular-nums}
 
 /* ---------- size adaptation ----------
@@ -341,8 +343,8 @@ html,body{max-width:100%;overflow-x:clip}
 .shot-edit{position:relative;display:block;width:96px;height:96px;margin:0 auto 6px;border-radius:50%;
   overflow:hidden;border:2px solid var(--line-strong);background:var(--surface-2);cursor:pointer}
 .shot-edit img{width:100%;height:100%;object-fit:cover;display:block}
-.shot-edit .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:0 8px}
+.shot-edit .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;
+  color:var(--ink-3);text-align:center;padding:0 8px}
 .shot-edit:hover .ph{color:var(--accent-ink)}
 
 /* ---------- palettes ---------- */
@@ -389,7 +391,7 @@ html,body{max-width:100%;overflow-x:clip}
 .gate-err{margin-top:10px;padding:9px 11px;border-radius:var(--r-s);background:var(--c-bad-soft);
   color:var(--c-bad);font-size:13px}
 .gate-alt{display:block;width:100%;margin-top:14px;padding:8px;font-size:13px;color:var(--ink-2);text-decoration:underline}
-.gate-or{text-align:center;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+.gate-or{text-align:center;font-size:13px;
   color:var(--ink-3);margin:16px 0 14px;position:relative}
 .gate-or::before,.gate-or::after{content:"";position:absolute;top:50%;width:calc(50% - 22px);height:1px;background:var(--line)}
 .gate-or::before{left:0}.gate-or::after{right:0}
@@ -1418,7 +1420,7 @@ function renderSince(){
   });
   if(!any && hold){
     box.appendChild(el('div',{class:'since-chip'},[
-      el('span',{class:'k',text:'Bladder rule'}),
+      el('span',{class:'k',text:'Can hold about'}),
       el('span',{class:'v',text:'~'+hold+'h'})
     ]));
   }
@@ -1794,7 +1796,7 @@ function focusPotty(){
   allEvents().filter(e=>e.type==='potty'&&e.where==='accident'&&e.trigger).forEach(e=>{ trig[e.trigger]=(trig[e.trigger]||0)+1; });
   const tk = Object.keys(trig).sort((a,b)=>trig[b]-trig[a]);
   if(tk.length){
-    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:6px', text:'Where the accidents come from'}));
+    c.appendChild(el('div',{style:'font-size:13px;color:var(--ink-3);font-weight:600;margin-bottom:6px', text:'Where the accidents come from'}));
     const maxT = trig[tk[0]];
     tk.slice(0,5).forEach(k=>{
       const lab = (ACCIDENT_TRIGGERS.find(x=>x[0]===k)||[k,k])[1];
@@ -1816,7 +1818,7 @@ function focusPotty(){
     .forEach(e=>{ const h = new Date(e.at).getHours(); hours[h]=(hours[h]||0)+1; });
   const hk = Object.keys(hours).map(Number).sort((a,b)=>hours[b]-hours[a]).slice(0,7).sort((a,b)=>a-b);
   if(hk.length>=3){
-    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:12px 0 6px', text:'Her own schedule so far'}));
+    c.appendChild(el('div',{style:'font-size:13px;color:var(--ink-3);font-weight:600;margin:12px 0 6px', text:'Her own schedule so far'}));
     const row = el('div',{class:'chips'});
     hk.forEach(h=> row.appendChild(el('span',{class:'chip', style:'cursor:default', text:((h%12)||12)+(h<12?'am':'pm')})));
     c.appendChild(row);
@@ -1871,7 +1873,7 @@ function focusCrate(){
   const withSettle = sessions.filter(e=> e.settleMin!=null).slice(0,10).reverse();
   if(withSettle.length>1){
     const max = Math.max.apply(null, withSettle.map(e=>e.settleMin).concat([1]));
-    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600', text:'Minutes to settle — last '+withSettle.length+' sessions'}));
+    c.appendChild(el('div',{style:'font-size:13px;color:var(--ink-3);font-weight:600', text:'Minutes to settle — last '+withSettle.length+' sessions'}));
     const bars = el('div',{class:'bars', style:'height:70px'});
     withSettle.forEach(e=>{
       const h = e.settleMin? Math.max(4, Math.round(64*(e.settleMin/max))) : 2;
@@ -1895,7 +1897,7 @@ function focusCrate(){
   if(recent.length){
     const counts = {};
     recent.forEach(e=> counts[e.outcome]=(counts[e.outcome]||0)+1);
-    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:12px 0 6px', text:'How the last two weeks went'}));
+    c.appendChild(el('div',{style:'font-size:13px;color:var(--ink-3);font-weight:600;margin:12px 0 6px', text:'How the last two weeks went'}));
     const bar = el('div',{style:'display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--surface-2)'});
     const colors = {settled:'var(--c-good)', fussed:'var(--c-crate)', whined:'var(--c-meal)', panicked:'var(--c-bad)', soiled:'var(--c-bad)'};
     CRATE_OUTCOMES.forEach(([k])=>{ if(counts[k]) bar.appendChild(el('span',{style:'width:'+(100*counts[k]/recent.length)+'%;background:'+colors[k]})); });
@@ -1962,7 +1964,7 @@ function focusSleep(){
   const addStat = (k,v,color)=> stats.appendChild(el('div',{class:'stat', style:color?'--sc:'+color:null},[el('div',{class:'k',text:k}),el('div',{class:'v',text:v})]));
   addStat('Naps today', String(naps));
   addStat('Longest awake', longest? fmtDur(longest*60000) : '—', longest > ceiling ? 'var(--c-bad)' : 'var(--c-good)');
-  addStat('Awake ceiling', fmtDur(ceiling*60000));
+  addStat('Usually manages', fmtDur(ceiling*60000));
   c.appendChild(stats);
   if(longest > ceiling){
     c.appendChild(el('div',{class:'banner', style:'margin-bottom:12px', html: svg('info') +
@@ -1971,7 +1973,7 @@ function focusSleep(){
   }
 
   // 7-day nap map
-  c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600', text:'When she sleeps'}));
+  c.appendChild(el('div',{style:'font-size:13px;color:var(--ink-3);font-weight:600', text:'When she sleeps'}));
   const days = last7();
   days.forEach(k=>{
     const spans = sleepSpansOn(k);
@@ -2012,7 +2014,7 @@ function focusSleep(){
     placed.forEach(e=> counts[e.where]=(counts[e.where]||0)+1);
     const inCrate = Math.round(100*(counts.crate||0)/placed.length);
     const rows = Object.keys(counts).sort((a,b)=>counts[b]-counts[a]);
-    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:14px 0 6px', text:'Where she naps'}));
+    c.appendChild(el('div',{style:'font-size:13px;color:var(--ink-3);font-weight:600;margin:14px 0 6px', text:'Where she naps'}));
     const maxN = counts[rows[0]];
     rows.forEach(k=>{
       const label = (NAP_WHERE.find(x=>x[0]===k)||[,k])[1];
@@ -2148,7 +2150,7 @@ function focusTeething(){
   }).sort((a,b)=> b.avg - a.avg);
   const max = Math.max.apply(null, rows.map(r=>r.avg).concat([1]));
 
-  c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:6px', text:'What holds her attention'}));
+  c.appendChild(el('div',{style:'font-size:13px;color:var(--ink-3);font-weight:600;margin-bottom:6px', text:'What holds her attention'}));
   rows.forEach(r=>{
     const label = (CHEW_KINDS.find(x=>x[0]===r.k)||[,r.k])[1];
     c.appendChild(el('div',{style:'display:flex;align-items:center;gap:9px;padding:5px 0'},[
@@ -2173,7 +2175,7 @@ function focusTeething(){
   if(sk.length){
     const row = el('div',{class:'chips', style:'margin-top:10px'});
     sk.sort((a,b)=>signs[b]-signs[a]).forEach(k=> row.appendChild(el('span',{class:'chip', style:'cursor:default;font-size:12px', text:k+' · '+signs[k]})));
-    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-top:12px', text:'Teething signs logged'}));
+    c.appendChild(el('div',{style:'font-size:13px;color:var(--ink-3);font-weight:600;margin-top:12px', text:'Teething signs logged'}));
     c.appendChild(row);
   }
   return c;
@@ -2198,7 +2200,7 @@ function healthWatch(){
         el('span',{class:'lab', text:new Date(e.at).toLocaleDateString(undefined,{month:'numeric',day:'numeric'})})
       ]));
     });
-    c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600', text:'Energy, most recent '+moods.length+' check-ins'}));
+    c.appendChild(el('div',{style:'font-size:13px;color:var(--ink-3);font-weight:600', text:'Energy, most recent '+moods.length+' check-ins'}));
     c.appendChild(bars);
     const flat = moods.slice(-3).filter(e=>e.energy<=2).length;
     if(flat>=2) c.appendChild(el('div',{class:'banner', style:'margin-bottom:10px', html: svg('info') +
@@ -2217,7 +2219,7 @@ function healthWatch(){
       : 'Nothing logged yet. Tap Symptom when something looks off and How she seems once or twice a day, and this card turns it into something you can show a vet.'}));
     return c;
   }
-  c.appendChild(el('div',{style:'font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:6px', text:'Logged in the last 14 days'}));
+  c.appendChild(el('div',{style:'font-size:13px;color:var(--ink-3);font-weight:600;margin-bottom:6px', text:'Logged in the last 14 days'}));
   const maxC = counts[keys[0]];
   keys.slice(0,6).forEach(k=>{
     const label = (SYMPTOMS.find(x=>x[0]===k)||[,k])[1];
@@ -2597,32 +2599,57 @@ async function endSession(ev){
   }
 }
 
+
+/* Most entries are "this just happened" — the time is now and there is no note.
+   Those two fields were the bulk of every sheet, so they fold away until asked
+   for, and the sheet becomes a question or two and a button. */
+function details(draft, sheet, type){
+  const wrap = el('div',{});
+  const body = el('div',{hidden:true});
+  const toggle = el('button',{type:'button',
+    style:'width:100%;text-align:left;padding:10px 0;font-size:14px;color:var(--accent-ink);font-weight:600',
+    text:'Change the time, or add a note'});
+  toggle.addEventListener('click', ()=>{
+    body.hidden = !body.hidden;
+    toggle.textContent = body.hidden ? 'Change the time, or add a note' : 'Hide';
+  });
+  body.appendChild(timeField(draft));
+  body.appendChild(field('Note', el('textarea',{class:'inp', id:'evNote', placeholder:notePlaceholder(type),
+    value:draft.note||'', oninput:e=>draft.note=e.target.value.slice(0,400)})));
+  wrap.appendChild(toggle); wrap.appendChild(body);
+  return wrap;
+}
+
 function openLogSheet(type, existing, seed){
   const T = TYPES[type];
   const draft = existing ? Object.assign({}, existing) : Object.assign({type, at:new Date().toISOString()}, seed||{});
   openSheet(sheet=>{
     head(sheet, type, existing? 'Edit '+T.label.toLowerCase() : T.label, existing? null : subFor(type));
     buildFields(sheet, type, draft);
-    sheet.appendChild(timeField(draft));
-    sheet.appendChild(field('Note', el('textarea',{class:'inp', id:'evNote', placeholder:notePlaceholder(type), value:draft.note||'',
-      oninput:e=>draft.note=e.target.value.slice(0,400)})));
+    if(existing){
+      sheet.appendChild(timeField(draft));
+      sheet.appendChild(field('Note', el('textarea',{class:'inp', id:'evNote', placeholder:notePlaceholder(type),
+        value:draft.note||'', oninput:e=>draft.note=e.target.value.slice(0,400)})));
+    } else {
+      sheet.appendChild(details(draft, sheet, type));
+    }
     actions(sheet, async ()=>{
       closeSheet();
       if(existing){ await patchEvent(existing.id, draft); toast('Updated'); }
       else { await addEvent(draft); toast(T.label+' logged'); }
-    }, existing? 'Save changes' : 'Log it', existing ? async ()=>{ closeSheet(); await removeEvent(existing.id); toast('Deleted'); } : null);
+    }, existing? 'Save changes' : 'Done', existing ? async ()=>{ closeSheet(); await removeEvent(existing.id); toast('Deleted'); } : null);
   });
 }
 function subFor(type){
   return {
-    meal:'Which meal, what she got, and how much of it she actually ate.',
-    potty:'The detail here is what makes the schedule readable later.',
-    treat:'Tie it to a brand so her favourites rise to the top.',
-    training:'A minute or two counts. Rate how it went while it is fresh.',
+    meal:'What she got, and how much of it she actually ate.',
+    potty:'A little detail now makes her pattern obvious later.',
+    treat:'Tie it to a brand and her favourites rise to the top.',
+    training:'A minute or two counts. How did it go?',
     weight:'Weekly weigh-ins are enough to see the growth curve.',
-    health:'Small things logged consistently are worth more at the vet than a good memory.',
+    health:'Little things, written down, beat trying to remember at the vet.',
     mood:'A quick read on her energy. Two of these a day is plenty.',
-    chew:'Teething runs until about six months. Log what you handed her and how long it held.',
+    chew:'What did you give her, and did it keep her busy?',
     water:'', meds:'', groom:'', vet:'', note:''
   }[type] || '';
 }
@@ -2655,11 +2682,11 @@ function buildFields(sheet, type, draft){
     sheet.appendChild(field('Where', chipSet([['outside','Outside'],['pad','On the pad'],['accident','Accident indoors']], draft.where, v=>draft.where=v)));
     if(!draft.quality) draft.quality='normal';
     const qual = field('Stool', chipSet([['normal','Normal'],['soft','Soft'],['loose','Loose'],['hard','Hard'],['blood','Blood / mucus']], draft.quality, v=>draft.quality=v),
-      'Worth logging if it changes — it is the first thing a vet asks.');
+      'Worth noting if it changes — it is the first thing a vet asks.');
     qual.hidden = (draft.kind==='pee');
     sheet.appendChild(qual);
     const trig = field('What was going on', chipSet(ACCIDENT_TRIGGERS, draft.trigger||'unwatched', v=>draft.trigger=v),
-      'Accidents cluster around a handful of moments. Naming them is how the pattern shows up on the Focus tab.');
+      'Accidents tend to happen at the same few moments. Naming them is how you spot it.');
     trig.hidden = (draft.where!=='accident');
     sheet.appendChild(trig);
     const whereChips = sheet.querySelectorAll('.field')[1];
@@ -2709,7 +2736,7 @@ function buildFields(sheet, type, draft){
     sheet.appendChild(itemPicker(['chew','treat'], draft, 'Saved item (optional)'));
     sheet.appendChild(field('Minutes she stayed with it', el('input',{class:'inp', type:'number', min:'0', max:'240', inputmode:'numeric', placeholder:'15',
       value: draft.minutes||'', oninput:e=> draft.minutes = e.target.value===''? null : +e.target.value}),
-      'This is the number that tells you which chew is worth buying again.'));
+      'Tells you which chew is worth buying again.'));
     if(!draft.effect) draft.effect='busy';
     sheet.appendChild(field('What it did for her', chipSet(CHEW_EFFECT, draft.effect, v=>draft.effect=v)));
     sheet.appendChild(field('Teething signs', chipMulti([['gums','Sore or bloody gums'],['tooth','Lost a tooth'],['furniture','Chewing furniture'],['hands','Chewing hands / ankles'],['drool','Extra drooling']], draft.teething||[], v=>draft.teething=v)));
@@ -2736,9 +2763,9 @@ function buildFields(sheet, type, draft){
       sheet.appendChild(field('How did it go', chipSet(CRATE_OUTCOMES, draft.outcome||'settled', v=>draft.outcome=v)));
       sheet.appendChild(field('Minutes until she settled', el('input',{class:'inp', type:'number', min:'0', max:'240', inputmode:'numeric', placeholder:'2',
         value: draft.settleMin===0? '0' : (draft.settleMin||''), oninput:e=> draft.settleMin = e.target.value===''? null : +e.target.value}),
-        'The number that actually moves during crate training — it should fall even as the sessions get longer.'));
+        'This is the number that should come down, even as the sessions get longer.'));
       sheet.appendChild(field('Did she sleep in there', chipSet(CRATE_SLEPT, draft.sleptIn||'no', v=>draft.sleptIn=v),
-        'Crate sleep counts toward her daily total, so overnight goes in here rather than as a second entry.'));
+        'Counts toward her sleep for the day, so overnight goes here rather than twice.'));
     }
     if(type==='sleep'){
       sheet.appendChild(field('Where', chipSet(NAP_WHERE, draft.where||'crate', v=>draft.where=v),
@@ -2891,7 +2918,7 @@ function openSettings(firstRun){
     sheet.appendChild(shot); sheet.appendChild(picker);
     sheet.appendChild(field('Her name', el('input',{class:'inp', id:'stName', placeholder:'Olive', value:draft.name||'', oninput:e=>draft.name=e.target.value.slice(0,30)})));
     sheet.appendChild(field('Birthday', el('input',{class:'inp', id:'stBday', type:'date', value:draft.birthday||'', onchange:e=>draft.birthday=e.target.value}),
-      'Everything on the Focus tab is scaled to her age — an estimate is fine if you only know roughly.'));
+      'Used for her age. A rough guess is fine.'));
     const breedList = el('datalist',{id:'breedList'});
     ['Shih Tzu × Yorkshire Terrier','Shih Tzu','Yorkshire Terrier','Maltese','Poodle mix','Mixed breed'].forEach(b=> breedList.appendChild(el('option',{value:b})));
     sheet.appendChild(breedList);
