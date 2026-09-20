@@ -22,7 +22,7 @@ img{max-width:100%}
 </style>
 <title>Same Page</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Schibsted+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap">
 <style>
 :root{
   --bg:#eef1ee; --surface:#ffffff; --surface-2:#f6f9f6; --line:#dce3dd; --line-strong:#c3cec6;
@@ -35,9 +35,12 @@ img{max-width:100%}
   --c-symptom:#b5562c; --c-mood:#2a7f8f; --c-chew:#8a6a3f;
   --c-bad:#c0392b; --c-bad-soft:#fae4e1; --c-good:#12805c;
   --r-s:8px; --r-m:12px; --r-l:18px;
-  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
-  --serif:"Fraunces",Georgia,"Times New Roman",serif;
-  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  /* Bricolage Grotesque carries the headings — a variable grotesque with enough
+     wobble to feel hand-made; Schibsted Grotesk is the neutral workhorse behind
+     it; Spline Sans Mono has real tabular figures for the timers and counts. */
+  --sans:"Schibsted Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Bricolage Grotesque","Schibsted Grotesk",system-ui,sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --bg:#101510; --surface:#18201b; --surface-2:#1e2721; --line:#2b352e; --line-strong:#3c483f;
@@ -77,16 +80,17 @@ input,select,textarea{font:inherit;color:inherit}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;margin:0 -16px;padding:10px 16px 10px;
   background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line)}
-.top-row{display:flex;align-items:center;gap:10px}
-.pup{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;min-width:0}
-.pup h1{margin:0;font-family:var(--serif);font-weight:700;font-size:23px;letter-spacing:-.015em;line-height:1.1}
+.top-row{display:flex;align-items:center;gap:10px;min-width:0}
+.pup{display:flex;align-items:baseline;gap:4px 8px;flex-wrap:wrap;min-width:0;flex:1 1 auto}
+.pup h1{margin:0;font-family:var(--serif);font-weight:800;font-size:clamp(18px,4.6vw,23px);letter-spacing:-.022em;line-height:1.08;overflow-wrap:anywhere}
 .pup .age{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);white-space:nowrap}
-.top-actions{margin-left:auto;display:flex;gap:6px;align-items:center}
+.top-actions{margin-left:auto;display:flex;gap:6px;align-items:center;flex:0 0 auto}
 .iconbtn{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;color:var(--ink-2);
   border:1px solid transparent}
 .iconbtn:hover{background:var(--surface);border-color:var(--line)}
-.who{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-3);padding:3px 9px 3px 3px;
-  border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.who{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-3);padding:3px 9px;
+  border:1px solid var(--line);border-radius:999px;background:var(--surface);max-width:34vw;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--mono)}
 .who img{width:22px;height:22px;border-radius:50%;display:block}
 
 /* since-strip */
@@ -113,39 +117,41 @@ input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- tiles ---------- */
 .sec-head{display:flex;align-items:center;gap:10px;margin:2px 0 -4px}
-.sec-head h2{margin:0;font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.01em}
+.sec-head h2{margin:0;font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:-.012em}
 .sec-head .rule{flex:1;height:1px;background:var(--line)}
 .sec-head .act{font-size:12px;color:var(--accent-ink);font-weight:600}
 
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-@media (max-width:420px){.grid{grid-template-columns:repeat(3,1fr)}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(76px,1fr));gap:8px}
 .tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
   padding:13px 4px 11px;border-radius:var(--r-m);background:var(--surface);border:1px solid var(--line);
   box-shadow:var(--shadow);transition:transform .12s ease,border-color .12s ease}
 .tile:active{transform:scale(.96)}
 .tile .ic{width:26px;height:26px;color:var(--tc)}
-.tile .nm{font-size:11.5px;font-weight:600;letter-spacing:.005em;color:var(--ink-2);text-align:center;line-height:1.15}
+.tile .nm{font-size:11.5px;font-weight:600;color:var(--ink-2);text-align:center;line-height:1.15;
+  overflow-wrap:anywhere;hyphens:auto;max-width:100%}
 .tile[data-on="1"]{border-color:var(--tc);background:color-mix(in srgb,var(--tc) 11%,var(--surface))}
 .tile[data-on="1"] .nm{color:var(--tc)}
 
 /* ---------- timeline ---------- */
 .day{display:flex;flex-direction:column;gap:0}
-.day-h{display:flex;align-items:baseline;gap:8px;padding:12px 2px 6px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 54px);
+.day-h{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;padding:12px 2px 6px;position:sticky;
+  top:calc(env(safe-area-inset-top,0px) + var(--top-h,54px));
   background:linear-gradient(var(--bg) 70%,transparent);z-index:5}
-.day-h .d{font-family:var(--serif);font-size:14.5px;font-weight:700}
-.day-h .s{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-left:auto}
-.ev{display:grid;grid-template-columns:52px 20px 1fr;gap:10px;align-items:flex-start;padding:7px 8px 7px 2px;
-  border-radius:var(--r-s);text-align:left;width:100%}
+.day-h .d{font-family:var(--serif);font-size:14.5px;font-weight:700;letter-spacing:-.012em}
+.day-h .s{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-left:auto;overflow-wrap:anywhere}
+.ev{display:grid;grid-template-columns:clamp(42px,12vw,52px) 20px minmax(0,1fr);gap:8px;align-items:flex-start;
+  padding:7px 6px 7px 2px;border-radius:var(--r-s);text-align:left;width:100%}
 .ev:hover{background:var(--surface)}
 .ev .t{font-family:var(--mono);font-size:12px;color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums}
 .ev .rail{position:relative;display:grid;place-items:center;padding-top:2px;align-self:stretch}
 .ev .rail::before{content:"";position:absolute;top:0;bottom:-14px;width:1px;background:var(--line)}
 .ev:last-child .rail::before{display:none}
 .ev .ic{position:relative;width:18px;height:18px;color:var(--tc);background:var(--bg);padding:1px 0}
-.ev .body{min-width:0}
-.ev .ttl{font-size:14px;font-weight:600;display:flex;gap:6px;flex-wrap:wrap;align-items:baseline}
-.ev .meta{font-size:12.5px;color:var(--ink-2);margin-top:1px;overflow-wrap:anywhere}
-.ev .by{font-size:11px;color:var(--ink-3);margin-top:2px}
+.ev .body{min-width:0;display:block}
+.ev .ttl{font-size:14px;font-weight:600;display:flex;width:100%;gap:5px 6px;flex-wrap:wrap;align-items:baseline;
+  overflow-wrap:anywhere;min-width:0}
+.ev .meta{display:block;font-size:12.5px;color:var(--ink-2);margin-top:2px;overflow-wrap:anywhere}
+.ev .by{display:block;font-size:11px;color:var(--ink-3);margin-top:2px;font-family:var(--mono)}
 .pill{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;
   padding:1.5px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);white-space:nowrap}
 .pill.bad{background:var(--c-bad-soft);color:var(--c-bad)}
@@ -153,19 +159,19 @@ input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- cards / stats ---------- */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-l);padding:14px;box-shadow:var(--shadow)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:1px;background:var(--line);
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:1px;background:var(--line);
   border:1px solid var(--line);border-radius:var(--r-l);overflow:hidden}
 .stat{background:var(--surface);padding:11px 12px 12px}
 .stat .k{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
-.stat .v{font-family:var(--mono);font-size:21px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.25;color:var(--sc,var(--ink))}
+.stat .v{font-family:var(--mono);font-size:clamp(17px,4.4vw,21px);overflow-wrap:anywhere;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.25;color:var(--sc,var(--ink))}
 .stat .u{font-size:11px;color:var(--ink-3);font-family:var(--sans)}
 
 .bars{display:flex;align-items:flex-end;gap:5px;height:88px;margin-top:10px}
 .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end;min-width:0}
 .bar{width:100%;max-width:26px;border-radius:4px 4px 2px 2px;background:var(--bc,var(--accent));min-height:2px}
-.bar-col .lab{font-family:var(--mono);font-size:9.5px;color:var(--ink-3)}
+.bar-col .lab{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);white-space:nowrap}
 .bar-col.today .lab{color:var(--ink);font-weight:500}
-.bar-val{font-family:var(--mono);font-size:9.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.bar-val{font-family:var(--mono);font-size:9.5px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
 
 .heat{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;margin-top:10px}
 .heat i{display:block;height:24px;border-radius:3px;background:var(--surface-2);border:1px solid var(--line)}
@@ -187,9 +193,9 @@ input,select,textarea{font:inherit;color:inherit}
 .item .nm{font-weight:600;font-size:14.5px}
 .item .br{font-size:12px;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase;font-weight:600}
 .item .no{font-size:12.5px;color:var(--ink-2);margin-top:3px}
-.item .rt{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:0 0 auto}
+.item .rt{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:0 0 auto;max-width:44%}
 .count{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
-.verdict{font-size:11px;font-weight:600;padding:2.5px 9px;border-radius:999px;white-space:nowrap}
+.verdict{font-size:11px;font-weight:600;padding:2.5px 9px;border-radius:999px;text-align:right;line-height:1.25}
 .v5{background:var(--accent-soft);color:var(--accent-ink)}
 .v4{background:var(--surface-2);color:var(--c-good);border:1px solid var(--line)}
 .v3{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
@@ -198,7 +204,7 @@ input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- empty ---------- */
 .empty{text-align:center;padding:30px 18px;color:var(--ink-3)}
-.empty .hd{font-family:var(--serif);font-size:17px;color:var(--ink);margin-bottom:5px}
+.empty .hd{font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:-.015em;color:var(--ink);margin-bottom:5px}
 .empty p{margin:0;font-size:13.5px;max-width:34ch;margin-inline:auto}
 
 /* ---------- tabbar ---------- */
@@ -206,7 +212,8 @@ input,select,textarea{font:inherit;color:inherit}
   background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);
   border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
 .tabs-in{display:flex;width:100%;max-width:620px}
-.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 9px;color:var(--ink-3);font-size:10.5px;font-weight:600}
+.tab{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 9px;
+  color:var(--ink-3);font-size:clamp(9px,2.6vw,10.5px);font-weight:600;white-space:nowrap;overflow:hidden}
 .tab svg{width:21px;height:21px}
 .tab[aria-selected="true"]{color:var(--accent-ink)}
 
@@ -214,9 +221,9 @@ input,select,textarea{font:inherit;color:inherit}
 .scrim{position:fixed;inset:0;z-index:60;background:rgba(10,16,13,.45);display:grid;align-items:flex-end;justify-items:center}
 .sheet{width:100%;max-width:560px;background:var(--surface);border:1px solid var(--line);border-bottom:0;
   border-radius:var(--r-l) var(--r-l) 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px));
-  max-height:88vh;overflow:auto;animation:up .2s ease}
+  max-height:min(88dvh,780px);overflow:auto;overscroll-behavior:contain;animation:up .2s ease}
 @keyframes up{from{transform:translateY(14px);opacity:.5}}
-.sheet h3{margin:0 0 2px;font-family:var(--serif);font-size:19px;font-weight:700;display:flex;align-items:center;gap:9px}
+.sheet h3{margin:0 0 2px;font-family:var(--serif);font-size:19px;font-weight:800;letter-spacing:-.018em;display:flex;align-items:center;gap:9px}
 .sheet h3 svg{width:20px;height:20px;color:var(--tc)}
 .sheet .sub{font-size:12.5px;color:var(--ink-3);margin:0 0 14px}
 .field{margin-bottom:13px}
@@ -263,6 +270,68 @@ textarea.inp{min-height:62px;resize:vertical}
 .pad .w{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:5px}
 .clk-meta{display:flex;justify-content:center;gap:18px;font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-bottom:12px;font-variant-numeric:tabular-nums}
 
+/* ---------- size adaptation ----------
+   One column on a phone, a wider column with room to breathe on a tablet, and a
+   two-column board on a laptop. The tab bar becomes a floating pill once there
+   is no longer a phone bezel for it to sit against. */
+
+/* Never let anything push the page sideways, whatever a child element does. */
+html,body{max-width:100%;overflow-x:clip}
+.card,.stats,.item,.banner,.run,.since-chip{min-width:0}
+.card>*{min-width:0}
+
+/* Small phones (iPhone SE and friends) */
+@media (max-width:359px){
+  .app{padding-left:12px;padding-right:12px}
+  .top{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
+  .since{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
+  .grid{gap:6px}
+  .tile{padding:11px 2px 9px}
+  .who{display:none}
+}
+
+/* Tablets and up: a roomier column */
+@media (min-width:620px){
+  body{font-size:15.5px}
+  .app{max-width:720px;padding-left:24px;padding-right:24px;padding-bottom:112px}
+  .top{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
+  .since{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:10px}
+  .tile{padding:16px 6px 14px}
+  .tile .nm{font-size:12.5px}
+  .pup h1{font-size:26px}
+  .card{padding:18px}
+  .ev{padding:8px 10px 8px 4px}
+}
+
+/* Laptops: two columns for the reading tabs, and a floating tab bar */
+@media (min-width:1000px){
+  .app{max-width:960px;padding-bottom:120px}
+  .top{margin-left:-24px;margin-right:-24px}
+  #view.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  #view.two-col>.sec-head{grid-column:1 / -1}
+  #view.two-col>.stats{grid-column:1 / -1}
+  .grid{grid-template-columns:repeat(auto-fit,minmax(108px,1fr))}
+  .tabs{background:transparent;border-top:0;padding-bottom:18px;pointer-events:none}
+  .tabs-in{pointer-events:auto;max-width:520px;border-radius:999px;background:var(--surface);
+    border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
+  .tab{padding:9px 6px 10px}
+  .tab[aria-selected="true"]{background:var(--accent-soft)}
+}
+
+/* Landscape phones: the sheet must not eat the whole screen */
+@media (max-height:520px){
+  .sheet{max-height:94dvh}
+  .pad{max-width:150px}
+  .pad .n{font-size:38px}
+}
+
+/* Pointer-based devices get hover affordances phones should not have */
+@media (hover:hover){
+  .tile:hover{border-color:var(--line-strong)}
+  .clicker-launch:hover{border-color:var(--accent)}
+}
+
 /* ---------- puppy photo ---------- */
 .pupshot{width:36px;height:36px;border-radius:50%;object-fit:cover;flex:0 0 36px;
   border:2px solid var(--accent-soft);background:var(--surface-2)}
@@ -305,13 +374,14 @@ textarea.inp{min-height:62px;resize:vertical}
 
 /* ---------- sign-in / onboarding gate ---------- */
 #gate{min-height:100dvh;display:grid;place-items:center;padding:28px 16px}
+#gate .gate-card{max-height:none}
 .gate-card{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--line);
   border-radius:var(--r-l);padding:24px 20px;box-shadow:var(--shadow)}
 .gate-brand{display:flex;align-items:center;gap:10px;margin-bottom:20px}
 .gate-brand .mk{width:34px;height:34px;border-radius:10px;background:var(--accent);display:grid;place-items:center;flex:0 0 34px}
 .gate-brand .mk svg{width:20px;height:20px;color:var(--accent-on)}
-.gate-brand b{font-family:var(--serif);font-size:19px;font-weight:700;letter-spacing:-.01em}
-.gate-h{margin:0 0 4px;font-family:var(--serif);font-size:21px;font-weight:700;letter-spacing:-.01em}
+.gate-brand b{font-family:var(--serif);font-size:19px;font-weight:800;letter-spacing:-.022em}
+.gate-h{margin:0 0 4px;font-family:var(--serif);font-size:21px;font-weight:800;letter-spacing:-.02em}
 .gate-p{margin:0 0 18px;font-size:13.5px;color:var(--ink-2);max-width:42ch}
 .gate-err{margin-top:10px;padding:9px 11px;border-radius:var(--r-s);background:var(--c-bad-soft);
   color:var(--c-bad);font-size:13px}
@@ -756,7 +826,14 @@ async function loadAll(){
   }
   if(hh.data){ state.invite = hh.data.invite_code; state.householdName = hh.data.name; }
   state.members = {};
-  (members.data||[]).forEach(m=>{ state.members[m.user_id] = m.display_name || ''; });
+  (members.data||[]).forEach(m=>{ state.members[m.user_id] = {name: m.display_name || '', username: ''}; });
+  const ids = Object.keys(state.members);
+  if(ids.length){
+    const {data: profs} = await SB.from('profiles').select('user_id, username, display_name').in('user_id', ids);
+    (profs||[]).forEach(p=>{
+      state.members[p.user_id] = {name: p.display_name || '', username: p.username};
+    });
+  }
   rebuildDays(); state.ready = true; saveLocal(); render();
 }
 
@@ -784,6 +861,72 @@ function subscribe(){
     .subscribe();
 }
 
+
+/* ============================ one-tap deep links ============================
+   iOS does not let a web app put custom actions behind a long-press on its
+   home-screen icon, and it has no widget API for web apps at all. What it does
+   allow is a home-screen icon or a Shortcuts widget button pointing at any URL.
+   So every quick action gets its own URL: ?log=potty files a potty break the
+   moment the app opens, and ?timer=crate toggles the crate stopwatch. Add one
+   of these to the home screen and it behaves like a single-purpose button. */
+const DEEP_LINKS = [
+  ['?log=potty',    'Potty',    'Files a potty break outside'],
+  ['?log=accident', 'Accident', 'Files an accident indoors'],
+  ['?log=meal',     'Meal',     'Files the meal for this time of day'],
+  ['?log=treat',    'Treat',    'Files a treat'],
+  ['?log=water',    'Water',    'Tops up the water bowl'],
+  ['?timer=crate',  'Crate',    'Starts the crate timer, or ends a running one'],
+  ['?timer=sleep',  'Nap',      'Starts a nap, or ends a running one'],
+  ['?timer=walk',   'Walk',     'Starts a walk, or ends a running one'],
+  ['?open=clicker', 'Clicker',  'Opens the clicker straight away']
+];
+
+async function runDeepLink(){
+  const p = new URLSearchParams(location.search);
+  const log = p.get('log'), timer = p.get('timer'), open = p.get('open');
+  if(!log && !timer && !open) return;
+  // Clear it so a refresh does not log the same thing twice.
+  history.replaceState({}, '', location.pathname);
+
+  if(open === 'clicker'){ openClicker(); return; }
+
+  if(timer && TYPES[timer] && TYPES[timer].mode === 'timer'){
+    const running = openSessions().find(e => e.type === timer);
+    if(running) return endSession(running);
+    await addEvent({type: timer, endAt: null});
+    toast(TYPES[timer].label + ' started');
+    return;
+  }
+
+  if(log === 'potty' || log === 'accident'){
+    const accident = log === 'accident';
+    const ev = await addEvent(accident
+      ? {type:'potty', kind:'pee', where:'accident', trigger:'unwatched'}
+      : {type:'potty', kind:'pee', where:'outside', quality:'normal'});
+    if(ev) toast(accident ? 'Accident logged' : 'Potty logged', 'Add detail', ()=>{
+      const f = findEvent(ev.id); if(f) openLogSheet('potty', f.ev);
+    });
+    return;
+  }
+  if(log === 'meal'){
+    const h = new Date().getHours();
+    const meal = h < 10 ? 'Breakfast' : h < 15 ? 'Lunch' : h < 21 ? 'Dinner' : 'Snack';
+    const ev = await addEvent({type:'meal', meal, ate:'all'});
+    if(ev) toast(meal + ' logged', 'Add detail', ()=>{
+      const f = findEvent(ev.id); if(f) openLogSheet('meal', f.ev);
+    });
+    return;
+  }
+  if(log === 'treat' || log === 'water'){
+    const ev = await addEvent(log === 'water'
+      ? {type:'water', amount:'Topped up'}
+      : {type:'treat', reaction:'loved', purpose:'just'});
+    if(ev) toast(TYPES[log].label + ' logged', 'Add detail', ()=>{
+      const f = findEvent(ev.id); if(f) openLogSheet(log, f.ev);
+    });
+  }
+}
+
 /* ============================ auth & onboarding ============================ */
 function showGate(html){
   document.getElementById('gate').hidden = false;
@@ -794,6 +937,63 @@ function showGate(html){
 function hideGate(){
   document.getElementById('gate').hidden = true;
   document.getElementById('shell').hidden = false;
+}
+
+/* A handle input that checks itself as you type. Reports free / taken / bad
+   format inline, and hands the caller the cleaned handle only when it is free. */
+function usernameBox(onValid, initial){
+  const wrap = el('div',{});
+  const row = el('div',{style:'display:flex;align-items:center;gap:0;border:1px solid var(--line-strong);border-radius:var(--r-s);background:var(--surface-2);overflow:hidden'});
+  row.appendChild(el('span',{style:'padding:9px 2px 9px 11px;font-family:var(--mono);font-size:15px;color:var(--ink-3)', text:'@'}));
+  const inp = el('input',{class:'inp', id:'handleInput', autocapitalize:'off', autocorrect:'off', spellcheck:'false',
+    autocomplete:'username', placeholder:'nicole', value: initial||'',
+    style:'border:0;background:transparent;padding-left:2px;font-family:var(--mono)'});
+  row.appendChild(inp);
+  wrap.appendChild(row);
+  const note = el('div',{class:'hint', text:'Lowercase letters, numbers and underscores. 3 to 20 characters.'});
+  wrap.appendChild(note);
+
+  let timer = null, seq = 0;
+  const check = async ()=>{
+    const raw = inp.value.trim().toLowerCase();
+    inp.value = raw;
+    onValid('');
+    if(!raw){ note.textContent = 'Lowercase letters, numbers and underscores. 3 to 20 characters.'; note.style.color=''; return; }
+    if(!/^[a-z0-9_]{3,20}$/.test(raw)){
+      note.textContent = 'Only lowercase letters, numbers and underscores, 3 to 20 of them.';
+      note.style.color = 'var(--c-bad)'; return;
+    }
+    const mine = ++seq;
+    note.textContent = 'Checking…'; note.style.color = '';
+    const {data, error} = await SB.rpc('username_available', {u: raw});
+    if(mine !== seq) return;
+    if(error){ note.textContent = 'Could not check that right now.'; note.style.color='var(--c-bad)'; return; }
+    if(data){ note.textContent = '@' + raw + ' is free.'; note.style.color = 'var(--c-good)'; onValid(raw); }
+    else { note.textContent = '@' + raw + ' is taken.'; note.style.color = 'var(--c-bad)'; }
+  };
+  inp.addEventListener('input', ()=>{ clearTimeout(timer); timer = setTimeout(check, 320); });
+  if(initial) check();
+  return wrap;
+}
+
+/* For an account that exists but has no handle yet. */
+function usernameScreen(){
+  const wrap = el('div',{});
+  wrap.appendChild(el('h2',{class:'gate-h', text:'Pick your username'}));
+  wrap.appendChild(el('p',{class:'gate-p', text:'This is how your entries are signed in the logbook, so the others can see who logged what.'}));
+  let handle = '';
+  wrap.appendChild(el('div',{class:'field'},[ el('label',{text:'Username'}), usernameBox(u=>{ handle = u; }) ]));
+  const err = el('div',{class:'gate-err', hidden:true});
+  wrap.appendChild(err);
+  wrap.appendChild(el('button',{class:'btn p', style:'width:100%;margin-top:6px', text:'That is me', onclick: async ()=>{
+    err.hidden = true;
+    if(!handle){ err.hidden=false; err.textContent='Pick a username that is free first.'; return; }
+    const {error} = await SB.rpc('claim_username', {u: handle, dname: displayName()});
+    if(error){ err.hidden=false; err.textContent = error.message; return; }
+    start();
+  }}));
+  wrap.appendChild(el('button',{class:'gate-alt', text:'Sign out', onclick: async ()=>{ await SB.auth.signOut(); location.reload(); }}));
+  return wrap;
 }
 
 function authScreen(mode){
@@ -809,8 +1009,12 @@ function authScreen(mode){
   const name  = el('input',{class:'inp', id:'authName', autocomplete:'name', placeholder:'The name the others will see'});
 
   wrap.appendChild(field('Email', email));
-  if(mode==='up') wrap.appendChild(field('Your name', name));
+  if(mode==='up'){
+    wrap.appendChild(el('div',{class:'field'},[ el('label',{text:'Username'}), usernameBox(u=>{ chosenHandle = u; }) ]));
+    wrap.appendChild(field('Your name', name));
+  }
   wrap.appendChild(field('Password', pass));
+  let chosenHandle = '';
 
   const err = el('div',{class:'gate-err', hidden:true});
   wrap.appendChild(err);
@@ -821,6 +1025,7 @@ function authScreen(mode){
     err.hidden = true;
     const e = email.value.trim(), p = pass.value;
     if(!e || !p) return fail('Email and password, please.');
+    if(mode==='up' && !chosenHandle) return fail('Pick a username that is free.');
     go.disabled = true; go.textContent = 'One moment…';
     const res = mode==='up'
       ? await SB.auth.signUp({email:e, password:p, options:{data:{display_name:name.value.trim()}}})
@@ -828,6 +1033,10 @@ function authScreen(mode){
     go.disabled = false; go.textContent = mode==='up' ? 'Create account' : 'Sign in';
     if(res.error) return fail(res.error.message);
     if(!res.data.session) return fail('Check your email to confirm the account, then sign in.');
+    if(mode==='up'){
+      const {error} = await SB.rpc('claim_username', {u: chosenHandle, dname: name.value.trim()});
+      if(error) return fail(error.message);
+    }
     start();
   }});
   wrap.appendChild(go);
@@ -895,6 +1104,7 @@ async function afterHousehold(){
   renderTabs();
   await loadAll();
   subscribe();
+  await runDeepLink();
   if(!state.profile.name) setTimeout(()=>{ if(!state.profile.name) openSettings(true); }, 400);
 }
 
@@ -903,10 +1113,13 @@ async function start(){
   state.session = session;
   if(!session){ showGate(authScreen('in')); return; }
 
-  state.me = {id: session.user.id, name: displayName()};
+  const {data: mine} = await SB.from('profiles').select('username, display_name').eq('user_id', session.user.id).maybeSingle();
+  if(!mine){ showGate(usernameScreen()); return; }
+
+  state.me = {id: session.user.id, name: mine.display_name || displayName(), username: mine.username};
   const who = document.getElementById('who');
   who.hidden = false;
-  document.getElementById('whoName').textContent = state.me.name || 'you';
+  document.getElementById('whoName').textContent = '@' + mine.username;
   document.getElementById('whoImg').hidden = true;
 
   const {data: memberships, error} = await SB.from('household_members')
@@ -925,6 +1138,16 @@ start();
 SB.auth.onAuthStateChange((event)=>{
   if(event === 'SIGNED_OUT'){ location.reload(); }
 });
+
+function measureHeader(){
+  const top = document.querySelector('.top');
+  if(top) document.documentElement.style.setProperty('--top-h', Math.round(top.getBoundingClientRect().height) + 'px');
+}
+window.addEventListener('resize', measureHeader);
+if(window.ResizeObserver){
+  const ro = new ResizeObserver(measureHeader);
+  const t = document.querySelector('.top'); if(t) ro.observe(t);
+}
 
 setInterval(()=>{
   document.querySelectorAll('[data-elapsed]').forEach(n=>{
@@ -1108,12 +1331,14 @@ function render(){
   $('#pupAge').textContent = ageText();
   renderSince();
   const v = $('#view'); v.innerHTML='';
+  v.classList.toggle('two-col', state.tab==='trends' || state.tab==='focus');
   if(state.tab==='log') v.appendChild(viewLog());
   else if(state.tab==='focus') v.appendChild(viewFocus());
   else if(state.tab==='timeline') v.appendChild(viewTimeline());
   else if(state.tab==='pantry') v.appendChild(viewPantry());
   else v.appendChild(viewTrends());
   resolveNames();
+  measureHeader();
 }
 
 function renderSince(){
@@ -1362,11 +1587,17 @@ function eventMeta(e){
   if(e.note) bits.push(e.note);
   return bits.join(' · ');
 }
+function handleFor(id){
+  const m = state.members[id];
+  if(m && m.username) return '@' + m.username;
+  if(m && m.name) return m.name;
+  return 'someone in the house';
+}
 function resolveNames(){
   document.querySelectorAll('[data-uid]').forEach(n=>{
     const id = n.getAttribute('data-uid');
     if(state.me && id === state.me.id){ n.textContent = 'logged by you'; return; }
-    n.textContent = 'logged by ' + (state.members[id] || 'someone in the house');
+    n.textContent = 'logged by ' + handleFor(id);
   });
 }
 
@@ -2593,6 +2824,55 @@ function openSettings(firstRun){
       sw.appendChild(b);
     });
     sheet.appendChild(field('Colour', sw, 'Shared — everyone in the household sees the one you pick.'));
+
+    if(!firstRun && state.me){
+      let newHandle = '';
+      const box = usernameBox(u=>{ newHandle = u; }, state.me.username);
+      const saveH = el('button',{class:'btn s', style:'width:100%;margin-top:8px', text:'Change my username',
+        onclick: async ()=>{
+          if(!newHandle || newHandle === state.me.username) return toast('Pick a different, free username first.');
+          const {error} = await SB.rpc('claim_username', {u:newHandle, dname: state.me.name});
+          if(error) return toast(error.message);
+          state.me.username = newHandle;
+          if(state.members[state.me.id]) state.members[state.me.id].username = newHandle;
+          document.getElementById('whoName').textContent = '@' + newHandle;
+          render(); toast('You are now @' + newHandle);
+        }});
+      const uf = el('div',{class:'field'},[ el('label',{text:'Your username'}), box, saveH ]);
+      sheet.appendChild(uf);
+
+      const others = Object.keys(state.members);
+      if(others.length > 1){
+        const list = el('div',{style:'display:flex;flex-wrap:wrap;gap:6px'});
+        others.forEach(id=>{
+          const isMe = state.me && id === state.me.id;
+          list.appendChild(el('span',{class:'chip', style:'cursor:default;font-family:var(--mono);font-size:12.5px'
+            + (isMe? ';border-color:var(--accent);color:var(--accent-ink)' : ''),
+            text: handleFor(id) + (isMe? ' · you' : '')}));
+        });
+        sheet.appendChild(field('In this household', list));
+      }
+    }
+
+    if(!firstRun){
+      const list = el('div',{style:'display:flex;flex-direction:column;gap:6px'});
+      DEEP_LINKS.forEach(([q,label,what])=>{
+        const url = location.origin + '/' + q;
+        list.appendChild(el('div',{style:'display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:var(--r-s);background:var(--surface-2);border:1px solid var(--line)'},[
+          el('div',{style:'min-width:0;flex:1'},[
+            el('div',{style:'font-weight:600;font-size:13px', text:label}),
+            el('div',{style:'font-size:11.5px;color:var(--ink-3)', text:what})
+          ]),
+          el('button',{type:'button', style:'font-size:12px;font-weight:600;color:var(--accent-ink);white-space:nowrap',
+            text:'Copy link', onclick: async ()=>{
+              try{ await navigator.clipboard.writeText(url); toast(label + ' link copied'); }
+              catch(e){ toast(url); }
+            }})
+        ]));
+      });
+      sheet.appendChild(field('One-tap logging', list,
+        'Each link opens the app and files that entry immediately. On an iPhone, open a link in Safari and use Share → Add to Home Screen to turn it into its own button, or put several into one Shortcuts widget. Apple does not let a web app add a long-press menu to its own icon, so separate icons are the way to get there.'));
+    }
 
     if(!firstRun && state.invite){
       const code = el('code',{text:state.invite});
